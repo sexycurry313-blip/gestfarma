@@ -1,0 +1,33 @@
+REGISTRO DE CAMBIOS:
+
+v2.0
+- Correcciones importantes de errores de diseño
+- Cambio en el marcado del diseño
+- Agregadas transiciones a la barra lateral
+- Nuevos temas y temas anteriores modificados
+- Cambio en el esquema de colores a un esquema más complementario
+- Agregado soporte para pie de página
+- Removido pace.js del app.js principal
+- Agregado soporte para barra lateral colapsada como estado inicial (agregar .sidebar-collapse al tag body)
+- Agregado diseño encuadrado (.layout-boxed)
+- Mejorada la consistencia en padding y márgenes
+- Actualizado Bootstrap a 3.3.2
+- Corregidos problemas de posicionamiento del menú desplegable de la barra de navegación en pantallas pequeñas
+- Actualizados Ion Icons a 2.0.0
+- Actualizado FontAwesome a 4.3.0
+- Agregado ChartJS 1.0.1
+- Removida dependencia de iCheck
+- Creado Dashboard 2.0
+- Created new Chat widget (DirectChat)
+- Added transitions to DirectChat
+- Added contacts pane to DirectChat
+- Changed .right-side to .content-wrapper
+- Changed .navbar-right to .navbar-custom-menu
+- Removed unused files
+- Updated lockscreen style (HTML markup changed!)
+- Updated Login & Registration pages (HTML markup changed!)
+- Updated buttons style.
+- Enhanced border-radius consistency
+- Added mailbox: inbox, read, and compose pages
+- Bootstrap & jQuery are now hosted locally
+- Created documentation.

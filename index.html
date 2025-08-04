@@ -1,0 +1,983 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>AdminLTE 2 | Tablero de Control</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins. Choose a skin from the css/skins 
+         folder instead of downloading all of them to reduce the load. -->
+    <link href="dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- iCheck -->
+    <link href="plugins/iCheck/flat/blue.css" rel="stylesheet" type="text/css" />
+    <!-- Morris chart -->
+    <link href="plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+    <!-- jvectormap -->
+    <link href="plugins/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
+    <!-- Date Picker -->
+    <link href="plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
+    <!-- Daterange picker -->
+    <link href="plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      .bg-light-blue-gradient { background: linear-gradient(45deg, #183657, #2a4d73) !important; }
+      .bg-green-gradient { background: linear-gradient(45deg, #14D5AA, #20e0bb) !important; }
+      .bg-teal-gradient { background: linear-gradient(45deg, #14D5AA, #20e0bb) !important; }
+      
+      /* Small boxes */
+      .small-box.bg-aqua { background-color: #183657 !important; }
+      .small-box.bg-green { background-color: #14D5AA !important; }
+      .small-box.bg-yellow { background-color: #FF1E70 !important; }
+      .small-box.bg-red { background-color: #FF1E70 !important; }
+      
+      /* Labels */
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-danger { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      .label-info { background-color: #183657 !important; }
+      .label-default { background-color: #183657 !important; }
+      
+      /* Progress bars */
+      .progress-bar-aqua { background-color: #183657 !important; }
+      .progress-bar-green { background-color: #14D5AA !important; }
+      .progress-bar-red { background-color: #FF1E70 !important; }
+      .progress-bar-yellow { background-color: #FF1E70 !important; }
+      
+      /* Buttons */
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-default { background-color: #183657 !important; border-color: #183657 !important; color: white !important; }
+      
+      /* Box headers */
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      /* Títulos en blanco para cajas específicas */
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      /* Texto en elementos con fondo oscuro */
+      .bg-aqua, .bg-light-blue, .small-box.bg-aqua, .small-box.bg-red, 
+      .label-primary, .label-info, .label-default, .btn-primary, .btn-info, .btn-default { 
+        color: white !important; 
+      }
+      
+      /* Nav tabs */
+      .nav-tabs-custom .nav-tabs li.active a { background-color: #183657 !important; color: white !important; }
+      
+      /* Sidebar activo */
+      .sidebar-menu > li.active > a { background-color: #183657 !important; }
+      .sidebar-menu > li > a:hover { background-color: #14D5AA !important; }
+      
+      /* Footer colores */
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+          <img src="logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+          <!-- Sidebar toggle button-->
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+              <!-- Messages: style can be found in dropdown.less-->
+              <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="label label-success">4</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">Tienes 4 mensajes</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li><!-- start message -->
+                        <a href="#">
+                          <div class="pull-left">
+                            <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                          </div>
+                          <h4>
+                            Equipo de Soporte
+                            <small><i class="fa fa-clock-o"></i> 5 min</small>
+                          </h4>
+                          <p>¿Por qué no comprar un nuevo tema increíble?</p>
+                        </a>
+                      </li><!-- end message -->
+                      <li>
+                        <a href="#">
+                          <div class="pull-left">
+                            <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="user image"/>
+                          </div>
+                          <h4>
+                            Equipo de Diseño AdminLTE
+                            <small><i class="fa fa-clock-o"></i> 2 horas</small>
+                          </h4>
+                          <p>¿Por qué no comprar un nuevo tema increíble?</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <div class="pull-left">
+                            <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="user image"/>
+                          </div>
+                          <h4>
+                            Desarrolladores
+                            <small><i class="fa fa-clock-o"></i> Hoy</small>
+                          </h4>
+                          <p>¿Por qué no comprar un nuevo tema increíble?</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <div class="pull-left">
+                            <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="user image"/>
+                          </div>
+                          <h4>
+                            Departamento de Ventas
+                            <small><i class="fa fa-clock-o"></i> Ayer</small>
+                          </h4>
+                          <p>¿Por qué no comprar un nuevo tema increíble?</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <div class="pull-left">
+                            <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="user image"/>
+                          </div>
+                          <h4>
+                            Revisores
+                            <small><i class="fa fa-clock-o"></i> 2 días</small>
+                          </h4>
+                          <p>¿Por qué no comprar un nuevo tema increíble?</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="#">Ver Todos los Mensajes</a></li>
+                </ul>
+              </li>
+              <!-- Notifications: style can be found in dropdown.less -->
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
+                  <span class="label label-warning">10</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">Tienes 10 notificaciones</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-users text-aqua"></i> 5 nuevos miembros se unieron hoy
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-warning text-yellow"></i> Descripción muy larga aquí que puede no caber en la página y puede causar problemas de diseño
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-users text-red"></i> 5 nuevos miembros se unieron
+                        </a>
+                      </li>
+
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-shopping-cart text-green"></i> 25 ventas realizadas
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-user text-red"></i> Cambiaste tu nombre de usuario
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="#">Ver todas</a></li>
+                </ul>
+              </li>
+              <!-- Tasks: style can be found in dropdown.less -->
+              <li class="dropdown tasks-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-flag-o"></i>
+                  <span class="label label-danger">9</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">Tienes 9 tareas</li>
+                  <li>
+                    <!-- inner menu: contains the actual data -->
+                    <ul class="menu">
+                      <li><!-- Task item -->
+                        <a href="#">
+                          <h3>
+                            Diseñar algunos botones
+                            <small class="pull-right">20%</small>
+                          </h3>
+                          <div class="progress xs">
+                            <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">20% Completado</span>
+                            </div>
+                          </div>
+                        </a>
+                      </li><!-- end task item -->
+                      <li><!-- Task item -->
+                        <a href="#">
+                          <h3>
+                            Crear un tema bonito
+                            <small class="pull-right">40%</small>
+                          </h3>
+                          <div class="progress xs">
+                            <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">40% Completado</span>
+                            </div>
+                          </div>
+                        </a>
+                      </li><!-- end task item -->
+                      <li><!-- Task item -->
+                        <a href="#">
+                          <h3>
+                            Alguna tarea que necesito hacer
+                            <small class="pull-right">60%</small>
+                          </h3>
+                          <div class="progress xs">
+                            <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">60% Completado</span>
+                            </div>
+                          </div>
+                        </a>
+                      </li><!-- end task item -->
+                      <li><!-- Task item -->
+                        <a href="#">
+                          <h3>
+                            Hacer transiciones hermosas
+                            <small class="pull-right">80%</small>
+                          </h3>
+                          <div class="progress xs">
+                            <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                              <span class="sr-only">80% Completado</span>
+                            </div>
+                          </div>
+                        </a>
+                      </li><!-- end task item -->
+                    </ul>
+                  </li>
+                  <li class="footer">
+                    <a href="#">Ver todas las tareas</a>
+                  </li>
+                </ul>
+              </li>
+              <!-- User Account: style can be found in dropdown.less -->
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                  <span class="hidden-xs">Gabriel Gutierrez</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <!-- User image -->
+                  <li class="user-header">
+                    <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+                    <p>
+                      Gabriel Gutierrez - Desarrollador Web
+                      <small>Miembro desde Nov. 2012</small>
+                    </p>
+                  </li>
+                  <!-- Menu Body -->
+                  <li class="user-body">
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Seguidores</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Ventas</a>
+                    </div>
+                    <div class="col-xs-4 text-center">
+                      <a href="#">Amigos</a>
+                    </div>
+                  </li>
+                  <!-- Menu Footer-->
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                    </div>
+                    <div class="pull-right">
+                      <a href="#" class="btn btn-default btn-flat">Cerrar sesión</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+          <!-- Sidebar user panel -->
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>Menú de navegación
+
+       </div>
+          <!-- search form -->
+          <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" placeholder="Buscar..."/>
+              <span class="input-group-btn">
+                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </form>
+          <!-- /.search form -->
+          <!-- sidebar menu: : style can be found in sidebar.less -->
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            
+            <!-- Dashboard Principal -->
+            <li class="active">
+              <a href="index.html">
+                <i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span>
+                <small class="label pull-right bg-green">Activo</small>
+              </a>
+            </li>
+
+            <!-- Informes Automáticos -->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>� Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="pages/informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="pages/informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+
+            <!-- Ventas e Inventario -->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>� Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/ventas/dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="pages/ventas/analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li><a href="pages/ventas/control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+
+            <!-- Pujas (Labs) -->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>🧪 Pujas (Labs)</span>
+                <small class="label pull-right bg-yellow">Labs</small>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/pujas/pujas-activas.html"><i class="fa fa-gavel"></i> Pujas Activas</a></li>
+                <li><a href="pages/pujas/historial-pujas.html"><i class="fa fa-history"></i> Historial de Pujas</a></li>
+                <li><a href="pages/pujas/gestionar-labs.html"><i class="fa fa-cogs"></i> Gestionar Labs</a></li>
+              </ul>
+            </li>
+
+            <!-- Surtido y Precios -->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-tags"></i>
+                <span>� Surtido y Precios</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/surtido/catalogo-productos.html"><i class="fa fa-book"></i> Catálogo Productos</a></li>
+                <li><a href="pages/surtido/ver-tarifas.html"><i class="fa fa-list"></i> Ver Tarifas</a></li>
+                <li><a href="pages/surtido/comparador.html"><i class="fa fa-exchange"></i> Comparador</a></li>
+              </ul>
+            </li>
+
+            <!-- Recursos Compartidos -->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-share-alt"></i>
+                <span>🤝 Recursos Compartidos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/recursos/ver-disponibilidad.html"><i class="fa fa-calendar"></i> Ver Disponibilidad</a></li>
+                <li><a href="pages/recursos/solicitar-recurso.html"><i class="fa fa-hand-paper-o"></i> Solicitar Recurso</a></li>
+                <li><a href="pages/recursos/mis-peticiones.html"><i class="fa fa-user"></i> Mis Peticiones</a></li>
+              </ul>
+            </li>
+
+            <!-- Promos y Fidelización -->
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-gift"></i>
+                <span>🎁 Promos y Fidelización</span>
+                <small class="label pull-right bg-red">HOT</small>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pages/promos/crear-promocion.html"><i class="fa fa-plus"></i> Crear Promoción</a></li>
+                <li><a href="pages/promos/club-fidelidad.html"><i class="fa fa-star"></i> Club Fidelidad</a></li>
+                <li><a href="pages/promos/analisis-campanas.html"><i class="fa fa-pie-chart"></i> Análisis Campañas</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Right side column. Contains the navbar and content of the page -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <h1>
+            Panel de Control Farmacéutico
+            <small>Sistema de Gestión Gest Farma</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-home"></i> Inicio</a></li>
+            <li class="active">Panel de Control</li>
+          </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>47</h3>
+                  <p>Recetas Pendientes</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-file-text-o"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ver recetas <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>€2,847</h3>
+                  <p>Ventas del Día</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-euro"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ver detalles <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>23</h3>
+                  <p>Productos Agotados</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-exclamation-triangle"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ver inventario <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>156</h3>
+                  <p>Clientes Atendidos</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-users"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ver reportes <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+          </div><!-- /.row -->
+          <!-- Main row -->
+          <div class="row">
+            <!-- Left col -->
+            <section class="col-lg-7 connectedSortable">
+              <!-- Custom tabs (Charts with tabs)-->
+              <div class="nav-tabs-custom">
+                <!-- Tabs within a box -->
+                <ul class="nav nav-tabs pull-right">
+                  <li class="active"><a href="#revenue-chart" data-toggle="tab">Ingresos</a></li>
+                  <li><a href="#sales-chart" data-toggle="tab">Productos</a></li>
+                  <li class="pull-left header"><i class="fa fa-bar-chart"></i> Análisis de Ventas</li>
+                </ul>
+                <div class="tab-content no-padding">
+                  <!-- Morris chart - Sales -->
+                  <div class="chart tab-pane active" id="revenue-chart" style="position: relative; height: 300px;"></div>
+                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;"></div>
+                </div>
+              </div><!-- /.nav-tabs-custom -->
+
+              <!-- Chat box -->
+              <div class="box box-success">
+                <div class="box-header">
+                  <i class="fa fa-comments-o"></i>
+                  <h3 class="box-title">Consultas Farmacéuticas</h3>
+                  <div class="box-tools pull-right" data-toggle="tooltip" title="Estado">
+                    <div class="btn-group" data-toggle="btn-toggle" >
+                      <button type="button" class="btn btn-default btn-sm active"><i class="fa fa-square text-green"></i></button>
+                      <button type="button" class="btn btn-default btn-sm"><i class="fa fa-square text-red"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-body chat" id="chat-box">
+                  <!-- chat item -->
+                  <div class="item">
+                    <img src="dist/img/user4-128x128.jpg" alt="user image" class="online"/>
+                    <p class="message">
+                      <a href="#" class="name">
+                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 10:15</small>
+                        María García
+                      </a>
+                      Hola, tengo una consulta sobre la interacción entre el ibuprofeno 
+                      y mi medicación para la hipertensión. ¿Hay algún problema si los tomo juntos?
+                    </p>
+                    <div class="attachment">
+                      <h4>Medicación actual:</h4>
+                      <p class="filename">
+                        Enalapril 10mg - 1 vez al día
+                      </p>
+                      <div class="pull-right">
+                        <button class="btn btn-primary btn-sm btn-flat">Responder</button>
+                      </div>
+                    </div><!-- /.attachment -->
+                  </div><!-- /.item -->
+                  <!-- chat item -->
+                  <div class="item">
+                    <img src="dist/img/user3-128x128.jpg" alt="user image" class="offline"/>
+                    <p class="message">
+                      <a href="#" class="name">
+                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 9:45</small>
+                        Carlos Ruiz
+                      </a>
+                      ¿Podrían prepararme mi fórmula magistral habitual? Es para el 
+                      tratamiento dermatológico que me recetó el Dr. Martínez.
+                    </p>
+                  </div><!-- /.item -->
+                  <!-- chat item -->
+                  <div class="item">
+                    <img src="dist/img/user2-160x160.jpg" alt="user image" class="offline"/>
+                    <p class="message">
+                      <a href="#" class="name">
+                        <small class="text-muted pull-right"><i class="fa fa-clock-o"></i> 9:30</small>
+                        Ana López
+                      </a>
+                      Necesito información sobre efectos secundarios del nuevo 
+                      medicamento que me han recetado para la diabetes.
+                    </p>
+                  </div><!-- /.item -->
+                </div><!-- /.chat -->
+                <div class="box-footer">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="Responder consulta..."/>
+                    <div class="input-group-btn">
+                      <button class="btn btn-success"><i class="fa fa-send"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- /.box (chat box) -->
+
+              <!-- TO DO List -->
+              <div class="box box-primary">
+                <div class="box-header">
+                  <i class="fa fa-tasks"></i>
+                  <h3 class="box-title">Tareas Farmacéuticas</h3>
+                  <div class="box-tools pull-right">
+                    <ul class="pagination pagination-sm inline">
+                      <li><a href="#">&laquo;</a></li>
+                      <li><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">&raquo;</a></li>
+                    </ul>
+                  </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                  <ul class="todo-list">
+                    <li>
+                      <!-- drag handle -->
+                      <span class="handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                      <!-- checkbox -->
+                      <input type="checkbox" value="" name=""/>
+                      <!-- todo text -->
+                      <span class="text">Revisar medicamentos caducados</span>
+                      <!-- Emphasis label -->
+                      <small class="label label-danger"><i class="fa fa-clock-o"></i> Urgente</small>
+                      <!-- General tools such as edit or delete-->
+                      <div class="tools">
+                        <i class="fa fa-edit"></i>
+                        <i class="fa fa-trash-o"></i>
+                      </div>
+                    </li>
+                    <li>
+                      <span class="handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                      <input type="checkbox" value="" name=""/>
+                      <span class="text">Preparar fórmulas magistrales pendientes</span>
+                      <small class="label label-info"><i class="fa fa-clock-o"></i> 2 horas</small>
+                      <div class="tools">
+                        <i class="fa fa-edit"></i>
+                        <i class="fa fa-trash-o"></i>
+                      </div>
+                    </li>
+                    <li>
+                      <span class="handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                      <input type="checkbox" value="" name=""/>
+                      <span class="text">Contactar con proveedores para reposición</span>
+                      <small class="label label-warning"><i class="fa fa-clock-o"></i> Hoy</small>
+                      <div class="tools">
+                        <i class="fa fa-edit"></i>
+                        <i class="fa fa-trash-o"></i>
+                      </div>
+                    </li>
+                    <li>
+                      <span class="handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                      <input type="checkbox" value="" name=""/>
+                      <span class="text">Actualizar precios según PVP</span>
+                      <small class="label label-success"><i class="fa fa-clock-o"></i> Mañana</small>
+                      <div class="tools">
+                        <i class="fa fa-edit"></i>
+                        <i class="fa fa-trash-o"></i>
+                      </div>
+                    </li>
+                    <li>
+                      <span class="handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                      <input type="checkbox" value="" name=""/>
+                      <span class="text">Revisar recetas electrónicas</span>
+                      <small class="label label-primary"><i class="fa fa-clock-o"></i> Esta semana</small>
+                      <div class="tools">
+                        <i class="fa fa-edit"></i>
+                        <i class="fa fa-trash-o"></i>
+                      </div>
+                    </li>
+                    <li>
+                      <span class="handle">
+                        <i class="fa fa-ellipsis-v"></i>
+                        <i class="fa fa-ellipsis-v"></i>
+                      </span>
+                      <input type="checkbox" value="" name=""/>
+                      <span class="text">Capacitación en nuevos medicamentos</span>
+                      <small class="label label-default"><i class="fa fa-clock-o"></i> Próximo mes</small>
+                      <div class="tools">
+                        <i class="fa fa-edit"></i>
+                        <i class="fa fa-trash-o"></i>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- /.box-body -->
+                <div class="box-footer clearfix no-border">
+                  <button class="btn btn-default pull-right"><i class="fa fa-plus"></i> Agregar tarea</button>
+                </div>
+              </div><!-- /.box -->
+
+              <!-- quick order widget -->
+              <div class="box box-info">
+                <div class="box-header">
+                  <i class="fa fa-shopping-cart"></i>
+                  <h3 class="box-title">Pedido Rápido</h3>
+                  <!-- tools box -->
+                  <div class="pull-right box-tools">
+                    <button class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Cerrar"><i class="fa fa-times"></i></button>
+                  </div><!-- /. tools -->
+                </div>
+                <div class="box-body">
+                  <form action="#" method="post">
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="cliente" placeholder="Nombre del cliente"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" name="medicamento" placeholder="Medicamento o código"/>
+                    </div>
+                    <div class="form-group">
+                      <input type="number" class="form-control" name="cantidad" placeholder="Cantidad"/>
+                    </div>
+                    <div>
+                      <textarea class="textarea" placeholder="Notas adicionales o instrucciones especiales..." style="width: 100%; height: 75px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                    </div>
+                  </form>
+                </div>
+                <div class="box-footer clearfix">
+                  <button class="pull-right btn btn-default" id="createOrder">Crear Pedido <i class="fa fa-shopping-cart"></i></button>
+                </div>
+              </div>
+
+            </section><!-- /.Left col -->
+            <!-- right col (We are only adding the ID to make the widgets sortable)-->
+            <section class="col-lg-5 connectedSortable">
+
+              <!-- Pharmacy Stats box -->
+              <div class="box box-solid bg-light-blue-gradient">
+                <div class="box-header">
+                  <!-- tools box -->
+                  <div class="pull-right box-tools">
+                    <button class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="Rango de fechas"><i class="fa fa-calendar"></i></button>
+                    <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Contraer" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
+                  </div><!-- /. tools -->
+
+                  <i class="fa fa-medkit"></i>
+                  <h3 class="box-title">
+                    Estadísticas de Farmacia
+                  </h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="info-box bg-transparent">
+                        <span class="info-box-icon"><i class="fa fa-file-text-o"></i></span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">Recetas Procesadas Hoy</span>
+                          <span class="info-box-number">89</span>
+                          <div class="progress">
+                            <div class="progress-bar" style="width: 70%; background-color: #14D5AA;"></div>
+                          </div>
+                          <span class="progress-description">
+                            70% del objetivo diario
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /.box-body-->
+                <div class="box-footer no-border">
+                  <div class="row">
+                    <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                      <div id="sparkline-1"></div>
+                      <div class="knob-label">Medicamentos</div>
+                    </div><!-- ./col -->
+                    <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                      <div id="sparkline-2"></div>
+                      <div class="knob-label">Parafarmacia</div>
+                    </div><!-- ./col -->
+                    <div class="col-xs-4 text-center">
+                      <div id="sparkline-3"></div>
+                      <div class="knob-label">Consultas</div>
+                    </div><!-- ./col -->
+                  </div><!-- /.row -->
+                </div>
+              </div>
+              <!-- /.box -->
+
+              <!-- solid inventory graph -->
+              <div class="box box-solid bg-teal-gradient">
+                <div class="box-header">
+                  <i class="fa fa-cubes"></i>
+                  <h3 class="box-title">Control de Inventario</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn bg-teal btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn bg-teal btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body border-radius-none">
+                  <div class="chart" id="line-chart" style="height: 250px;"></div>
+                </div><!-- /.box-body -->
+                <div class="box-footer no-border">
+                  <div class="row">
+                    <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                      <input type="text" class="knob" data-readonly="true" value="85" data-width="60" data-height="60" data-fgColor="#14D5AA"/>
+                      <div class="knob-label">Stock Normal</div>
+                    </div><!-- ./col -->
+                    <div class="col-xs-4 text-center" style="border-right: 1px solid #f4f4f4">
+                      <input type="text" class="knob" data-readonly="true" value="12" data-width="60" data-height="60" data-fgColor="#FF1E70"/>
+                      <div class="knob-label">Stock Bajo</div>
+                    </div><!-- ./col -->
+                    <div class="col-xs-4 text-center">
+                      <input type="text" class="knob" data-readonly="true" value="3" data-width="60" data-height="60" data-fgColor="#FF1E70"/>
+                      <div class="knob-label">Agotados</div>
+                    </div><!-- ./col -->
+                  </div><!-- /.row -->
+                </div><!-- /.box-footer -->
+              </div><!-- /.box -->
+
+              <!-- Calendar -->
+              <div class="box box-solid bg-green-gradient">
+                <div class="box-header">
+                  <i class="fa fa-calendar"></i>
+                  <h3 class="box-title">Turnos y Eventos</h3>
+                  <!-- tools box -->
+                  <div class="pull-right box-tools">
+                    <!-- button with a dropdown -->
+                    <div class="btn-group">
+                      <button class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i></button>
+                      <ul class="dropdown-menu pull-right" role="menu">
+                        <li><a href="#">Agregar turno</a></li>
+                        <li><a href="#">Programar entrega</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Ver calendario completo</a></li>
+                      </ul>
+                    </div>
+                    <button class="btn btn-success btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div><!-- /. tools -->
+                </div><!-- /.box-header -->
+                <div class="box-body no-padding">
+                  <!--The calendar -->
+                  <div id="calendar" style="width: 100%"></div>
+                </div><!-- /.box-body -->
+                <div class="box-footer text-black">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <!-- Progress bars -->
+                      <div class="clearfix">
+                        <span class="pull-left">Farmacéutico Titular</span>
+                        <small class="pull-right">Presente</small>
+                      </div>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-green" style="width: 100%;"></div>
+                      </div>
+
+                      <div class="clearfix">
+                        <span class="pull-left">Farmacéutico Adjunto</span>
+                        <small class="pull-right">Presente</small>
+                      </div>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-green" style="width: 100%;"></div>
+                      </div>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                      <div class="clearfix">
+                        <span class="pull-left">Técnico Farmacia</span>
+                        <small class="pull-right">Presente</small>
+                      </div>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-green" style="width: 100%;"></div>
+                      </div>
+
+                      <div class="clearfix">
+                        <span class="pull-left">Auxiliar</span>
+                        <small class="pull-right">Ausente</small>
+                      </div>
+                      <div class="progress xs">
+                        <div class="progress-bar progress-bar-red" style="width: 0%; background-color: #FF1E70;"></div>
+                      </div>
+                    </div><!-- /.col -->
+                  </div><!-- /.row -->
+                </div>
+              </div><!-- /.box -->
+
+            </section><!-- right col -->
+          </div><!-- /.row (main row) -->
+
+        </section><!-- /.content -->
+      </div><!-- /.content-wrapper -->
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div><!-- ./wrapper -->
+
+    <!-- jQuery 2.1.3 -->
+    <script src="plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <!-- jQuery UI 1.11.2 -->
+    <script src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+      $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
+    <!-- Morris.js charts -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="plugins/morris/morris.min.js" type="text/javascript"></script>
+    <!-- Sparkline -->
+    <script src="plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
+    <!-- jvectormap -->
+    <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
+    <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="plugins/knob/jquery.knob.js" type="text/javascript"></script>
+    <!-- daterangepicker -->
+    <script src="plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+    <!-- datepicker -->
+    <script src="plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js" type="text/javascript"></script>
+    <!-- iCheck -->
+    <script src="plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <!-- Slimscroll -->
+    <script src="plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+    <!-- FastClick -->
+    <script src='plugins/fastclick/fastclick.min.js'></script>
+    <!-- AdminLTE App -->
+    <script src="dist/js/app.min.js" type="text/javascript"></script>
+
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    <script src="dist/js/pages/dashboard.js" type="text/javascript"></script>
+
+    <!-- AdminLTE for demo purposes -->
+    <script src="dist/js/demo.js" type="text/javascript"></script>
+  </body>
+</html>
