@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Ofertas Especiales | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-danger { background-color: #FF1E70 !important; border-color: #FF1E70 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-primary .box-header .box-title { color: white !important; }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .offer-card {
+        border: 2px solid #FF1E70;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background: white;
+        position: relative;
+        overflow: hidden;
+      }
+      .offer-card::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 100px;
+        height: 100px;
+        background: #FF1E70;
+        border-radius: 50%;
+        z-index: 0;
+      }
+      .discount-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #FF1E70;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-weight: bold;
+        z-index: 1;
+      }
+      .original-price {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 16px;
+      }
+      .sale-price {
+        color: #FF1E70;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .countdown {
+        background: #183657;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        text-align: center;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../index.html" class="logo">
+          <img src="../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-tags"></i>
+                <span>🛍️ Ofertas</span>
+                <small class="label pull-right bg-red">¡HOT!</small>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="promociones-actuales.html"><i class="fa fa-percent"></i> Promociones actuales</a></li>
+                <li><a href="descuentos-fidelidad.html"><i class="fa fa-star"></i> Descuentos por fidelidad</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Ofertas Especiales
+            <small>¡Las mejores promociones en productos de farmacia!</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li class="active">Ofertas</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Oferta destacada -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box" style="background: linear-gradient(135deg, #FF1E70, #ff4081); color: white; border: none;">
+                <div class="box-body text-center" style="padding: 40px;">
+                  <h2 style="color: white; margin-bottom: 20px;">
+                    <i class="fa fa-fire"></i> ¡OFERTA FLASH!
+                  </h2>
+                  <h3 style="color: white;">50% DE DESCUENTO EN PARAFARMACIA</h3>
+                  <p style="font-size: 18px;">Solo hasta el 31 de Enero</p>
+                  <div class="countdown">
+                    <div class="row">
+                      <div class="col-xs-3">
+                        <div style="font-size: 24px; font-weight: bold;">05</div>
+                        <small>Días</small>
+                      </div>
+                      <div class="col-xs-3">
+                        <div style="font-size: 24px; font-weight: bold;">14</div>
+                        <small>Horas</small>
+                      </div>
+                      <div class="col-xs-3">
+                        <div style="font-size: 24px; font-weight: bold;">23</div>
+                        <small>Minutos</small>
+                      </div>
+                      <div class="col-xs-3">
+                        <div style="font-size: 24px; font-weight: bold;">45</div>
+                        <small>Segundos</small>
+                      </div>
+                    </div>
+                  </div>
+                  <button class="btn btn-success btn-lg" style="background: white; color: #FF1E70; border: none;">
+                    <i class="fa fa-shopping-cart"></i> ¡COMPRAR AHORA!
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ofertas por categorías -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="offer-card">
+                <div class="discount-badge">-30%</div>
+                <img src="https://via.placeholder.com/300x150?text=Dermofarmacia" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;" alt="Dermofarmacia">
+                <h4 style="color: #183657; margin: 15px 0;">La Roche Posay Effaclar</h4>
+                <p><strong>Gel limpiador purificante</strong></p>
+                <div class="original-price">€22.90</div>
+                <div class="sale-price">€16.03</div>
+                <p><small><i class="fa fa-clock-o"></i> Válido hasta el 15/02</small></p>
+                <button class="btn btn-danger btn-block">
+                  <i class="fa fa-shopping-cart"></i> Aprovechar Oferta
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="offer-card">
+                <div class="discount-badge">2x1</div>
+                <img src="https://via.placeholder.com/300x150?text=Vitaminas" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;" alt="Vitaminas">
+                <h4 style="color: #183657; margin: 15px 0;">Multicentrum Adultos</h4>
+                <p><strong>2º Unidad GRATIS</strong></p>
+                <div class="original-price">€25.90</div>
+                <div class="sale-price">€12.95</div>
+                <p><small><i class="fa fa-gift"></i> Llévate 2 por el precio de 1</small></p>
+                <button class="btn btn-danger btn-block">
+                  <i class="fa fa-shopping-cart"></i> Aprovechar Oferta
+                </button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="offer-card">
+                <div class="discount-badge">-25%</div>
+                <img src="https://via.placeholder.com/300x150?text=Proteccion+Solar" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;" alt="Protección Solar">
+                <h4 style="color: #183657; margin: 15px 0;">ISDIN Fotoprotektor</h4>
+                <p><strong>Fusion Water SPF 50</strong></p>
+                <div class="original-price">€19.85</div>
+                <div class="sale-price">€14.89</div>
+                <p><small><i class="fa fa-sun-o"></i> Prepárate para el verano</small></p>
+                <button class="btn btn-danger btn-block">
+                  <i class="fa fa-shopping-cart"></i> Aprovechar Oferta
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Más ofertas -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">💊 Medicamentos OTC</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-xs-8">
+                      <h5>Paracetamol + Ibuprofeno</h5>
+                      <p>Pack ahorro - 2 productos</p>
+                      <span class="original-price">€8.15</span>
+                      <span class="sale-price">€6.50</span>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                      <span class="discount-badge">-20%</span>
+                      <br><br>
+                      <button class="btn btn-success btn-sm">Comprar</button>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-xs-8">
+                      <h5>Frenadol Complex</h5>
+                      <p>Para resfriado y gripe</p>
+                      <span class="original-price">€7.85</span>
+                      <span class="sale-price">€5.89</span>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                      <span class="discount-badge">-25%</span>
+                      <br><br>
+                      <button class="btn btn-success btn-sm">Comprar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">🏆 Programa de Fidelidad</h3>
+                </div>
+                <div class="box-body">
+                  <div class="text-center">
+                    <i class="fa fa-star fa-3x" style="color: #FF1E70; margin-bottom: 15px;"></i>
+                    <h4>¡Acumula puntos con cada compra!</h4>
+                    <p>Por cada €10 = 1 punto</p>
+                    <p>100 puntos = €10 de descuento</p>
+                    <div style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 15px 0;">
+                      <strong>Tus puntos actuales: 247</strong>
+                      <br>
+                      <small>Equivalen a €24.70 de descuento</small>
+                    </div>
+                    <button class="btn btn-primary">Ver Beneficios</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Newsletter ofertas -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box" style="background: linear-gradient(135deg, #14D5AA, #20e0bb); color: white; border: none;">
+                <div class="box-body text-center">
+                  <h3 style="color: white; margin-bottom: 20px;">
+                    <i class="fa fa-envelope"></i> Suscríbete a nuestras ofertas
+                  </h3>
+                  <p style="font-size: 16px;">Recibe las mejores promociones directamente en tu email</p>
+                  <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                      <div class="input-group">
+                        <input type="email" class="form-control input-lg" placeholder="Tu email">
+                        <span class="input-group-btn">
+                          <button class="btn btn-primary btn-lg" type="button" style="background: white; color: #14D5AA; border: none;">
+                            <i class="fa fa-send"></i> Suscribirse
+                          </button>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <p style="margin-top: 15px;"><small>No spam. Puedes darte de baja cuando quieras.</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Countdown timer
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const endDate = new Date('2025-01-31 23:59:59').getTime();
+        const distance = endDate - now;
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        if (distance > 0) {
+          $('.countdown .col-xs-3:nth-child(1) div').text(String(days).padStart(2, '0'));
+          $('.countdown .col-xs-3:nth-child(2) div').text(String(hours).padStart(2, '0'));
+          $('.countdown .col-xs-3:nth-child(3) div').text(String(minutes).padStart(2, '0'));
+          $('.countdown .col-xs-3:nth-child(4) div').text(String(seconds).padStart(2, '0'));
+        }
+      }
+      
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+    </script>
+  </body>
+</html>

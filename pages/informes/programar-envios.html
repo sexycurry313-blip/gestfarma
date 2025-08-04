@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Programar Envíos | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .schedule-card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-left: 4px solid #14D5AA;
+      }
+      .frequency-option {
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .frequency-option:hover {
+        border-color: #14D5AA;
+      }
+      .frequency-option.selected {
+        border-color: #183657;
+        background: #f8f9fa;
+      }
+      .recipient-tag {
+        display: inline-block;
+        background: #183657;
+        color: white;
+        padding: 5px 12px;
+        border-radius: 15px;
+        margin: 3px;
+        font-size: 12px;
+      }
+      .recipient-tag .remove {
+        margin-left: 8px;
+        cursor: pointer;
+      }
+      .calendar-view {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .time-slot {
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+      .time-slot.selected {
+        background: #e8f5e8;
+        border-color: #14D5AA;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li class="active"><a href="programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Programar Envíos de Informes
+            <small>Automatización de distribución de informes</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Informes Automáticos</a></li>
+            <li class="active">Programar Envíos</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <div class="row">
+            <!-- Formulario de programación -->
+            <div class="col-md-8">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Configurar Programación</h3>
+                </div>
+                <div class="box-body">
+                  <form id="scheduleForm">
+                    <!-- Seleccionar informe -->
+                    <div class="form-group">
+                      <label>Seleccionar Informe *</label>
+                      <select class="form-control" name="reportType" required>
+                        <option value="">-- Selecciona un tipo de informe --</option>
+                        <option value="ventas-diarias">Ventas Diarias</option>
+                        <option value="ventas-semanales">Ventas Semanales</option>
+                        <option value="ventas-mensuales">Ventas Mensuales</option>
+                        <option value="inventario-stock">Control de Stock</option>
+                        <option value="inventario-caducidad">Productos próximos a caducar</option>
+                        <option value="clientes-nuevos">Nuevos Clientes</option>
+                        <option value="clientes-fidelidad">Análisis de Fidelidad</option>
+                        <option value="financiero-mensual">Informe Financiero Mensual</option>
+                        <option value="recetas-dispensadas">Recetas Dispensadas</option>
+                      </select>
+                    </div>
+
+                    <!-- Frecuencia -->
+                    <div class="form-group">
+                      <label>Frecuencia de Envío *</label>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="frequency-option" data-frequency="daily">
+                            <h5><i class="fa fa-calendar-day"></i> Diario</h5>
+                            <p class="text-muted">Todos los días a la hora especificada</p>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="frequency-option" data-frequency="weekly">
+                            <h5><i class="fa fa-calendar-week"></i> Semanal</h5>
+                            <p class="text-muted">Una vez por semana</p>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="frequency-option" data-frequency="monthly">
+                            <h5><i class="fa fa-calendar"></i> Mensual</h5>
+                            <p class="text-muted">El primer día de cada mes</p>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="frequency-option" data-frequency="custom">
+                            <h5><i class="fa fa-cog"></i> Personalizado</h5>
+                            <p class="text-muted">Configuración avanzada</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Configuración de tiempo -->
+                    <div id="timeConfig" style="display: none;">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Hora de Envío</label>
+                            <input type="time" class="form-control" name="sendTime" value="08:00">
+                          </div>
+                        </div>
+                        <div class="col-md-4" id="weeklyDay" style="display: none;">
+                          <div class="form-group">
+                            <label>Día de la Semana</label>
+                            <select class="form-control" name="weekDay">
+                              <option value="1">Lunes</option>
+                              <option value="2">Martes</option>
+                              <option value="3">Miércoles</option>
+                              <option value="4">Jueves</option>
+                              <option value="5">Viernes</option>
+                              <option value="6">Sábado</option>
+                              <option value="0">Domingo</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-4" id="monthlyDay" style="display: none;">
+                          <div class="form-group">
+                            <label>Día del Mes</label>
+                            <select class="form-control" name="monthDay">
+                              <option value="1">Día 1</option>
+                              <option value="15">Día 15</option>
+                              <option value="last">Último día</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Destinatarios -->
+                    <div class="form-group">
+                      <label>Destinatarios *</label>
+                      <div class="input-group">
+                        <input type="email" class="form-control" id="recipientEmail" placeholder="email@ejemplo.com">
+                        <span class="input-group-btn">
+                          <button type="button" class="btn btn-primary" id="addRecipient">
+                            <i class="fa fa-plus"></i> Añadir
+                          </button>
+                        </span>
+                      </div>
+                      <div id="recipientsList" style="margin-top: 10px;">
+                        <!-- Los destinatarios se añadirán aquí -->
+                      </div>
+                    </div>
+
+                    <!-- Formato del informe -->
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Formato de Archivo</label>
+                          <select class="form-control" name="fileFormat">
+                            <option value="pdf">PDF</option>
+                            <option value="excel">Excel (.xlsx)</option>
+                            <option value="csv">CSV</option>
+                            <option value="html">HTML</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Incluir Gráficos</label>
+                          <select class="form-control" name="includeCharts">
+                            <option value="yes">Sí, incluir gráficos</option>
+                            <option value="no">Solo datos</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Asunto y mensaje -->
+                    <div class="form-group">
+                      <label>Asunto del Email</label>
+                      <input type="text" class="form-control" name="emailSubject" placeholder="Informe Automático - [FECHA]">
+                    </div>
+
+                    <div class="form-group">
+                      <label>Mensaje Personalizado</label>
+                      <textarea class="form-control" name="emailMessage" rows="4" placeholder="Mensaje que acompañará al informe...">Estimado/a,
+
+Adjuntamos el informe automático correspondiente al período solicitado.
+
+Saludos cordiales,
+Sistema Gest Farma</textarea>
+                    </div>
+
+                    <!-- Fecha de inicio y fin -->
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Fecha de Inicio</label>
+                          <input type="date" class="form-control" name="startDate" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Fecha de Fin (Opcional)</label>
+                          <input type="date" class="form-control" name="endDate">
+                          <small class="text-muted">Deja vacío para programación indefinida</small>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="box-footer">
+                  <button type="submit" form="scheduleForm" class="btn btn-success">
+                    <i class="fa fa-clock-o"></i> Programar Envío
+                  </button>
+                  <button type="button" class="btn btn-info" id="testSend">
+                    <i class="fa fa-paper-plane"></i> Envío de Prueba
+                  </button>
+                  <button type="button" class="btn btn-default">
+                    <i class="fa fa-times"></i> Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Programaciones activas -->
+            <div class="col-md-4">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Programaciones Activas</h3>
+                </div>
+                <div class="box-body">
+                  <div class="schedule-card">
+                    <h5><i class="fa fa-bar-chart"></i> Ventas Diarias</h5>
+                    <p><strong>Frecuencia:</strong> Diario a las 08:00</p>
+                    <p><strong>Destinatarios:</strong> 3 usuarios</p>
+                    <p><strong>Próximo envío:</strong> Mañana 08:00</p>
+                    <div class="btn-group btn-group-xs">
+                      <button class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                      <button class="btn btn-danger"><i class="fa fa-pause"></i></button>
+                    </div>
+                  </div>
+
+                  <div class="schedule-card">
+                    <h5><i class="fa fa-cubes"></i> Control de Stock</h5>
+                    <p><strong>Frecuencia:</strong> Semanal (Lunes)</p>
+                    <p><strong>Destinatarios:</strong> 2 usuarios</p>
+                    <p><strong>Próximo envío:</strong> Lunes 06:00</p>
+                    <div class="btn-group btn-group-xs">
+                      <button class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                      <button class="btn btn-danger"><i class="fa fa-pause"></i></button>
+                    </div>
+                  </div>
+
+                  <div class="schedule-card">
+                    <h5><i class="fa fa-euro"></i> Informe Financiero</h5>
+                    <p><strong>Frecuencia:</strong> Mensual (día 1)</p>
+                    <p><strong>Destinatarios:</strong> 1 usuario</p>
+                    <p><strong>Próximo envío:</strong> 01/02/2025</p>
+                    <div class="btn-group btn-group-xs">
+                      <button class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                      <button class="btn btn-danger"><i class="fa fa-pause"></i></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <a href="ver-informes.html" class="btn btn-primary btn-block">
+                    Ver Todos los Programas
+                  </a>
+                </div>
+              </div>
+
+              <!-- Plantillas rápidas -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Plantillas Rápidas</h3>
+                </div>
+                <div class="box-body">
+                  <button class="btn btn-success btn-block btn-sm" data-template="daily-sales">
+                    <i class="fa fa-bolt"></i> Ventas Diarias (8:00 AM)
+                  </button>
+                  <button class="btn btn-warning btn-block btn-sm" data-template="weekly-inventory">
+                    <i class="fa fa-cubes"></i> Inventario Semanal (Lunes)
+                  </button>
+                  <button class="btn btn-info btn-block btn-sm" data-template="monthly-financial">
+                    <i class="fa fa-euro"></i> Financiero Mensual (día 1)
+                  </button>
+                  <button class="btn btn-primary btn-block btn-sm" data-template="weekly-clients">
+                    <i class="fa fa-users"></i> Clientes Semanales (Viernes)
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      $(document).ready(function() {
+        let recipients = [];
+        let selectedFrequency = '';
+        
+        // Selección de frecuencia
+        $('.frequency-option').click(function() {
+          $('.frequency-option').removeClass('selected');
+          $(this).addClass('selected');
+          selectedFrequency = $(this).data('frequency');
+          
+          $('#timeConfig').show();
+          $('#weeklyDay, #monthlyDay').hide();
+          
+          if (selectedFrequency === 'weekly') {
+            $('#weeklyDay').show();
+          } else if (selectedFrequency === 'monthly') {
+            $('#monthlyDay').show();
+          }
+        });
+        
+        // Añadir destinatario
+        $('#addRecipient').click(function() {
+          const email = $('#recipientEmail').val().trim();
+          if (email && email.includes('@')) {
+            if (!recipients.includes(email)) {
+              recipients.push(email);
+              updateRecipientsList();
+              $('#recipientEmail').val('');
+            } else {
+              alert('Este email ya está en la lista');
+            }
+          } else {
+            alert('Por favor, introduce un email válido');
+          }
+        });
+        
+        // Función para actualizar lista de destinatarios
+        function updateRecipientsList() {
+          let html = '';
+          recipients.forEach(function(email, index) {
+            html += `<span class="recipient-tag">${email}<span class="remove" data-index="${index}">×</span></span>`;
+          });
+          $('#recipientsList').html(html);
+        }
+        
+        // Eliminar destinatario
+        $(document).on('click', '.recipient-tag .remove', function() {
+          const index = $(this).data('index');
+          recipients.splice(index, 1);
+          updateRecipientsList();
+        });
+        
+        // Envío de formulario
+        $('#scheduleForm').submit(function(e) {
+          e.preventDefault();
+          
+          if (!selectedFrequency) {
+            alert('Por favor, selecciona una frecuencia de envío');
+            return;
+          }
+          
+          if (recipients.length === 0) {
+            alert('Por favor, añade al menos un destinatario');
+            return;
+          }
+          
+          const formData = {
+            reportType: $('select[name="reportType"]').val(),
+            frequency: selectedFrequency,
+            recipients: recipients,
+            startDate: $('input[name="startDate"]').val(),
+            // ... más datos del formulario
+          };
+          
+          alert('Programación creada exitosamente!\n\nTipo: ' + formData.reportType + '\nFrecuencia: ' + formData.frequency + '\nDestinatarios: ' + recipients.length);
+        });
+        
+        // Envío de prueba
+        $('#testSend').click(function() {
+          if (recipients.length === 0) {
+            alert('Añade al menos un destinatario para el envío de prueba');
+            return;
+          }
+          alert('Enviando informe de prueba a: ' + recipients.join(', '));
+        });
+        
+        // Plantillas rápidas
+        $('[data-template]').click(function() {
+          const template = $(this).data('template');
+          alert('Aplicando plantilla: ' + template);
+          // Aquí se completarían los campos automáticamente
+        });
+        
+        // Enter en email para añadir
+        $('#recipientEmail').keypress(function(e) {
+          if (e.which === 13) {
+            $('#addRecipient').click();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

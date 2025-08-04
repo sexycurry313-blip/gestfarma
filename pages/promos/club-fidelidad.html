@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Club Fidelidad | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .loyalty-header {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      .loyalty-header::before {
+        content: '★';
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 80px;
+        opacity: 0.1;
+        animation: rotate 10s infinite linear;
+      }
+      @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+      .tier-card {
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s;
+        background: white;
+        border: 2px solid #dee2e6;
+      }
+      .tier-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      }
+      .tier-bronze {
+        border-color: #cd7f32;
+        background: linear-gradient(135deg, #ffffff, #fdf5e6);
+      }
+      .tier-silver {
+        border-color: #c0c0c0;
+        background: linear-gradient(135deg, #ffffff, #f8f9fa);
+      }
+      .tier-gold {
+        border-color: #ffd700;
+        background: linear-gradient(135deg, #ffffff, #fffef4);
+      }
+      .tier-platinum {
+        border-color: #e5e4e2;
+        background: linear-gradient(135deg, #ffffff, #f7f7f7);
+      }
+      .tier-diamond {
+        border-color: #b9f2ff;
+        background: linear-gradient(135deg, #ffffff, #f0fdff);
+      }
+      .tier-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+        color: white;
+        margin: 0 auto 15px;
+        position: relative;
+      }
+      .tier-icon.bronze { background: linear-gradient(135deg, #cd7f32, #a0522d); }
+      .tier-icon.silver { background: linear-gradient(135deg, #c0c0c0, #a9a9a9); }
+      .tier-icon.gold { background: linear-gradient(135deg, #ffd700, #ffb347); }
+      .tier-icon.platinum { background: linear-gradient(135deg, #e5e4e2, #d3d3d3); }
+      .tier-icon.diamond { background: linear-gradient(135deg, #b9f2ff, #87ceeb); }
+      .points-counter {
+        font-size: 48px;
+        font-weight: bold;
+        color: #14D5AA;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        margin: 20px 0;
+      }
+      .benefit-item {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-left: 4px solid #14D5AA;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        display: flex;
+        align-items: center;
+        transition: all 0.3s;
+      }
+      .benefit-item:hover {
+        background: rgba(20, 213, 170, 0.05);
+        transform: translateX(5px);
+      }
+      .benefit-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #14D5AA, #183657);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-size: 18px;
+      }
+      .member-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .stat-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        transition: all 0.3s;
+      }
+      .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      }
+      .stat-value {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .rewards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 20px 0;
+      }
+      .reward-card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        border: 2px solid #dee2e6;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .reward-card:hover {
+        border-color: #14D5AA;
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      }
+      .reward-card.available {
+        border-color: #14D5AA;
+        background: linear-gradient(135deg, #ffffff, #f0fff4);
+      }
+      .reward-card.locked {
+        opacity: 0.6;
+        background: #f8f9fa;
+      }
+      .reward-cost {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: #14D5AA;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .reward-cost.locked {
+        background: #6c757d;
+      }
+      .progress-ring {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 15px;
+        position: relative;
+      }
+      .progress-ring circle {
+        fill: none;
+        stroke-width: 8;
+        transform: rotate(-90deg);
+        transform-origin: 50% 50%;
+      }
+      .progress-ring .background {
+        stroke: #e9ecef;
+      }
+      .progress-ring .progress {
+        stroke: #14D5AA;
+        stroke-linecap: round;
+        transition: stroke-dasharray 1s ease;
+      }
+      .activity-timeline {
+        max-height: 400px;
+        overflow-y: auto;
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        border: 1px solid #dee2e6;
+      }
+      .timeline-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .timeline-item:last-child {
+        border-bottom: none;
+      }
+      .timeline-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-size: 14px;
+        color: white;
+      }
+      .timeline-icon.purchase { background: #14D5AA; }
+      .timeline-icon.redeem { background: #FF1E70; }
+      .timeline-icon.bonus { background: #183657; }
+      .timeline-icon.tier { background: #ffc107; }
+      .referral-system {
+        background: linear-gradient(135deg, #14D5AA, #183657);
+        color: white;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 20px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .referral-system::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+        animation: shine 3s infinite;
+      }
+      @keyframes shine {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .referral-code {
+        background: rgba(255,255,255,0.2);
+        border-radius: 8px;
+        padding: 15px;
+        margin: 15px 0;
+        font-family: monospace;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 2px;
+        border: 2px dashed rgba(255,255,255,0.5);
+      }
+      .tier-requirements {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin: 15px 0;
+        border-left: 4px solid #14D5AA;
+      }
+      .requirement-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .requirement-item.completed {
+        color: #14D5AA;
+      }
+      .requirement-item.completed i {
+        color: #14D5AA;
+      }
+      .special-campaigns {
+        background: linear-gradient(45deg, #FF1E70, #ff6b9d);
+        color: white;
+        border-radius: 15px;
+        padding: 25px;
+        margin: 20px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      .special-campaigns::after {
+        content: '🎉';
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 40px;
+        opacity: 0.3;
+      }
+      .leaderboard {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        border: 1px solid #dee2e6;
+        max-height: 500px;
+        overflow-y: auto;
+      }
+      .leaderboard-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-radius: 8px;
+        margin-bottom: 5px;
+        transition: all 0.3s;
+      }
+      .leaderboard-item:hover {
+        background: rgba(20, 213, 170, 0.05);
+      }
+      .leaderboard-item.top-3 {
+        background: linear-gradient(135deg, #fff9c4, #ffffff);
+        border: 1px solid #ffd700;
+      }
+      .leaderboard-position {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 15px;
+        color: white;
+      }
+      .position-1 { background: linear-gradient(135deg, #ffd700, #ffb347); }
+      .position-2 { background: linear-gradient(135deg, #c0c0c0, #a9a9a9); }
+      .position-3 { background: linear-gradient(135deg, #cd7f32, #a0522d); }
+      .position-other { background: linear-gradient(135deg, #6c757d, #495057); }
+      .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .action-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        border: 2px solid #dee2e6;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .action-card:hover {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.05);
+        transform: translateY(-3px);
+      }
+      .action-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #14D5AA, #183657);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 auto 15px;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="../informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="../informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>📈 Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../ventas/dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="../ventas/analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li><a href="../ventas/control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>🧪 Pujas (Labs)</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../pujas/pujas-activas.html"><i class="fa fa-gavel"></i> Pujas Activas</a></li>
+                <li><a href="../pujas/historial-pujas.html"><i class="fa fa-history"></i> Historial de Pujas</a></li>
+                <li><a href="../pujas/gestionar-labs.html"><i class="fa fa-cogs"></i> Gestionar Labs</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-tags"></i>
+                <span>💰 Surtido y Precios</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../surtido/catalogo-productos.html"><i class="fa fa-book"></i> Catálogo Productos</a></li>
+                <li><a href="../surtido/ver-tarifas.html"><i class="fa fa-list"></i> Ver Tarifas</a></li>
+                <li><a href="../surtido/comparador.html"><i class="fa fa-exchange"></i> Comparador</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-share-alt"></i>
+                <span>🤝 Recursos Compartidos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../recursos/ver-disponibilidad.html"><i class="fa fa-calendar"></i> Ver Disponibilidad</a></li>
+                <li><a href="../recursos/solicitar-recurso.html"><i class="fa fa-hand-paper-o"></i> Solicitar Recurso</a></li>
+                <li><a href="../recursos/mis-peticiones.html"><i class="fa fa-user"></i> Mis Peticiones</a></li>
+              </ul>
+            </li>
+
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-gift"></i>
+                <span>🎁 Promos y Fidelización</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="crear-promocion.html"><i class="fa fa-plus"></i> Crear Promoción</a></li>
+                <li class="active"><a href="club-fidelidad.html"><i class="fa fa-star"></i> Club Fidelidad</a></li>
+                <li><a href="analisis-campanas.html"><i class="fa fa-pie-chart"></i> Análisis Campañas</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Club Fidelidad
+            <small>Gestión integral del programa de fidelización</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Promos y Fidelización</a></li>
+            <li class="active">Club Fidelidad</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Header del Club de Fidelidad -->
+          <div class="loyalty-header">
+            <div class="row">
+              <div class="col-md-8">
+                <h3><i class="fa fa-star"></i> Club Fidelidad Gest Farma</h3>
+                <p>Sistema inteligente de recompensas que premia la lealtad de tus clientes con beneficios exclusivos</p>
+                <div class="points-counter" id="totalPoints">15,847 Puntos Activos</div>
+              </div>
+              <div class="col-md-4 text-right">
+                <button class="btn btn-success btn-lg" onclick="manageTiers()">
+                  <i class="fa fa-cogs"></i> Gestionar Niveles
+                </button>
+                <button class="btn btn-info btn-lg" onclick="exportMembers()">
+                  <i class="fa fa-download"></i> Exportar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estadísticas Generales -->
+          <div class="member-stats">
+            <div class="stat-card">
+              <div class="stat-value text-primary">2,847</div>
+              <small>Miembros Activos</small>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value text-success">€47,250</div>
+              <small>Valor Canjeado</small>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value text-info">23.4%</div>
+              <small>Tasa Participación</small>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value text-warning">4.8⭐</div>
+              <small>Satisfacción</small>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value text-danger">+15%</div>
+              <small>Retención vs Mes Ant.</small>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Niveles del Club -->
+            <div class="col-md-8">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Niveles de Fidelidad</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-success btn-sm" onclick="addNewTier()">
+                      <i class="fa fa-plus"></i> Nuevo Nivel
+                    </button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="tier-card tier-bronze">
+                        <div class="tier-icon bronze">
+                          <i class="fa fa-user"></i>
+                        </div>
+                        <h4><strong>Bronce</strong></h4>
+                        <p class="text-muted">Nivel inicial</p>
+                        <div class="tier-requirements">
+                          <h6><strong>Requisitos:</strong></h6>
+                          <div class="requirement-item completed">
+                            <i class="fa fa-check-circle"></i> 
+                            <span style="margin-left: 8px;">Registro en el club</span>
+                          </div>
+                          <div class="requirement-item">
+                            <i class="fa fa-circle-o"></i> 
+                            <span style="margin-left: 8px;">Compra mínima: €0</span>
+                          </div>
+                        </div>
+                        <p><strong>1,247 miembros</strong></p>
+                        <small class="text-success">1 punto = €1 gastado</small>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                      <div class="tier-card tier-silver">
+                        <div class="tier-icon silver">
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <h4><strong>Plata</strong></h4>
+                        <p class="text-muted">Cliente regular</p>
+                        <div class="tier-requirements">
+                          <h6><strong>Requisitos:</strong></h6>
+                          <div class="requirement-item completed">
+                            <i class="fa fa-check-circle"></i> 
+                            <span style="margin-left: 8px;">€500 en compras</span>
+                          </div>
+                          <div class="requirement-item completed">
+                            <i class="fa fa-check-circle"></i> 
+                            <span style="margin-left: 8px;">5+ compras</span>
+                          </div>
+                        </div>
+                        <p><strong>856 miembros</strong></p>
+                        <small class="text-success">1.2 puntos = €1 gastado</small>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                      <div class="tier-card tier-gold">
+                        <div class="tier-icon gold">
+                          <i class="fa fa-star"></i>
+                        </div>
+                        <h4><strong>Oro</strong></h4>
+                        <p class="text-muted">Cliente premium</p>
+                        <div class="tier-requirements">
+                          <h6><strong>Requisitos:</strong></h6>
+                          <div class="requirement-item">
+                            <i class="fa fa-circle-o"></i> 
+                            <span style="margin-left: 8px;">€1,500 en compras</span>
+                          </div>
+                          <div class="requirement-item">
+                            <i class="fa fa-circle-o"></i> 
+                            <span style="margin-left: 8px;">15+ compras</span>
+                          </div>
+                        </div>
+                        <p><strong>523 miembros</strong></p>
+                        <small class="text-success">1.5 puntos = €1 gastado</small>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="tier-card tier-platinum">
+                        <div class="tier-icon platinum">
+                          <i class="fa fa-diamond"></i>
+                        </div>
+                        <h4><strong>Platino</strong></h4>
+                        <p class="text-muted">Cliente VIP</p>
+                        <div class="tier-requirements">
+                          <h6><strong>Requisitos:</strong></h6>
+                          <div class="requirement-item">
+                            <i class="fa fa-circle-o"></i> 
+                            <span style="margin-left: 8px;">€3,000 en compras</span>
+                          </div>
+                          <div class="requirement-item">
+                            <i class="fa fa-circle-o"></i> 
+                            <span style="margin-left: 8px;">30+ compras</span>
+                          </div>
+                        </div>
+                        <p><strong>167 miembros</strong></p>
+                        <small class="text-success">2.0 puntos = €1 gastado</small>
+                      </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                      <div class="tier-card tier-diamond">
+                        <div class="tier-icon diamond">
+                          <i class="fa fa-diamond"></i>
+                        </div>
+                        <h4><strong>Diamante</strong></h4>
+                        <p class="text-muted">Elite exclusivo</p>
+                        <div class="tier-requirements">
+                          <h6><strong>Requisitos:</strong></h6>
+                          <div class="requirement-item">
+                            <i class="fa fa-circle-o"></i> 
+                            <span style="margin-left: 8px;">€5,000 en compras</span>
+                          </div>
+                          <div class="requirement-item">
+                            <i class="fa fa-circle-o"></i> 
+                            <span style="margin-left: 8px;">50+ compras</span>
+                          </div>
+                        </div>
+                        <p><strong>54 miembros</strong></p>
+                        <small class="text-success">2.5 puntos = €1 gastado</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel de Control Lateral -->
+            <div class="col-md-4">
+              <!-- Progreso hacia siguiente nivel -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Progreso Promedio</h3>
+                </div>
+                <div class="box-body text-center">
+                  <div class="progress-ring">
+                    <svg width="120" height="120">
+                      <circle class="background" cx="60" cy="60" r="52" stroke-width="8"/>
+                      <circle class="progress" cx="60" cy="60" r="52" stroke-width="8" 
+                              stroke-dasharray="327" stroke-dashoffset="98"/>
+                    </svg>
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                      <div style="font-size: 20px; font-weight: bold; color: #14D5AA;">70%</div>
+                      <div style="font-size: 12px; color: #6c757d;">al siguiente nivel</div>
+                    </div>
+                  </div>
+                  <p>Los miembros están un <strong>70%</strong> más cerca de subir de nivel</p>
+                </div>
+              </div>
+
+              <!-- Sistema de Referidos -->
+              <div class="referral-system">
+                <h5><i class="fa fa-users"></i> Sistema de Referidos</h5>
+                <p>Invita amigos y gana puntos extra</p>
+                <div class="referral-code">FARMA2025</div>
+                <div class="row text-center">
+                  <div class="col-xs-6">
+                    <h4>127</h4>
+                    <small>Referidos</small>
+                  </div>
+                  <div class="col-xs-6">
+                    <h4>2,540</h4>
+                    <small>Puntos Ganados</small>
+                  </div>
+                </div>
+                <button class="btn btn-light btn-block" onclick="shareReferral()">
+                  <i class="fa fa-share"></i> Compartir Código
+                </button>
+              </div>
+
+              <!-- Acciones Rápidas -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Acciones Rápidas</h3>
+                </div>
+                <div class="box-body">
+                  <div class="quick-actions">
+                    <div class="action-card" onclick="adjustPoints()">
+                      <div class="action-icon">
+                        <i class="fa fa-plus"></i>
+                      </div>
+                      <h6>Ajustar Puntos</h6>
+                      <small>Añadir/quitar puntos manualmente</small>
+                    </div>
+                    <div class="action-card" onclick="sendRewards()">
+                      <div class="action-icon">
+                        <i class="fa fa-gift"></i>
+                      </div>
+                      <h6>Enviar Recompensas</h6>
+                      <small>Bonus especiales</small>
+                    </div>
+                    <div class="action-card" onclick="upgradeMembers()">
+                      <div class="action-icon">
+                        <i class="fa fa-arrow-up"></i>
+                      </div>
+                      <h6>Subir Nivel</h6>
+                      <small>Promociones manuales</small>
+                    </div>
+                    <div class="action-card" onclick="configureRewards()">
+                      <div class="action-icon">
+                        <i class="fa fa-cogs"></i>
+                      </div>
+                      <h6>Configurar</h6>
+                      <small>Ajustar reglas</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Catálogo de Recompensas -->
+            <div class="col-md-8">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Catálogo de Recompensas</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-success btn-sm" onclick="addReward()">
+                      <i class="fa fa-plus"></i> Nueva Recompensa
+                    </button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="rewards-grid">
+                    <div class="reward-card available">
+                      <div class="reward-cost">100 pts</div>
+                      <h5><i class="fa fa-percent text-success"></i> 5% Descuento</h5>
+                      <p class="text-muted">Descuento en tu próxima compra</p>
+                      <button class="btn btn-success btn-sm btn-block">Disponible</button>
+                      <small class="text-success">847 canjes este mes</small>
+                    </div>
+
+                    <div class="reward-card available">
+                      <div class="reward-cost">250 pts</div>
+                      <h5><i class="fa fa-truck text-info"></i> Envío Gratis</h5>
+                      <p class="text-muted">Envío gratuito en tu pedido</p>
+                      <button class="btn btn-success btn-sm btn-block">Disponible</button>
+                      <small class="text-success">523 canjes este mes</small>
+                    </div>
+
+                    <div class="reward-card available">
+                      <div class="reward-cost">500 pts</div>
+                      <h5><i class="fa fa-gift text-warning"></i> Producto Gratis</h5>
+                      <p class="text-muted">Producto de hasta €15 gratis</p>
+                      <button class="btn btn-success btn-sm btn-block">Disponible</button>
+                      <small class="text-success">234 canjes este mes</small>
+                    </div>
+
+                    <div class="reward-card available">
+                      <div class="reward-cost">750 pts</div>
+                      <h5><i class="fa fa-calendar text-primary"></i> Consulta Premium</h5>
+                      <p class="text-muted">Consulta farmacéutica gratuita</p>
+                      <button class="btn btn-success btn-sm btn-block">Disponible</button>
+                      <small class="text-success">156 canjes este mes</small>
+                    </div>
+
+                    <div class="reward-card locked">
+                      <div class="reward-cost locked">1000 pts</div>
+                      <h5><i class="fa fa-diamond text-info"></i> Acceso VIP</h5>
+                      <p class="text-muted">Solo para nivel Oro+</p>
+                      <button class="btn btn-default btn-sm btn-block" disabled>Solo VIP</button>
+                      <small class="text-muted">87 canjes este mes</small>
+                    </div>
+
+                    <div class="reward-card available">
+                      <div class="reward-cost">1500 pts</div>
+                      <h5><i class="fa fa-heart text-danger"></i> Revisión Completa</h5>
+                      <p class="text-muted">Revisión de salud integral</p>
+                      <button class="btn btn-success btn-sm btn-block">Disponible</button>
+                      <small class="text-success">43 canjes este mes</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ranking de Miembros -->
+            <div class="col-md-4">
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Top Miembros del Mes</h3>
+                </div>
+                <div class="box-body">
+                  <div class="leaderboard">
+                    <div class="leaderboard-item top-3">
+                      <div class="leaderboard-position position-1">1</div>
+                      <div style="flex: 1;">
+                        <strong>María García</strong><br>
+                        <small class="text-muted">Nivel: Diamante</small>
+                      </div>
+                      <div class="text-right">
+                        <strong>4,250 pts</strong><br>
+                        <small class="text-success">+850</small>
+                      </div>
+                    </div>
+
+                    <div class="leaderboard-item top-3">
+                      <div class="leaderboard-position position-2">2</div>
+                      <div style="flex: 1;">
+                        <strong>Carlos Ruiz</strong><br>
+                        <small class="text-muted">Nivel: Platino</small>
+                      </div>
+                      <div class="text-right">
+                        <strong>3,890 pts</strong><br>
+                        <small class="text-success">+720</small>
+                      </div>
+                    </div>
+
+                    <div class="leaderboard-item top-3">
+                      <div class="leaderboard-position position-3">3</div>
+                      <div style="flex: 1;">
+                        <strong>Ana López</strong><br>
+                        <small class="text-muted">Nivel: Oro</small>
+                      </div>
+                      <div class="text-right">
+                        <strong>3,240 pts</strong><br>
+                        <small class="text-success">+680</small>
+                      </div>
+                    </div>
+
+                    <div class="leaderboard-item">
+                      <div class="leaderboard-position position-other">4</div>
+                      <div style="flex: 1;">
+                        <strong>José Martín</strong><br>
+                        <small class="text-muted">Nivel: Oro</small>
+                      </div>
+                      <div class="text-right">
+                        <strong>2,970 pts</strong><br>
+                        <small class="text-success">+540</small>
+                      </div>
+                    </div>
+
+                    <div class="leaderboard-item">
+                      <div class="leaderboard-position position-other">5</div>
+                      <div style="flex: 1;">
+                        <strong>Laura Sánchez</strong><br>
+                        <small class="text-muted">Nivel: Plata</small>
+                      </div>
+                      <div class="text-right">
+                        <strong>2,850 pts</strong><br>
+                        <small class="text-success">+490</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Actividad Reciente -->
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Actividad Reciente</h3>
+                </div>
+                <div class="box-body">
+                  <div class="activity-timeline">
+                    <div class="timeline-item">
+                      <div class="timeline-icon purchase">
+                        <i class="fa fa-shopping-cart"></i>
+                      </div>
+                      <div style="flex: 1;">
+                        <strong>María García</strong> ganó <span class="text-success">45 puntos</span><br>
+                        <small class="text-muted">Compra de €45.00 - hace 2 min</small>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item">
+                      <div class="timeline-icon redeem">
+                        <i class="fa fa-gift"></i>
+                      </div>
+                      <div style="flex: 1;">
+                        <strong>Carlos Ruiz</strong> canjeó <span class="text-danger">250 puntos</span><br>
+                        <small class="text-muted">Envío gratis - hace 15 min</small>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item">
+                      <div class="timeline-icon tier">
+                        <i class="fa fa-star"></i>
+                      </div>
+                      <div style="flex: 1;">
+                        <strong>Ana López</strong> subió a <span class="text-warning">Nivel Oro</span><br>
+                        <small class="text-muted">¡Enhorabuena! - hace 1 hora</small>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item">
+                      <div class="timeline-icon bonus">
+                        <i class="fa fa-bolt"></i>
+                      </div>
+                      <div style="flex: 1;">
+                        <strong>José Martín</strong> ganó <span class="text-success">100 puntos bonus</span><br>
+                        <small class="text-muted">Referido exitoso - hace 2 horas</small>
+                      </div>
+                    </div>
+
+                    <div class="timeline-item">
+                      <div class="timeline-icon purchase">
+                        <i class="fa fa-shopping-cart"></i>
+                      </div>
+                      <div style="flex: 1;">
+                        <strong>Laura Sánchez</strong> ganó <span class="text-success">32 puntos</span><br>
+                        <small class="text-muted">Compra de €32.00 - hace 3 horas</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Campañas Especiales -->
+            <div class="col-md-6">
+              <div class="special-campaigns">
+                <h4><i class="fa fa-magic"></i> Campañas Especiales Activas</h4>
+                
+                <div style="background: rgba(255,255,255,0.2); border-radius: 8px; padding: 15px; margin: 15px 0;">
+                  <h5><strong>🎯 Doble Puntos Weekend</strong></h5>
+                  <p>Gana el doble de puntos en todas las compras este fin de semana</p>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <small><strong>Participantes:</strong> 1,247</small>
+                    </div>
+                    <div class="col-xs-6">
+                      <small><strong>Puntos extra:</strong> 8,930</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.2); border-radius: 8px; padding: 15px; margin: 15px 0;">
+                  <h5><strong>🎁 Recompensa Cumpleaños</strong></h5>
+                  <p>500 puntos bonus por cumpleaños + descuento especial</p>
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <small><strong>Este mes:</strong> 127 cumpleaños</small>
+                    </div>
+                    <div class="col-xs-6">
+                      <small><strong>Canjes:</strong> 89.7%</small>
+                    </div>
+                  </div>
+                </div>
+
+                <button class="btn btn-light btn-block" onclick="createCampaign()">
+                  <i class="fa fa-plus"></i> Nueva Campaña
+                </button>
+              </div>
+
+              <!-- Beneficios por Nivel -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Beneficios por Nivel</h3>
+                </div>
+                <div class="box-body">
+                  <div class="benefit-item">
+                    <div class="benefit-icon">
+                      <i class="fa fa-star"></i>
+                    </div>
+                    <div>
+                      <strong>Puntos Multiplicados</strong><br>
+                      <small class="text-muted">Más puntos por cada euro gastado según tu nivel</small>
+                    </div>
+                  </div>
+
+                  <div class="benefit-item">
+                    <div class="benefit-icon">
+                      <i class="fa fa-gift"></i>
+                    </div>
+                    <div>
+                      <strong>Recompensas Exclusivas</strong><br>
+                      <small class="text-muted">Acceso a premios especiales por nivel</small>
+                    </div>
+                  </div>
+
+                  <div class="benefit-item">
+                    <div class="benefit-icon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <div>
+                      <strong>Acceso Prioritario</strong><br>
+                      <small class="text-muted">Atención preferencial y ofertas anticipadas</small>
+                    </div>
+                  </div>
+
+                  <div class="benefit-item">
+                    <div class="benefit-icon">
+                      <i class="fa fa-phone"></i>
+                    </div>
+                    <div>
+                      <strong>Soporte Premium</strong><br>
+                      <small class="text-muted">Línea directa para miembros VIP</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Inicialización
+      $(document).ready(function() {
+        updateTotalPoints();
+        animateProgressRing();
+        updateActivityTimeline();
+        
+        // Actualizar estadísticas cada 30 segundos
+        setInterval(updateStats, 30000);
+      });
+
+      // Función para animar el anillo de progreso
+      function animateProgressRing() {
+        const circle = document.querySelector('.progress-ring .progress');
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+        const offset = circumference - (70 / 100) * circumference; // 70% de progreso
+
+        circle.style.strokeDasharray = circumference;
+        circle.style.strokeDashoffset = offset;
+      }
+
+      // Actualizar contador de puntos totales
+      function updateTotalPoints() {
+        let points = 15847;
+        let current = 0;
+        const increment = points / 100;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= points) {
+            current = points;
+            clearInterval(timer);
+          }
+          document.getElementById('totalPoints').textContent = 
+            Math.floor(current).toLocaleString() + ' Puntos Activos';
+        }, 20);
+      }
+
+      // Actualizar timeline de actividad
+      function updateActivityTimeline() {
+        // Simular nuevas actividades cada minuto
+        setInterval(() => {
+          const activities = [
+            'ganó 25 puntos por compra de €25.00',
+            'canjeó 100 puntos por descuento 5%',
+            'subió al nivel Plata',
+            'ganó 50 puntos bonus por referido'
+          ];
+          
+          const names = ['Pedro Silva', 'Isabel Torres', 'Miguel Ángel', 'Lucía Vega'];
+          const activity = activities[Math.floor(Math.random() * activities.length)];
+          const name = names[Math.floor(Math.random() * names.length)];
+          
+          console.log(`Nueva actividad: ${name} ${activity}`);
+          // Aquí se añadiría la nueva actividad al timeline
+        }, 60000);
+      }
+
+      // Actualizar estadísticas
+      function updateStats() {
+        // Simular pequeños cambios en las estadísticas
+        const stats = ['2,847', '€47,250', '23.4%', '4.8⭐', '+15%'];
+        // Aquí se actualizarían las estadísticas reales
+      }
+
+      // Funciones de gestión
+      function manageTiers() {
+        alert('Abriendo panel de gestión de niveles...\n\nEn esta sección podrás:\n• Modificar requisitos de cada nivel\n• Ajustar multiplicadores de puntos\n• Configurar beneficios exclusivos\n• Crear nuevos niveles personalizados');
+      }
+
+      function exportMembers() {
+        alert('Exportando base de datos de miembros...\n\nFormatos disponibles:\n• Excel (.xlsx)\n• CSV\n• PDF con estadísticas\n• JSON para integraciones');
+      }
+
+      function addNewTier() {
+        const tierName = prompt('Nombre del nuevo nivel:', 'Titanio');
+        if (tierName) {
+          alert(`Nuevo nivel "${tierName}" añadido exitosamente!\n\nConfigurar:\n• Requisitos de acceso\n• Multiplicador de puntos\n• Beneficios exclusivos\n• Color y diseño`);
+        }
+      }
+
+      function addReward() {
+        alert('Creando nueva recompensa...\n\nTipos disponibles:\n• Descuentos porcentuales\n• Productos gratuitos\n• Servicios premium\n• Experiencias exclusivas\n• Puntos bonus');
+      }
+
+      function adjustPoints() {
+        const member = prompt('Buscar miembro (nombre o email):', 'maria.garcia@email.com');
+        if (member) {
+          const points = prompt('Puntos a añadir/quitar (usar - para quitar):', '100');
+          if (points) {
+            alert(`Ajuste realizado:\n• Miembro: ${member}\n• Puntos: ${points}\n• Motivo: Ajuste manual\n• Fecha: ${new Date().toLocaleString()}`);
+          }
+        }
+      }
+
+      function sendRewards() {
+        alert('Enviando recompensas especiales...\n\nOpciones:\n• Bonus de cumpleaños\n• Recompensa por aniversario\n• Bonus por inactividad\n• Premio sorpresa\n• Puntos de bienvenida');
+      }
+
+      function upgradeMembers() {
+        alert('Promoción manual de miembros...\n\nSelecciona:\n• Miembro(s) a promocionar\n• Nuevo nivel\n• Motivo de la promoción\n• Beneficios adicionales');
+      }
+
+      function configureRewards() {
+        alert('Configuración del sistema de recompensas...\n\nAjustar:\n• Ratios de conversión puntos/euros\n• Multiplicadores por nivel\n• Condiciones de canje\n• Expiración de puntos\n• Reglas especiales');
+      }
+
+      function shareReferral() {
+        const code = 'FARMA2025';
+        if (navigator.share) {
+          navigator.share({
+            title: 'Únete al Club Fidelidad Gest Farma',
+            text: `Usa mi código ${code} y obtén puntos de bienvenida`,
+            url: window.location.href
+          });
+        } else {
+          navigator.clipboard.writeText(code).then(() => {
+            alert(`Código ${code} copiado al portapapeles!\n\nCompártelo con tus amigos para que obtengan puntos de bienvenida.`);
+          });
+        }
+      }
+
+      function createCampaign() {
+        alert('Creando nueva campaña especial...\n\nTipos de campaña:\n• Doble/Triple puntos\n• Bonus por compra mínima\n• Descuentos escalonados\n• Recompensas temáticas\n• Desafíos de fidelidad');
+      }
+
+      // Efectos visuales adicionales
+      function addSparkleEffect() {
+        const sparkles = ['✨', '⭐', '💫', '🌟'];
+        setInterval(() => {
+          const sparkle = document.createElement('div');
+          sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+          sparkle.style.position = 'fixed';
+          sparkle.style.left = Math.random() * 100 + 'vw';
+          sparkle.style.top = Math.random() * 100 + 'vh';
+          sparkle.style.fontSize = '20px';
+          sparkle.style.pointerEvents = 'none';
+          sparkle.style.zIndex = '9999';
+          sparkle.style.animation = 'fadeInOut 3s ease-in-out';
+          
+          document.body.appendChild(sparkle);
+          
+          setTimeout(() => {
+            sparkle.remove();
+          }, 3000);
+        }, 5000);
+      }
+
+      // CSS para la animación de sparkles
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes fadeInOut {
+          0% { opacity: 0; transform: scale(0.5); }
+          50% { opacity: 1; transform: scale(1); }
+          100% { opacity: 0; transform: scale(0.5); }
+        }
+      `;
+      document.head.appendChild(style);
+
+      // Iniciar efectos visuales
+      addSparkleEffect();
+
+      // Notificaciones en tiempo real
+      function showNotification(message, type = 'success') {
+        const notification = $(`
+          <div class="alert alert-${type} alert-dismissible" style="position: fixed; top: 20px; right: 20px; z-index: 9999; min-width: 300px;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            ${message}
+          </div>
+        `);
+        
+        $('body').append(notification);
+        
+        setTimeout(() => {
+          notification.fadeOut(() => notification.remove());
+        }, 5000);
+      }
+
+      // Simular notificaciones de actividad
+      setInterval(() => {
+        const notifications = [
+          '🎉 ¡María García acaba de subir al nivel Diamante!',
+          '⭐ Nuevo miembro registrado: Carlos López',
+          '🎁 Premio canjeado: Envío gratis por Ana Ruiz',
+          '💰 Meta de puntos alcanzada por José Martín',
+          '🏆 ¡Nuevo record de canjes este mes!'
+        ];
+        
+        const randomNotification = notifications[Math.floor(Math.random() * notifications.length)];
+        showNotification(randomNotification, 'info');
+      }, 45000);
+    </script>
+  </body>
+</html>

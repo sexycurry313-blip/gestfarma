@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Registro de Cliente | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .register-hero {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .step-indicator {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+      .step {
+        display: flex;
+        align-items: center;
+        margin: 0 20px;
+      }
+      .step-number {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #ddd;
+        color: #666;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      .step.active .step-number {
+        background: #14D5AA;
+        color: white;
+      }
+      .step.completed .step-number {
+        background: #183657;
+        color: white;
+      }
+      .benefits-card {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #14D5AA;
+        margin-bottom: 20px;
+      }
+      .form-section {
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+      }
+      .privacy-notice {
+        background: #fff3cd;
+        border: 1px solid #ffc107;
+        border-radius: 4px;
+        padding: 15px;
+        margin: 20px 0;
+        color: #856404;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Visitante</p>
+              <a href="#"><i class="fa fa-circle text-warning"></i> No registrado</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-user"></i>
+                <span>🧑‍💼 Área de Clientes</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="iniciar-sesion.html"><i class="fa fa-sign-in"></i> Iniciar sesión</a></li>
+                <li class="active"><a href="registro.html"><i class="fa fa-user-plus"></i> Registro</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Registro de Cliente
+            <small>Únete a la familia Gest Farma</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Área de Clientes</a></li>
+            <li class="active">Registro</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Hero Section -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="register-hero">
+                <h2><i class="fa fa-user-plus"></i> Regístrate en Gest Farma</h2>
+                <p style="font-size: 16px; margin-top: 15px;">
+                  Disfruta de todos los beneficios de ser cliente registrado: 
+                  descuentos exclusivos, envío gratuito y seguimiento personalizado de tus tratamientos.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Indicador de pasos -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="step-indicator">
+                <div class="step active">
+                  <div class="step-number">1</div>
+                  <span>Datos Personales</span>
+                </div>
+                <div class="step">
+                  <div class="step-number">2</div>
+                  <span>Datos de Contacto</span>
+                </div>
+                <div class="step">
+                  <div class="step-number">3</div>
+                  <span>Preferencias</span>
+                </div>
+                <div class="step">
+                  <div class="step-number">4</div>
+                  <span>Confirmación</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de registro -->
+          <div class="row">
+            <div class="col-md-8">
+              <form id="registrationForm">
+                <!-- Paso 1: Datos Personales -->
+                <div class="form-section" id="step1">
+                  <h4><i class="fa fa-user"></i> Datos Personales</h4>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Nombre *</label>
+                        <input type="text" class="form-control" name="nombre" required placeholder="Tu nombre">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Apellidos *</label>
+                        <input type="text" class="form-control" name="apellidos" required placeholder="Tus apellidos">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>DNI/NIE *</label>
+                        <input type="text" class="form-control" name="dni" required placeholder="12345678X">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Fecha de nacimiento *</label>
+                        <input type="date" class="form-control" name="fechaNacimiento" required>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Sexo</label>
+                        <select class="form-control" name="sexo">
+                          <option value="">Seleccionar</option>
+                          <option value="M">Masculino</option>
+                          <option value="F">Femenino</option>
+                          <option value="O">Otro</option>
+                          <option value="N">Prefiero no decirlo</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Tarjeta Sanitaria</label>
+                        <input type="text" class="form-control" name="tarjetaSanitaria" placeholder="Número de tarjeta sanitaria">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                      Siguiente <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Paso 2: Datos de Contacto -->
+                <div class="form-section" id="step2" style="display: none;">
+                  <h4><i class="fa fa-envelope"></i> Datos de Contacto</h4>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" class="form-control" name="email" required placeholder="correo@email.com">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Confirmar Email *</label>
+                        <input type="email" class="form-control" name="confirmarEmail" required placeholder="Confirma tu email">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Teléfono móvil *</label>
+                        <input type="tel" class="form-control" name="telefono" required placeholder="600 123 456">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Teléfono fijo</label>
+                        <input type="tel" class="form-control" name="telefonoFijo" placeholder="91 123 45 67">
+                      </div>
+                    </div>
+                  </div>
+                  <h5>Dirección Principal</h5>
+                  <div class="form-group">
+                    <label>Dirección *</label>
+                    <input type="text" class="form-control" name="direccion" required placeholder="Calle, número, piso, puerta">
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Código Postal *</label>
+                        <input type="text" class="form-control" name="codigoPostal" required placeholder="28001">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Ciudad *</label>
+                        <input type="text" class="form-control" name="ciudad" required placeholder="Madrid">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label>Provincia *</label>
+                        <input type="text" class="form-control" name="provincia" required placeholder="Madrid">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <button type="button" class="btn btn-default" onclick="prevStep(1)">
+                      <i class="fa fa-arrow-left"></i> Anterior
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+                      Siguiente <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Paso 3: Preferencias -->
+                <div class="form-section" id="step3" style="display: none;">
+                  <h4><i class="fa fa-cogs"></i> Preferencias y Configuración</h4>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Contraseña *</label>
+                        <input type="password" class="form-control" name="password" required placeholder="Mínimo 8 caracteres">
+                        <small class="text-muted">Debe contener al menos 8 caracteres, una mayúscula y un número</small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Confirmar Contraseña *</label>
+                        <input type="password" class="form-control" name="confirmarPassword" required placeholder="Repite la contraseña">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <h5>Alergias e Intolerancias</h5>
+                  <div class="form-group">
+                    <textarea class="form-control" name="alergias" rows="3" placeholder="Describe cualquier alergia a medicamentos, alimentos u otras sustancias..."></textarea>
+                  </div>
+                  
+                  <h5>Preferencias de Comunicación</h5>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="notificacionesEmail" checked>
+                          Recibir notificaciones por email
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="notificacionesSMS" checked>
+                          Recibir notificaciones por SMS
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="ofertas">
+                          Recibir ofertas y promociones
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="newsletter">
+                          Suscribirse al newsletter de salud
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="text-right">
+                    <button type="button" class="btn btn-default" onclick="prevStep(2)">
+                      <i class="fa fa-arrow-left"></i> Anterior
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="nextStep(4)">
+                      Siguiente <i class="fa fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Paso 4: Confirmación -->
+                <div class="form-section" id="step4" style="display: none;">
+                  <h4><i class="fa fa-check-circle"></i> Términos y Condiciones</h4>
+                  
+                  <div class="privacy-notice">
+                    <h5><i class="fa fa-shield"></i> Protección de Datos</h5>
+                    <p>Tus datos personales serán tratados conforme al Reglamento General de Protección de Datos (RGPD) y la normativa española de protección de datos. Solo utilizaremos tu información para:</p>
+                    <ul>
+                      <li>Gestionar tus pedidos y recetas</li>
+                      <li>Proporcionarte servicios farmacéuticos personalizados</li>
+                      <li>Enviarte información relevante sobre tu salud (si lo autorizas)</li>
+                      <li>Cumplir con obligaciones legales farmacéuticas</li>
+                    </ul>
+                  </div>
+                  
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="aceptarTerminos" required>
+                      <strong>Acepto los <a href="#" target="_blank">Términos y Condiciones</a> de uso *</strong>
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="aceptarPrivacidad" required>
+                      <strong>Acepto la <a href="#" target="_blank">Política de Privacidad</a> *</strong>
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="mayorEdad" required>
+                      <strong>Confirmo que soy mayor de 18 años *</strong>
+                    </label>
+                  </div>
+                  
+                  <div class="text-right" style="margin-top: 20px;">
+                    <button type="button" class="btn btn-default" onclick="prevStep(3)">
+                      <i class="fa fa-arrow-left"></i> Anterior
+                    </button>
+                    <button type="submit" class="btn btn-success btn-lg">
+                      <i class="fa fa-check"></i> Crear Cuenta
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="col-md-4">
+              <!-- Beneficios -->
+              <div class="benefits-card">
+                <h4><i class="fa fa-star"></i> Beneficios de Registrarte</h4>
+                <ul class="list-unstyled" style="margin-top: 15px;">
+                  <li><i class="fa fa-check text-success"></i> Programa de fidelidad con descuentos</li>
+                  <li><i class="fa fa-check text-success"></i> Envío gratuito desde 30€</li>
+                  <li><i class="fa fa-check text-success"></i> Histórico de pedidos y recetas</li>
+                  <li><i class="fa fa-check text-success"></i> Recordatorios de medicación</li>
+                  <li><i class="fa fa-check text-success"></i> Consultas farmacéuticas prioritarias</li>
+                  <li><i class="fa fa-check text-success"></i> Ofertas exclusivas para clientes</li>
+                  <li><i class="fa fa-check text-success"></i> Gestión de alergias e intolerancias</li>
+                </ul>
+              </div>
+
+              <!-- Ya tienes cuenta -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-user"></i> ¿Ya tienes cuenta?</h3>
+                </div>
+                <div class="box-body">
+                  <p>Si ya eres cliente de Gest Farma, puedes acceder directamente:</p>
+                  <a href="iniciar-sesion.html" class="btn btn-primary btn-block">
+                    <i class="fa fa-sign-in"></i> Iniciar Sesión
+                  </a>
+                </div>
+              </div>
+
+              <!-- Ayuda -->
+              <div class="box box-default">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-question-circle"></i> ¿Necesitas Ayuda?</h3>
+                </div>
+                <div class="box-body">
+                  <p>Si tienes problemas con el registro, contacta con nosotros:</p>
+                  <div class="text-center">
+                    <a href="tel:+34123456789" class="btn btn-success">
+                      <i class="fa fa-phone"></i> 123 456 789
+                    </a>
+                  </div>
+                  <p class="text-center" style="margin-top: 10px;">
+                    <small>Horario: L-V 9:00-21:00, S 9:00-14:00</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      function nextStep(step) {
+        // Ocultar paso actual
+        $('.form-section').hide();
+        
+        // Mostrar paso siguiente
+        $('#step' + step).show();
+        
+        // Actualizar indicadores
+        $('.step').removeClass('active completed');
+        for (let i = 1; i < step; i++) {
+          $('.step').eq(i-1).addClass('completed');
+        }
+        $('.step').eq(step-1).addClass('active');
+      }
+      
+      function prevStep(step) {
+        // Ocultar paso actual
+        $('.form-section').hide();
+        
+        // Mostrar paso anterior
+        $('#step' + step).show();
+        
+        // Actualizar indicadores
+        $('.step').removeClass('active completed');
+        for (let i = 1; i < step; i++) {
+          $('.step').eq(i-1).addClass('completed');
+        }
+        $('.step').eq(step-1).addClass('active');
+      }
+      
+      // Validación del formulario
+      $('#registrationForm').submit(function(e) {
+        e.preventDefault();
+        
+        // Aquí iría la validación y envío del formulario
+        alert('¡Registro completado con éxito! Te hemos enviado un email de confirmación.');
+        
+        // Redireccionar a login
+        window.location.href = 'iniciar-sesion.html';
+      });
+      
+      // Validación de contraseñas
+      $('input[name="confirmarPassword"]').on('blur', function() {
+        var password = $('input[name="password"]').val();
+        var confirmPassword = $(this).val();
+        
+        if (password !== confirmPassword) {
+          $(this).addClass('has-error');
+          alert('Las contraseñas no coinciden');
+        } else {
+          $(this).removeClass('has-error');
+        }
+      });
+    </script>
+  </body>
+</html>

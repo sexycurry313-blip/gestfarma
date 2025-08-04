@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Solicitar Recurso | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- DateRangePicker -->
+    <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <!-- Select2 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .request-wizard {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .wizard-step {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 8px;
+        transition: all 0.3s;
+      }
+      .wizard-step.active {
+        background: rgba(255, 255, 255, 0.2);
+        border-left: 4px solid white;
+      }
+      .wizard-step.completed {
+        background: rgba(20, 213, 170, 0.2);
+        border-left: 4px solid #14D5AA;
+      }
+      .wizard-step-number {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-weight: bold;
+      }
+      .wizard-step.active .wizard-step-number {
+        background: white;
+        color: #183657;
+      }
+      .wizard-step.completed .wizard-step-number {
+        background: #14D5AA;
+        color: white;
+      }
+      .form-section {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #14D5AA;
+      }
+      .resource-type-selector {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .resource-type-card {
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: white;
+      }
+      .resource-type-card:hover {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.05);
+        transform: translateY(-2px);
+      }
+      .resource-type-card.selected {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.1);
+        border-width: 3px;
+      }
+      .resource-type-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: white;
+        margin: 0 auto 15px;
+      }
+      .equipment { background-color: #183657; }
+      .service { background-color: #14D5AA; }
+      .space { background-color: #FF1E70; }
+      .specialist { background-color: #ffc107; }
+      .urgency-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin: 5px;
+      }
+      .urgency-low {
+        background: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+        border: 2px solid transparent;
+      }
+      .urgency-medium {
+        background: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+        border: 2px solid transparent;
+      }
+      .urgency-high {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+        border: 2px solid transparent;
+      }
+      .urgency-badge.selected {
+        border-color: currentColor;
+        background: currentColor;
+        color: white !important;
+      }
+      .availability-slot {
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 10px;
+        margin: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-align: center;
+        background: white;
+      }
+      .availability-slot:hover {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.05);
+      }
+      .availability-slot.selected {
+        border-color: #14D5AA;
+        background: #14D5AA;
+        color: white;
+      }
+      .availability-slot.unavailable {
+        background: #f8f9fa;
+        color: #6c757d;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+      .progress-tracker {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+      }
+      .progress-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        position: relative;
+      }
+      .progress-step:not(:last-child):after {
+        content: '';
+        position: absolute;
+        top: 15px;
+        right: -50%;
+        width: 100%;
+        height: 2px;
+        background: #dee2e6;
+        z-index: 1;
+      }
+      .progress-step.completed:not(:last-child):after {
+        background: #14D5AA;
+      }
+      .progress-step-circle {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background: #dee2e6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 8px;
+        z-index: 2;
+        position: relative;
+      }
+      .progress-step.active .progress-step-circle {
+        background: #183657;
+      }
+      .progress-step.completed .progress-step-circle {
+        background: #14D5AA;
+      }
+      .cost-calculator {
+        background: linear-gradient(45deg, #f8f9fa, #ffffff);
+        border-radius: 8px;
+        padding: 20px;
+        border: 1px solid #dee2e6;
+      }
+      .cost-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .cost-item:last-child {
+        border-bottom: none;
+        font-weight: bold;
+        font-size: 16px;
+        color: #183657;
+      }
+      .quick-templates {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .template-card {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 15px;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: white;
+      }
+      .template-card:hover {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.05);
+      }
+      .attachment-zone {
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        padding: 30px;
+        text-align: center;
+        margin: 20px 0;
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+      .attachment-zone:hover {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.05);
+      }
+      .attachment-zone.dragover {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.1);
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="../informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="../informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>📈 Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../ventas/dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="../ventas/analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li><a href="../ventas/control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>🧪 Pujas (Labs)</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../pujas/pujas-activas.html"><i class="fa fa-gavel"></i> Pujas Activas</a></li>
+                <li><a href="../pujas/historial-pujas.html"><i class="fa fa-history"></i> Historial de Pujas</a></li>
+                <li><a href="../pujas/gestionar-labs.html"><i class="fa fa-cogs"></i> Gestionar Labs</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-tags"></i>
+                <span>💰 Surtido y Precios</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../surtido/catalogo-productos.html"><i class="fa fa-book"></i> Catálogo Productos</a></li>
+                <li><a href="../surtido/ver-tarifas.html"><i class="fa fa-list"></i> Ver Tarifas</a></li>
+                <li><a href="../surtido/comparador.html"><i class="fa fa-exchange"></i> Comparador</a></li>
+              </ul>
+            </li>
+
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-share-alt"></i>
+                <span>🤝 Recursos Compartidos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="ver-disponibilidad.html"><i class="fa fa-calendar"></i> Ver Disponibilidad</a></li>
+                <li class="active"><a href="solicitar-recurso.html"><i class="fa fa-hand-paper-o"></i> Solicitar Recurso</a></li>
+                <li><a href="mis-peticiones.html"><i class="fa fa-user"></i> Mis Peticiones</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-gift"></i>
+                <span>🎁 Promos y Fidelización</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../promos/crear-promocion.html"><i class="fa fa-plus"></i> Crear Promoción</a></li>
+                <li><a href="../promos/club-fidelidad.html"><i class="fa fa-star"></i> Club Fidelidad</a></li>
+                <li><a href="../promos/analisis-campanas.html"><i class="fa fa-pie-chart"></i> Análisis Campañas</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Solicitar Recurso Compartido
+            <small>Formulario inteligente de solicitud</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Recursos Compartidos</a></li>
+            <li class="active">Solicitar Recurso</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Progress Tracker -->
+          <div class="progress-tracker">
+            <div class="progress-step active" id="step1">
+              <div class="progress-step-circle">1</div>
+              <span>Tipo de Recurso</span>
+            </div>
+            <div class="progress-step" id="step2">
+              <div class="progress-step-circle">2</div>
+              <span>Detalles</span>
+            </div>
+            <div class="progress-step" id="step3">
+              <div class="progress-step-circle">3</div>
+              <span>Programación</span>
+            </div>
+            <div class="progress-step" id="step4">
+              <div class="progress-step-circle">4</div>
+              <span>Confirmación</span>
+            </div>
+          </div>
+
+          <!-- Wizard de solicitud -->
+          <div class="request-wizard">
+            <h3><i class="fa fa-magic"></i> Asistente de Solicitud Inteligente</h3>
+            <p>Te guiaremos paso a paso para solicitar el recurso que necesitas de manera rápida y eficiente.</p>
+            
+            <div class="row">
+              <div class="col-md-3">
+                <div class="wizard-step active" id="wizardStep1">
+                  <div class="wizard-step-number">1</div>
+                  <div>
+                    <strong>Seleccionar Tipo</strong><br>
+                    <small>¿Qué tipo de recurso necesitas?</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="wizard-step" id="wizardStep2">
+                  <div class="wizard-step-number">2</div>
+                  <div>
+                    <strong>Especificar Detalles</strong><br>
+                    <small>Describe tus necesidades</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="wizard-step" id="wizardStep3">
+                  <div class="wizard-step-number">3</div>
+                  <div>
+                    <strong>Programar Cita</strong><br>
+                    <small>Elige fecha y hora</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="wizard-step" id="wizardStep4">
+                  <div class="wizard-step-number">4</div>
+                  <div>
+                    <strong>Enviar Solicitud</strong><br>
+                    <small>Revisar y confirmar</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plantillas rápidas -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-section">
+                <h4><i class="fa fa-flash"></i> Plantillas Rápidas</h4>
+                <p class="text-muted">Selecciona una plantilla predefinida para acelerar el proceso</p>
+                
+                <div class="quick-templates">
+                  <div class="template-card" onclick="loadTemplate('ecografia')">
+                    <h5><i class="fa fa-stethoscope text-primary"></i> Ecografía Rutinaria</h5>
+                    <p class="text-muted">Solicitud estándar para ecografía abdominal o pélvica</p>
+                    <small><strong>Tiempo estimado:</strong> 30 minutos</small>
+                  </div>
+                  
+                  <div class="template-card" onclick="loadTemplate('vacunacion')">
+                    <h5><i class="fa fa-shield text-success"></i> Servicio de Vacunación</h5>
+                    <p class="text-muted">Administración de vacunas por enfermería especializada</p>
+                    <small><strong>Tiempo estimado:</strong> 15 minutos</small>
+                  </div>
+                  
+                  <div class="template-card" onclick="loadTemplate('consulta')">
+                    <h5><i class="fa fa-home text-danger"></i> Sala de Consulta</h5>
+                    <p class="text-muted">Reserva de espacio para consulta privada</p>
+                    <small><strong>Tiempo estimado:</strong> 60 minutos</small>
+                  </div>
+                  
+                  <div class="template-card" onclick="loadTemplate('especialista')">
+                    <h5><i class="fa fa-user-md text-warning"></i> Consulta Especialista</h5>
+                    <p class="text-muted">Cita con especialista en nutrición o farmacología</p>
+                    <small><strong>Tiempo estimado:</strong> 45 minutos</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario principal -->
+          <form id="resourceRequestForm">
+            <!-- Paso 1: Tipo de Recurso -->
+            <div class="form-step" id="formStep1">
+              <div class="form-section">
+                <h4><i class="fa fa-list"></i> 1. Selecciona el Tipo de Recurso</h4>
+                
+                <div class="resource-type-selector">
+                  <div class="resource-type-card" onclick="selectResourceType('equipment')">
+                    <div class="resource-type-icon equipment">
+                      <i class="fa fa-stethoscope"></i>
+                    </div>
+                    <h5><strong>Equipos Diagnóstico</strong></h5>
+                    <p class="text-muted">Ecógrafos, tensiómetros, glucómetros, etc.</p>
+                    <small class="text-success">47 equipos disponibles</small>
+                  </div>
+                  
+                  <div class="resource-type-card" onclick="selectResourceType('service')">
+                    <div class="resource-type-icon service">
+                      <i class="fa fa-shield"></i>
+                    </div>
+                    <h5><strong>Servicios Clínicos</strong></h5>
+                    <p class="text-muted">Vacunación, inyecciones, toma de muestras</p>
+                    <small class="text-success">12 servicios disponibles</small>
+                  </div>
+                  
+                  <div class="resource-type-card" onclick="selectResourceType('space')">
+                    <div class="resource-type-icon space">
+                      <i class="fa fa-home"></i>
+                    </div>
+                    <h5><strong>Espacios/Salas</strong></h5>
+                    <p class="text-muted">Salas de consulta, espacios privados</p>
+                    <small class="text-success">8 espacios disponibles</small>
+                  </div>
+                  
+                  <div class="resource-type-card" onclick="selectResourceType('specialist')">
+                    <div class="resource-type-icon specialist">
+                      <i class="fa fa-user-md"></i>
+                    </div>
+                    <h5><strong>Especialistas</strong></h5>
+                    <p class="text-muted">Nutricionistas, farmacólogos, enfermeros</p>
+                    <small class="text-success">6 especialistas disponibles</small>
+                  </div>
+                </div>
+                
+                <div class="text-center" style="margin-top: 20px;">
+                  <button type="button" class="btn btn-primary btn-lg" onclick="nextStep(2)" disabled id="step1Next">
+                    <i class="fa fa-arrow-right"></i> Continuar con Detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paso 2: Detalles -->
+            <div class="form-step" id="formStep2" style="display: none;">
+              <div class="form-section">
+                <h4><i class="fa fa-info-circle"></i> 2. Especifica los Detalles de tu Solicitud</h4>
+                
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Recurso Específico *</label>
+                      <select class="form-control select2" id="specificResource" required>
+                        <option value="">Selecciona un recurso...</option>
+                      </select>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Motivo de la Solicitud *</label>
+                      <textarea class="form-control" rows="3" id="requestReason" required 
+                        placeholder="Describe brevemente el motivo de tu solicitud..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Nivel de Urgencia</label>
+                      <div style="margin-top: 10px;">
+                        <span class="urgency-badge urgency-low" onclick="selectUrgency('low')">
+                          <i class="fa fa-clock-o"></i> Baja - Puedo esperar
+                        </span>
+                        <span class="urgency-badge urgency-medium" onclick="selectUrgency('medium')">
+                          <i class="fa fa-exclamation"></i> Media - Esta semana
+                        </span>
+                        <span class="urgency-badge urgency-high" onclick="selectUrgency('high')">
+                          <i class="fa fa-bolt"></i> Alta - Urgente
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Número de Pacientes/Personas</label>
+                      <select class="form-control" id="numberOfPeople">
+                        <option value="1">1 persona</option>
+                        <option value="2-3">2-3 personas</option>
+                        <option value="4-5">4-5 personas</option>
+                        <option value="6+">6 o más personas</option>
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Duración Estimada</label>
+                      <select class="form-control" id="estimatedDuration">
+                        <option value="15">15 minutos</option>
+                        <option value="30" selected>30 minutos</option>
+                        <option value="45">45 minutos</option>
+                        <option value="60">1 hora</option>
+                        <option value="90">1.5 horas</option>
+                        <option value="120">2 horas</option>
+                        <option value="custom">Personalizado</option>
+                      </select>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Requisitos Especiales</label>
+                      <div class="checkbox">
+                        <label><input type="checkbox" value="accessibility"> Accesibilidad para silla de ruedas</label>
+                      </div>
+                      <div class="checkbox">
+                        <label><input type="checkbox" value="privacy"> Privacidad adicional</label>
+                      </div>
+                      <div class="checkbox">
+                        <label><input type="checkbox" value="equipment"> Equipamiento específico</label>
+                      </div>
+                      <div class="checkbox">
+                        <label><input type="checkbox" value="assistant"> Asistente especializado</label>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Información Adicional</label>
+                      <textarea class="form-control" rows="3" id="additionalInfo" 
+                        placeholder="Cualquier información adicional relevante..."></textarea>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Adjuntos -->
+                <div class="form-group">
+                  <label>Documentos de Apoyo</label>
+                  <div class="attachment-zone" onclick="document.getElementById('fileInput').click()">
+                    <i class="fa fa-cloud-upload fa-3x text-muted"></i>
+                    <h4>Arrastra archivos aquí o haz clic para seleccionar</h4>
+                    <p class="text-muted">Recetas, informes médicos, documentos de referencia</p>
+                    <small>Máximo 10MB por archivo. Formatos: PDF, JPG, PNG, DOC</small>
+                  </div>
+                  <input type="file" id="fileInput" style="display: none;" multiple accept=".pdf,.jpg,.jpeg,.png,.doc,.docx">
+                  <div id="fileList" style="margin-top: 10px;"></div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-6">
+                    <button type="button" class="btn btn-default btn-lg btn-block" onclick="previousStep(1)">
+                      <i class="fa fa-arrow-left"></i> Volver
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="nextStep(3)">
+                      <i class="fa fa-arrow-right"></i> Programar Cita
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paso 3: Programación -->
+            <div class="form-step" id="formStep3" style="display: none;">
+              <div class="form-section">
+                <h4><i class="fa fa-calendar"></i> 3. Programa tu Cita</h4>
+                
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Fecha Preferida *</label>
+                      <input type="date" class="form-control" id="preferredDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Horarios Disponibles</label>
+                      <div id="availableSlots" style="max-height: 300px; overflow-y: auto;">
+                        <!-- Los slots se cargarán dinámicamente -->
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Alternativas de Fecha</label>
+                      <input type="date" class="form-control" id="alternativeDate1" style="margin-bottom: 5px;">
+                      <input type="date" class="form-control" id="alternativeDate2">
+                      <small class="text-muted">Selecciona fechas alternativas por si no hay disponibilidad</small>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Ubicación Preferida</label>
+                      <select class="form-control" id="preferredLocation">
+                        <option value="">Cualquier ubicación</option>
+                        <option value="madrid-centro">Madrid Centro</option>
+                        <option value="madrid-norte">Madrid Norte</option>
+                        <option value="madrid-sur">Madrid Sur</option>
+                        <option value="barcelona">Barcelona</option>
+                        <option value="valencia">Valencia</option>
+                      </select>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Radio Máximo de Búsqueda</label>
+                      <div class="row">
+                        <div class="col-md-8">
+                          <input type="range" class="form-control" min="1" max="50" value="10" id="radiusSlider">
+                        </div>
+                        <div class="col-md-4">
+                          <input type="number" class="form-control" min="1" max="50" value="10" id="radiusValue"> km
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="cost-calculator">
+                      <h5><i class="fa fa-calculator"></i> Estimación de Costos</h5>
+                      <div class="cost-item">
+                        <span>Recurso base:</span>
+                        <span id="baseCost">€25.00</span>
+                      </div>
+                      <div class="cost-item">
+                        <span>Tiempo adicional:</span>
+                        <span id="timeCost">€0.00</span>
+                      </div>
+                      <div class="cost-item">
+                        <span>Servicios extra:</span>
+                        <span id="extraCost">€0.00</span>
+                      </div>
+                      <div class="cost-item">
+                        <span>Total estimado:</span>
+                        <span id="totalCost">€25.00</span>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" id="flexibleSchedule"> Horario flexible
+                          <small class="text-muted">Permitir sugerencias de horarios alternativos</small>
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" id="autoConfirm"> Confirmación automática
+                          <small class="text-muted">Confirmar automáticamente si hay disponibilidad</small>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-6">
+                    <button type="button" class="btn btn-default btn-lg btn-block" onclick="previousStep(2)">
+                      <i class="fa fa-arrow-left"></i> Volver a Detalles
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" onclick="nextStep(4)">
+                      <i class="fa fa-arrow-right"></i> Revisar Solicitud
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paso 4: Confirmación -->
+            <div class="form-step" id="formStep4" style="display: none;">
+              <div class="form-section">
+                <h4><i class="fa fa-check-circle"></i> 4. Revisar y Confirmar Solicitud</h4>
+                
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="panel panel-primary">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-file-text"></i> Resumen de la Solicitud</h3>
+                      </div>
+                      <div class="panel-body">
+                        <dl class="dl-horizontal">
+                          <dt>Tipo de Recurso:</dt>
+                          <dd id="summaryResourceType">-</dd>
+                          
+                          <dt>Recurso Específico:</dt>
+                          <dd id="summarySpecificResource">-</dd>
+                          
+                          <dt>Fecha y Hora:</dt>
+                          <dd id="summaryDateTime">-</dd>
+                          
+                          <dt>Duración:</dt>
+                          <dd id="summaryDuration">-</dd>
+                          
+                          <dt>Ubicación:</dt>
+                          <dd id="summaryLocation">-</dd>
+                          
+                          <dt>Urgencia:</dt>
+                          <dd id="summaryUrgency">-</dd>
+                          
+                          <dt>Motivo:</dt>
+                          <dd id="summaryReason">-</dd>
+                          
+                          <dt>Costo Total:</dt>
+                          <dd id="summaryTotalCost">-</dd>
+                        </dl>
+                      </div>
+                    </div>
+                    
+                    <div class="form-group">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" id="acceptTerms" required> 
+                          Acepto los <a href="#" data-toggle="modal" data-target="#termsModal">términos y condiciones</a> del servicio
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" id="emailNotifications" checked> 
+                          Recibir notificaciones por email sobre el estado de la solicitud
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" id="smsNotifications"> 
+                          Recibir notificaciones por SMS
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-4">
+                    <div class="panel panel-success">
+                      <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-info-circle"></i> Próximos Pasos</h3>
+                      </div>
+                      <div class="panel-body">
+                        <div class="timeline">
+                          <div class="timeline-item">
+                            <i class="fa fa-send timeline-icon"></i>
+                            <div class="timeline-content">
+                              <h5>Envío de Solicitud</h5>
+                              <p>Tu solicitud será enviada inmediatamente</p>
+                            </div>
+                          </div>
+                          <div class="timeline-item">
+                            <i class="fa fa-search timeline-icon"></i>
+                            <div class="timeline-content">
+                              <h5>Revisión (15-30 min)</h5>
+                              <p>Verificaremos disponibilidad y compatibilidad</p>
+                            </div>
+                          </div>
+                          <div class="timeline-item">
+                            <i class="fa fa-check timeline-icon"></i>
+                            <div class="timeline-content">
+                              <h5>Confirmación</h5>
+                              <p>Recibirás confirmación o alternativas</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div class="callout callout-info">
+                      <h4><i class="fa fa-lightbulb-o"></i> Recordatorio</h4>
+                      <p>Puedes modificar o cancelar tu solicitud hasta 2 horas antes de la cita programada.</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-6">
+                    <button type="button" class="btn btn-default btn-lg btn-block" onclick="previousStep(3)">
+                      <i class="fa fa-arrow-left"></i> Volver a Programación
+                    </button>
+                  </div>
+                  <div class="col-md-6">
+                    <button type="submit" class="btn btn-success btn-lg btn-block" id="submitRequest">
+                      <i class="fa fa-send"></i> Enviar Solicitud
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <!-- Modal de términos y condiciones -->
+          <div class="modal fade" id="termsModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                  <h4 class="modal-title">Términos y Condiciones</h4>
+                </div>
+                <div class="modal-body">
+                  <h5>1. Uso de Recursos Compartidos</h5>
+                  <p>El uso de recursos compartidos está sujeto a disponibilidad y aprobación previa.</p>
+                  
+                  <h5>2. Responsabilidades</h5>
+                  <p>El usuario se compromete a usar los recursos de manera responsable y según las indicaciones.</p>
+                  
+                  <h5>3. Cancelaciones</h5>
+                  <p>Las cancelaciones deben realizarse con al menos 2 horas de antelación.</p>
+                  
+                  <h5>4. Costos</h5>
+                  <p>Los costos mostrados son estimaciones y pueden variar según las condiciones finales.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" data-dismiss="modal">Entendido</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    <script src="../../plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+    <script src="../../plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    
+    <script>
+      // Variables globales
+      let currentStep = 1;
+      let selectedResourceType = '';
+      let selectedUrgency = '';
+      let selectedTimeSlot = '';
+      let uploadedFiles = [];
+
+      // Inicializar componentes
+      $(document).ready(function() {
+        $('.select2').select2();
+        
+        // Sincronizar slider de radio
+        $('#radiusSlider').on('input', function() {
+          $('#radiusValue').val(this.value);
+        });
+        
+        $('#radiusValue').on('change', function() {
+          $('#radiusSlider').val(this.value);
+        });
+        
+        // Configurar fecha mínima como hoy
+        const today = new Date().toISOString().split('T')[0];
+        $('#preferredDate').attr('min', today);
+        $('#alternativeDate1').attr('min', today);
+        $('#alternativeDate2').attr('min', today);
+        
+        // Cargar slots cuando cambie la fecha
+        $('#preferredDate').change(loadAvailableSlots);
+      });
+
+      // Funciones de navegación del wizard
+      function nextStep(stepNumber) {
+        if (validateCurrentStep()) {
+          // Ocultar step actual
+          $('#formStep' + currentStep).hide();
+          $('#wizardStep' + currentStep).removeClass('active').addClass('completed');
+          $('#step' + currentStep).removeClass('active').addClass('completed');
+          
+          // Mostrar siguiente step
+          currentStep = stepNumber;
+          $('#formStep' + currentStep).show();
+          $('#wizardStep' + currentStep).addClass('active');
+          $('#step' + currentStep).addClass('active');
+          
+          // Actualizar resumen si estamos en el paso 4
+          if (currentStep === 4) {
+            updateSummary();
+          }
+        }
+      }
+
+      function previousStep(stepNumber) {
+        // Ocultar step actual
+        $('#formStep' + currentStep).hide();
+        $('#wizardStep' + currentStep).removeClass('active');
+        $('#step' + currentStep).removeClass('active');
+        
+        // Mostrar step anterior
+        currentStep = stepNumber;
+        $('#formStep' + currentStep).show();
+        $('#wizardStep' + currentStep).addClass('active').removeClass('completed');
+        $('#step' + currentStep).addClass('active').removeClass('completed');
+      }
+
+      function validateCurrentStep() {
+        switch(currentStep) {
+          case 1:
+            if (!selectedResourceType) {
+              alert('Por favor selecciona un tipo de recurso');
+              return false;
+            }
+            break;
+          case 2:
+            if (!$('#specificResource').val() || !$('#requestReason').val()) {
+              alert('Por favor completa todos los campos obligatorios');
+              return false;
+            }
+            break;
+          case 3:
+            if (!$('#preferredDate').val()) {
+              alert('Por favor selecciona una fecha');
+              return false;
+            }
+            break;
+        }
+        return true;
+      }
+
+      // Funciones de selección
+      function selectResourceType(type) {
+        selectedResourceType = type;
+        
+        // Actualizar UI
+        $('.resource-type-card').removeClass('selected');
+        $('[onclick="selectResourceType(\'' + type + '\')"]').addClass('selected');
+        
+        // Habilitar botón siguiente
+        $('#step1Next').prop('disabled', false);
+        
+        // Cargar recursos específicos
+        loadSpecificResources(type);
+      }
+
+      function loadSpecificResources(type) {
+        const resources = {
+          'equipment': [
+            {value: 'ecografo-doppler', text: 'Ecógrafo Doppler HD15'},
+            {value: 'tensiometro-digital', text: 'Tensiómetro Digital Automático'},
+            {value: 'glucometro-pro', text: 'Glucómetro Profesional'},
+            {value: 'electrocardiografo', text: 'Electrocardiógrafo 12 canales'}
+          ],
+          'service': [
+            {value: 'vacunacion-covid', text: 'Vacunación COVID-19'},
+            {value: 'vacunacion-gripe', text: 'Vacunación Gripe'},
+            {value: 'inyeccion-intramuscular', text: 'Inyección Intramuscular'},
+            {value: 'toma-muestras', text: 'Toma de Muestras'}
+          ],
+          'space': [
+            {value: 'sala-consulta-a', text: 'Sala de Consulta A (Equipada)'},
+            {value: 'sala-consulta-b', text: 'Sala de Consulta B (Básica)'},
+            {value: 'sala-privada', text: 'Sala Privada Premium'},
+            {value: 'espacio-grupal', text: 'Espacio Grupal (6 personas)'}
+          ],
+          'specialist': [
+            {value: 'nutricionista-garcia', text: 'Dra. García - Nutricionista'},
+            {value: 'farmacologo-ruiz', text: 'Dr. Ruiz - Farmacólogo Clínico'},
+            {value: 'enfermera-lopez', text: 'Enf. López - Especialista en Vacunas'},
+            {value: 'diabetologo-martin', text: 'Dr. Martín - Especialista en Diabetes'}
+          ]
+        };
+        
+        const select = $('#specificResource');
+        select.empty().append('<option value="">Selecciona un recurso...</option>');
+        
+        if (resources[type]) {
+          resources[type].forEach(resource => {
+            select.append(`<option value="${resource.value}">${resource.text}</option>`);
+          });
+        }
+      }
+
+      function selectUrgency(level) {
+        selectedUrgency = level;
+        $('.urgency-badge').removeClass('selected');
+        $('.urgency-' + level).addClass('selected');
+      }
+
+      function loadTemplate(templateType) {
+        const templates = {
+          'ecografia': {
+            resourceType: 'equipment',
+            specificResource: 'ecografo-doppler',
+            reason: 'Ecografía rutinaria según indicación médica',
+            urgency: 'medium',
+            duration: '30',
+            people: '1'
+          },
+          'vacunacion': {
+            resourceType: 'service',
+            specificResource: 'vacunacion-covid',
+            reason: 'Administración de vacuna según programa de inmunización',
+            urgency: 'low',
+            duration: '15',
+            people: '1'
+          },
+          'consulta': {
+            resourceType: 'space',
+            specificResource: 'sala-consulta-a',
+            reason: 'Consulta farmacéutica privada con paciente',
+            urgency: 'medium',
+            duration: '60',
+            people: '2-3'
+          },
+          'especialista': {
+            resourceType: 'specialist',
+            specificResource: 'nutricionista-garcia',
+            reason: 'Consulta nutricional para plan alimentario personalizado',
+            urgency: 'low',
+            duration: '45',
+            people: '1'
+          }
+        };
+        
+        const template = templates[templateType];
+        if (template) {
+          // Aplicar template
+          selectResourceType(template.resourceType);
+          setTimeout(() => {
+            $('#specificResource').val(template.specificResource);
+            $('#requestReason').val(template.reason);
+            selectUrgency(template.urgency);
+            $('#estimatedDuration').val(template.duration);
+            $('#numberOfPeople').val(template.people);
+            
+            // Avanzar al siguiente paso
+            nextStep(2);
+          }, 500);
+        }
+      }
+
+      function loadAvailableSlots() {
+        const selectedDate = $('#preferredDate').val();
+        if (!selectedDate) return;
+        
+        // Simular slots disponibles
+        const slots = [
+          {time: '09:00', available: true},
+          {time: '09:30', available: false},
+          {time: '10:00', available: true},
+          {time: '10:30', available: true},
+          {time: '11:00', available: false},
+          {time: '11:30', available: true},
+          {time: '14:00', available: true},
+          {time: '14:30', available: true},
+          {time: '15:00', available: false},
+          {time: '15:30', available: true},
+          {time: '16:00', available: true},
+          {time: '16:30', available: false},
+          {time: '17:00', available: true}
+        ];
+        
+        const container = $('#availableSlots');
+        container.empty();
+        
+        slots.forEach(slot => {
+          const slotClass = slot.available ? 'availability-slot' : 'availability-slot unavailable';
+          const slotHtml = `
+            <div class="${slotClass}" onclick="${slot.available ? `selectTimeSlot('${slot.time}')` : ''}" 
+                 style="display: inline-block; width: 80px; margin: 5px;">
+              ${slot.time}
+              ${!slot.available ? '<br><small>Ocupado</small>' : ''}
+            </div>
+          `;
+          container.append(slotHtml);
+        });
+      }
+
+      function selectTimeSlot(time) {
+        selectedTimeSlot = time;
+        $('.availability-slot').removeClass('selected');
+        event.target.classList.add('selected');
+      }
+
+      function updateSummary() {
+        const resourceTypes = {
+          'equipment': 'Equipos Diagnóstico',
+          'service': 'Servicios Clínicos',
+          'space': 'Espacios/Salas',
+          'specialist': 'Especialistas'
+        };
+        
+        const urgencyLevels = {
+          'low': 'Baja - Puedo esperar',
+          'medium': 'Media - Esta semana',
+          'high': 'Alta - Urgente'
+        };
+        
+        $('#summaryResourceType').text(resourceTypes[selectedResourceType] || '-');
+        $('#summarySpecificResource').text($('#specificResource option:selected').text() || '-');
+        $('#summaryDateTime').text(($('#preferredDate').val() || '-') + ' ' + (selectedTimeSlot || ''));
+        $('#summaryDuration').text($('#estimatedDuration').val() + ' minutos' || '-');
+        $('#summaryLocation').text($('#preferredLocation option:selected').text() || 'Cualquier ubicación');
+        $('#summaryUrgency').text(urgencyLevels[selectedUrgency] || '-');
+        $('#summaryReason').text($('#requestReason').val() || '-');
+        $('#summaryTotalCost').text($('#totalCost').text() || '-');
+      }
+
+      // Manejar envío del formulario
+      $('#resourceRequestForm').submit(function(e) {
+        e.preventDefault();
+        
+        if (!$('#acceptTerms').is(':checked')) {
+          alert('Debes aceptar los términos y condiciones');
+          return;
+        }
+        
+        // Simular envío
+        $('#submitRequest').prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Enviando...');
+        
+        setTimeout(() => {
+          alert('¡Solicitud enviada exitosamente!\n\nNúmero de referencia: REQ-' + Math.random().toString(36).substr(2, 9).toUpperCase() + '\n\nRecibirás una confirmación por email en los próximos 15 minutos.');
+          window.location.href = 'mis-peticiones.html';
+        }, 2000);
+      });
+
+      // Manejar drag & drop de archivos
+      const attachmentZone = document.querySelector('.attachment-zone');
+      const fileInput = document.getElementById('fileInput');
+      
+      attachmentZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        attachmentZone.classList.add('dragover');
+      });
+      
+      attachmentZone.addEventListener('dragleave', () => {
+        attachmentZone.classList.remove('dragover');
+      });
+      
+      attachmentZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        attachmentZone.classList.remove('dragover');
+        handleFiles(e.dataTransfer.files);
+      });
+      
+      fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+      });
+      
+      function handleFiles(files) {
+        Array.from(files).forEach(file => {
+          if (file.size > 10 * 1024 * 1024) {
+            alert('El archivo ' + file.name + ' es demasiado grande (máximo 10MB)');
+            return;
+          }
+          
+          uploadedFiles.push(file);
+          addFileToList(file);
+        });
+      }
+      
+      function addFileToList(file) {
+        const fileList = document.getElementById('fileList');
+        const fileDiv = document.createElement('div');
+        fileDiv.className = 'alert alert-info';
+        fileDiv.innerHTML = `
+          <i class="fa fa-file"></i> ${file.name} (${(file.size / 1024).toFixed(1)} KB)
+          <button type="button" class="close" onclick="removeFile('${file.name}')">
+            <span>&times;</span>
+          </button>
+        `;
+        fileList.appendChild(fileDiv);
+      }
+      
+      function removeFile(fileName) {
+        uploadedFiles = uploadedFiles.filter(f => f.name !== fileName);
+        event.target.closest('.alert').remove();
+      }
+    </script>
+  </body>
+</html>

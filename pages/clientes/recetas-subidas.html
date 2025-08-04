@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Recetas Subidas | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .prescription-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        background: white;
+        transition: all 0.3s ease;
+      }
+      .prescription-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-color: #14D5AA;
+      }
+      .prescription-header {
+        background: #f8f9fa;
+        padding: 15px 20px;
+        border-bottom: 1px solid #ddd;
+        border-radius: 8px 8px 0 0;
+      }
+      .prescription-body {
+        padding: 20px;
+      }
+      .prescription-status {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .status-verified { background: #d4edda; color: #155724; }
+      .status-pending { background: #fff3cd; color: #856404; }
+      .status-processing { background: #d1ecf1; color: #0c5460; }
+      .status-rejected { background: #f8d7da; color: #721c24; }
+      .status-dispensed { background: #e2e3e5; color: #383d41; }
+      
+      .prescription-image {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: #f8f9fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        cursor: pointer;
+      }
+      .medication-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .medication-item:last-child {
+        border-bottom: none;
+      }
+      .quick-upload {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-user"></i>
+                <span>🧑‍💼 Área de Clientes</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="iniciar-sesion.html"><i class="fa fa-sign-in"></i> Iniciar sesión</a></li>
+                <li><a href="registro.html"><i class="fa fa-user-plus"></i> Registro</a></li>
+                <li><a href="historial-pedidos.html"><i class="fa fa-history"></i> Historial de pedidos</a></li>
+                <li class="active"><a href="recetas-subidas.html"><i class="fa fa-upload"></i> Recetas subidas</a></li>
+                <li><a href="datos-personales.html"><i class="fa fa-edit"></i> Datos personales</a></li>
+                <li><a href="favoritos.html"><i class="fa fa-heart"></i> Favoritos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Recetas Subidas
+            <small>Gestiona todas tus recetas médicas</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Área de Clientes</a></li>
+            <li class="active">Recetas Subidas</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Acceso rápido -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="quick-upload">
+                <div class="row">
+                  <div class="col-md-8">
+                    <h2><i class="fa fa-camera"></i> ¿Tienes una nueva receta?</h2>
+                    <p style="font-size: 16px; margin-top: 15px;">
+                      Sube tu receta médica de forma rápida y segura. Te avisaremos cuando esté lista para recoger.
+                    </p>
+                  </div>
+                  <div class="col-md-4 text-center">
+                    <div style="margin-top: 20px;">
+                      <a href="../recetas/subir-receta.html" class="btn btn-warning btn-lg">
+                        <i class="fa fa-plus"></i> Subir Nueva Receta
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estadísticas -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>12</h3>
+                  <p>Recetas Subidas</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-upload"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>9</h3>
+                  <p>Dispensadas</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-check"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>2</h3>
+                  <p>En Proceso</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>1</h3>
+                  <p>Pendiente</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-exclamation-triangle"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lista de recetas -->
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Receta 1 - Pendiente -->
+              <div class="prescription-card">
+                <div class="prescription-header">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <strong>Receta #REC-2025-004</strong><br>
+                      <small>Subida: 23 Enero 2025, 14:30</small>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="prescription-status status-pending">Pendiente de Verificación</span>
+                    </div>
+                    <div class="col-md-3">
+                      <strong>Dr. María García</strong><br>
+                      <small>Centro de Salud Montecarmelo</small>
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <button class="btn btn-sm btn-primary" onclick="togglePrescriptionDetails('prescription1')">
+                        <i class="fa fa-eye"></i> Ver Detalles
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="prescription-body" id="prescription1" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h5><strong>Imagen de la Receta</strong></h5>
+                      <div class="prescription-image" onclick="viewPrescriptionImage('REC-2025-004')">
+                        <i class="fa fa-file-image-o fa-3x text-muted"></i>
+                      </div>
+                      <p><small>Clic para ampliar</small></p>
+                    </div>
+                    <div class="col-md-8">
+                      <h5><strong>Estado del Proceso</strong></h5>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-warning" style="width: 25%"></div>
+                      </div>
+                      <ul class="list-unstyled" style="margin-top: 15px;">
+                        <li><i class="fa fa-check text-success"></i> Receta recibida</li>
+                        <li><i class="fa fa-clock-o text-warning"></i> Verificación farmacéutica</li>
+                        <li><i class="fa fa-circle-o text-muted"></i> Preparación de medicamentos</li>
+                        <li><i class="fa fa-circle-o text-muted"></i> Lista para recoger</li>
+                      </ul>
+                      <div class="alert alert-info">
+                        <i class="fa fa-info-circle"></i> <strong>Tiempo estimado:</strong> 30-60 minutos para verificación
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Receta 2 - En proceso -->
+              <div class="prescription-card">
+                <div class="prescription-header">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <strong>Receta #REC-2025-003</strong><br>
+                      <small>Subida: 22 Enero 2025, 09:15</small>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="prescription-status status-processing">En Preparación</span>
+                    </div>
+                    <div class="col-md-3">
+                      <strong>Dr. Juan López</strong><br>
+                      <small>Hospital Universitario La Paz</small>
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <button class="btn btn-sm btn-primary" onclick="togglePrescriptionDetails('prescription2')">
+                        <i class="fa fa-eye"></i> Ver Detalles
+                      </button>
+                      <button class="btn btn-sm btn-info" onclick="trackPrescription('REC-2025-003')">
+                        <i class="fa fa-map-marker"></i> Seguir
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="prescription-body" id="prescription2" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h5><strong>Imagen de la Receta</strong></h5>
+                      <div class="prescription-image" onclick="viewPrescriptionImage('REC-2025-003')">
+                        <i class="fa fa-file-image-o fa-3x text-muted"></i>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <h5><strong>Medicamentos Identificados</strong></h5>
+                      <div class="medication-item">
+                        <div>
+                          <i class="fa fa-medkit text-primary" style="margin-right: 10px;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Amoxicilina 500mg</strong><br>
+                          <small>21 cápsulas - Tomar cada 8 horas</small>
+                        </div>
+                        <div>
+                          <span class="label label-success">Disponible</span>
+                        </div>
+                      </div>
+                      <div class="medication-item">
+                        <div>
+                          <i class="fa fa-heart text-danger" style="margin-right: 10px;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Ibuprofeno 600mg</strong><br>
+                          <small>20 comprimidos - Con las comidas</small>
+                        </div>
+                        <div>
+                          <span class="label label-success">Disponible</span>
+                        </div>
+                      </div>
+                      <div style="margin-top: 15px;">
+                        <strong>Tiempo estimado:</strong> Lista en 2-3 horas<br>
+                        <strong>Farmacéutico asignado:</strong> Dr. María González
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Receta 3 - Verificada -->
+              <div class="prescription-card">
+                <div class="prescription-header">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <strong>Receta #REC-2025-002</strong><br>
+                      <small>Subida: 20 Enero 2025, 16:45</small>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="prescription-status status-verified">Lista para Recoger</span>
+                    </div>
+                    <div class="col-md-3">
+                      <strong>Dr. Ana Martínez</strong><br>
+                      <small>Clínica San Carlos</small>
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <button class="btn btn-sm btn-primary" onclick="togglePrescriptionDetails('prescription3')">
+                        <i class="fa fa-eye"></i> Ver Detalles
+                      </button>
+                      <button class="btn btn-sm btn-success" onclick="collectPrescription('REC-2025-002')">
+                        <i class="fa fa-check"></i> Recoger
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="prescription-body" id="prescription3" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h5><strong>Información de Recogida</strong></h5>
+                      <div class="alert alert-success">
+                        <i class="fa fa-check-circle"></i> <strong>¡Lista para recoger!</strong><br>
+                        Todos los medicamentos están disponibles
+                      </div>
+                      <p>
+                        <strong>Horario de recogida:</strong><br>
+                        Lunes a Viernes: 9:00 - 21:00<br>
+                        Sábados: 9:00 - 14:00
+                      </p>
+                    </div>
+                    <div class="col-md-8">
+                      <h5><strong>Medicamentos Preparados</strong></h5>
+                      <div class="medication-item">
+                        <div>
+                          <i class="fa fa-tint text-info" style="margin-right: 10px;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Paracetamol 1g</strong><br>
+                          <small>40 comprimidos - Máximo 4 al día</small>
+                        </div>
+                        <div>
+                          <span class="label label-primary">€6.80</span>
+                        </div>
+                      </div>
+                      <div class="medication-item">
+                        <div>
+                          <i class="fa fa-leaf text-success" style="margin-right: 10px;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Omeprazol 20mg</strong><br>
+                          <small>28 cápsulas - En ayunas</small>
+                        </div>
+                        <div>
+                          <span class="label label-primary">€7.95</span>
+                        </div>
+                      </div>
+                      <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <strong>Total a pagar:</strong> €14.75<br>
+                        <small>Descuento S.S. aplicado: €8.20</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Receta 4 - Dispensada -->
+              <div class="prescription-card">
+                <div class="prescription-header">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <strong>Receta #REC-2025-001</strong><br>
+                      <small>Subida: 15 Enero 2025, 11:20</small>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="prescription-status status-dispensed">Dispensada</span>
+                    </div>
+                    <div class="col-md-3">
+                      <strong>Dr. Pedro Sánchez</strong><br>
+                      <small>Centro Médico Alcalá</small>
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <button class="btn btn-sm btn-primary" onclick="togglePrescriptionDetails('prescription4')">
+                        <i class="fa fa-eye"></i> Ver Detalles
+                      </button>
+                      <button class="btn btn-sm btn-info" onclick="downloadInvoice('REC-2025-001')">
+                        <i class="fa fa-download"></i> Factura
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="prescription-body" id="prescription4" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h5><strong>Detalles de Dispensación</strong></h5>
+                      <p>
+                        <strong>Fecha:</strong> 16 Enero 2025<br>
+                        <strong>Hora:</strong> 10:30<br>
+                        <strong>Farmacéutico:</strong> Dr. María González<br>
+                        <strong>Importe:</strong> €23.45
+                      </p>
+                      <div style="margin-top: 15px;">
+                        <button class="btn btn-sm btn-warning">
+                          <i class="fa fa-star"></i> Valorar Servicio
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-8">
+                      <h5><strong>Medicamentos Dispensados</strong></h5>
+                      <div class="medication-item">
+                        <div>
+                          <i class="fa fa-shield text-primary" style="margin-right: 10px;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Enalapril 10mg</strong><br>
+                          <small>28 comprimidos - Una vez al día</small>
+                        </div>
+                        <div>
+                          <span class="label label-default">Dispensado</span>
+                        </div>
+                      </div>
+                      <div class="medication-item">
+                        <div>
+                          <i class="fa fa-heart text-danger" style="margin-right: 10px;"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Simvastatina 20mg</strong><br>
+                          <small>30 comprimidos - Por la noche</small>
+                        </div>
+                        <div>
+                          <span class="label label-default">Dispensado</span>
+                        </div>
+                      </div>
+                      <div class="alert alert-info" style="margin-top: 15px;">
+                        <i class="fa fa-info-circle"></i> <strong>Próxima cita:</strong> Revisa la medicación en 3 meses
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Paginación -->
+              <div class="text-center">
+                <ul class="pagination">
+                  <li class="disabled"><a href="#">&laquo;</a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      function togglePrescriptionDetails(prescriptionId) {
+        $('#' + prescriptionId).slideToggle();
+      }
+      
+      function viewPrescriptionImage(prescriptionNumber) {
+        alert('Abriendo imagen de la receta ' + prescriptionNumber + ' en tamaño completo...');
+        // Aquí se abriría un modal con la imagen ampliada
+      }
+      
+      function trackPrescription(prescriptionNumber) {
+        alert('Seguimiento de ' + prescriptionNumber + ':\n\n✓ Receta recibida\n✓ Verificada por farmacéutico\n⏳ Preparando medicamentos\n○ Lista para recoger');
+      }
+      
+      function collectPrescription(prescriptionNumber) {
+        if (confirm('¿Confirmas que has recogido la receta ' + prescriptionNumber + '?')) {
+          alert('¡Perfecto! Receta marcada como recogida. ¡Gracias por confiar en nosotros!');
+          // Aquí se actualizaría el estado
+        }
+      }
+      
+      function downloadInvoice(prescriptionNumber) {
+        alert('Descargando factura de la receta ' + prescriptionNumber + '...');
+        // Aquí se descargaría el PDF
+      }
+    </script>
+  </body>
+</html>

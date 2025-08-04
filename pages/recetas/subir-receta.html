@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Subir Receta Médica | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .upload-area {
+        border: 2px dashed #14D5AA;
+        border-radius: 10px;
+        padding: 50px;
+        text-align: center;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+        cursor: pointer;
+      }
+      .upload-area:hover {
+        border-color: #183657;
+        background: #e9ecef;
+      }
+      .upload-area.dragover {
+        border-color: #FF1E70;
+        background: #fff3cd;
+      }
+      .step-indicator {
+        background: #183657;
+        color: white;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 15px;
+      }
+      .step-indicator.completed {
+        background: #14D5AA;
+      }
+      .step-indicator.current {
+        background: #FF1E70;
+      }
+      .prescription-preview {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+        background: white;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-clipboard"></i>
+                <span>📋 Recetas y Pedidos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="subir-receta.html"><i class="fa fa-camera"></i> Subir receta médica</a></li>
+                <li><a href="encargar-medicamentos.html"><i class="fa fa-shopping-cart"></i> Encargar medicamentos</a></li>
+                <li><a href="repetir-pedido.html"><i class="fa fa-refresh"></i> Repetir pedido</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Subir Receta Médica
+            <small>Sube tu receta y nosotros la preparamos</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Recetas y Pedidos</a></li>
+            <li class="active">Subir Receta</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Proceso paso a paso -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Proceso de Subida de Receta</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-3 text-center">
+                      <div class="step-indicator current">1</div>
+                      <h5>Subir Imagen</h5>
+                      <p>Fotografía o escanea tu receta</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <div class="step-indicator">2</div>
+                      <h5>Verificación</h5>
+                      <p>Nuestro farmacéutico la revisa</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <div class="step-indicator">3</div>
+                      <h5>Preparación</h5>
+                      <p>Preparamos tus medicamentos</p>
+                    </div>
+                    <div class="col-md-3 text-center">
+                      <div class="step-indicator">4</div>
+                      <h5>Recogida</h5>
+                      <p>Te avisamos cuando esté listo</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de subida -->
+          <div class="row">
+            <div class="col-md-8">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Datos del Paciente</h3>
+                </div>
+                <div class="box-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Nombre completo *</label>
+                          <input type="text" class="form-control" placeholder="Nombre y apellidos">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Teléfono *</label>
+                          <input type="tel" class="form-control" placeholder="Número de contacto">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>DNI/NIE</label>
+                          <input type="text" class="form-control" placeholder="Documento de identidad">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Tarjeta Sanitaria</label>
+                          <input type="text" class="form-control" placeholder="Número de tarjeta sanitaria">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Observaciones</label>
+                      <textarea class="form-control" rows="3" placeholder="Alguna indicación especial, alergias, etc."></textarea>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Subir Receta</h3>
+                </div>
+                <div class="box-body">
+                  <div class="upload-area" id="uploadArea">
+                    <i class="fa fa-cloud-upload fa-3x" style="color: #14D5AA; margin-bottom: 20px;"></i>
+                    <h4>Arrastra tu receta aquí o haz clic para seleccionar</h4>
+                    <p>Formatos aceptados: JPG, PNG, PDF (máx. 10MB)</p>
+                    <input type="file" id="fileInput" style="display: none;" accept=".jpg,.jpeg,.png,.pdf" multiple>
+                    <button type="button" class="btn btn-primary" onclick="document.getElementById('fileInput').click();">
+                      <i class="fa fa-camera"></i> Seleccionar archivos
+                    </button>
+                  </div>
+                  
+                  <div id="filePreview" style="margin-top: 20px;"></div>
+                </div>
+                <div class="box-footer">
+                  <button class="btn btn-success btn-lg pull-right">
+                    <i class="fa fa-send"></i> Enviar Receta
+                  </button>
+                  <button class="btn btn-default">
+                    <i class="fa fa-times"></i> Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <!-- Información importante -->
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-info-circle"></i> Información Importante</h3>
+                </div>
+                <div class="box-body">
+                  <ul class="list-unstyled">
+                    <li><i class="fa fa-check text-green"></i> La receta debe ser legible y completa</li>
+                    <li><i class="fa fa-check text-green"></i> Debe incluir fecha y firma del médico</li>
+                    <li><i class="fa fa-check text-green"></i> Válida por 30 días desde su emisión</li>
+                    <li><i class="fa fa-check text-green"></i> Revisión farmacéutica en 30 minutos</li>
+                    <li><i class="fa fa-check text-green"></i> Te avisamos por SMS/WhatsApp</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Tiempo estimado -->
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-clock-o"></i> Tiempos Estimados</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-xs-6 text-center">
+                      <div style="font-size: 24px; color: #14D5AA; font-weight: bold;">30 min</div>
+                      <small>Verificación</small>
+                    </div>
+                    <div class="col-xs-6 text-center">
+                      <div style="font-size: 24px; color: #FF1E70; font-weight: bold;">2-4 h</div>
+                      <small>Preparación</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contacto urgente -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-phone"></i> ¿Urgente?</h3>
+                </div>
+                <div class="box-body">
+                  <p>Si necesitas el medicamento urgentemente, llámanos:</p>
+                  <div class="text-center">
+                    <a href="tel:+34123456789" class="btn btn-danger btn-lg">
+                      <i class="fa fa-phone"></i> 123 456 789
+                    </a>
+                  </div>
+                  <p class="text-center" style="margin-top: 10px;">
+                    <small>Horario: L-V 9:00-21:00, S 9:00-14:00</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Funcionalidad de drag & drop
+      const uploadArea = document.getElementById('uploadArea');
+      const fileInput = document.getElementById('fileInput');
+      const filePreview = document.getElementById('filePreview');
+
+      uploadArea.addEventListener('click', () => fileInput.click());
+      
+      uploadArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadArea.classList.add('dragover');
+      });
+      
+      uploadArea.addEventListener('dragleave', () => {
+        uploadArea.classList.remove('dragover');
+      });
+      
+      uploadArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadArea.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        handleFiles(files);
+      });
+      
+      fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+      });
+      
+      function handleFiles(files) {
+        filePreview.innerHTML = '';
+        for (let file of files) {
+          const preview = document.createElement('div');
+          preview.className = 'prescription-preview';
+          preview.innerHTML = `
+            <div class="row">
+              <div class="col-xs-8">
+                <i class="fa fa-file-image-o"></i> ${file.name}
+                <br><small>${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+              </div>
+              <div class="col-xs-4 text-right">
+                <button class="btn btn-danger btn-xs">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            </div>
+          `;
+          filePreview.appendChild(preview);
+        }
+      }
+    </script>
+  </body>
+</html>

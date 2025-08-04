@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Cuidado Personal | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .product-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        background: white;
+        transition: all 0.3s ease;
+        height: 100%;
+      }
+      .product-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-color: #14D5AA;
+        transform: translateY(-2px);
+      }
+      .product-image {
+        text-align: center;
+        margin-bottom: 15px;
+      }
+      .product-image img {
+        max-width: 100%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .product-price {
+        font-size: 20px;
+        font-weight: bold;
+        color: #FF1E70;
+        margin: 10px 0;
+      }
+      .category-filters {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      .filter-btn {
+        margin: 5px;
+        padding: 8px 15px;
+        border: 1px solid #ddd;
+        background: white;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .filter-btn:hover, .filter-btn.active {
+        background: #14D5AA;
+        color: white;
+        border-color: #14D5AA;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-shopping-bag"></i>
+                <span>🛍️ Productos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="medicamentos-con-receta.html"><i class="fa fa-circle-o"></i> Medicamentos con receta</a></li>
+                <li><a href="medicamentos-sin-receta.html"><i class="fa fa-circle-o"></i> Medicamentos sin receta</a></li>
+                <li><a href="parafarmacia.html"><i class="fa fa-circle-o"></i> Parafarmacia</a></li>
+                <li><a href="infantil-maternidad.html"><i class="fa fa-circle-o"></i> Infantil y maternidad</a></li>
+                <li class="active"><a href="cuidado-personal.html"><i class="fa fa-circle-o"></i> Cuidado personal</a></li>
+                <li><a href="ortopedia.html"><i class="fa fa-circle-o"></i> Ortopedia</a></li>
+                <li><a href="salud-sexual.html"><i class="fa fa-circle-o"></i> Salud sexual</a></li>
+                <li><a href="nutricion-dietetica.html"><i class="fa fa-circle-o"></i> Nutrición y dietética</a></li>
+                <li><a href="veterinaria.html"><i class="fa fa-circle-o"></i> Veterinaria</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Cuidado Personal
+            <small>Productos para tu higiene y belleza</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Productos</a></li>
+            <li class="active">Cuidado Personal</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Filtros por categoría -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="category-filters">
+                <h4><i class="fa fa-filter"></i> Filtrar por categoría:</h4>
+                <button class="filter-btn active" data-category="all">Todos</button>
+                <button class="filter-btn" data-category="facial">Cuidado Facial</button>
+                <button class="filter-btn" data-category="corporal">Cuidado Corporal</button>
+                <button class="filter-btn" data-category="cabello">Cuidado del Cabello</button>
+                <button class="filter-btn" data-category="dental">Higiene Dental</button>
+                <button class="filter-btn" data-category="desodorantes">Desodorantes</button>
+                <button class="filter-btn" data-category="afeitado">Afeitado</button>
+                <button class="filter-btn" data-category="manos">Cuidado de Manos</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Productos destacados -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Productos Destacados</h3>
+                  <div class="box-tools pull-right">
+                    <span class="label label-primary">Mejores ofertas</span>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-3 col-sm-6" data-category="facial">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/183657/ffffff?text=EUCERIN" alt="Eucerin">
+                        </div>
+                        <h4>Eucerin Hyaluron-Filler</h4>
+                        <p class="text-muted">Crema anti-edad día</p>
+                        <span class="label label-primary">Cuidado Facial</span>
+                        <div class="product-price">€29.95</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-category="corporal">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/14D5AA/ffffff?text=NIVEA" alt="Nivea">
+                        </div>
+                        <h4>Nivea Soft</h4>
+                        <p class="text-muted">Crema hidratante corporal</p>
+                        <span class="label label-success">Cuidado Corporal</span>
+                        <div class="product-price">€3.95</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-category="cabello">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/FF1E70/ffffff?text=PANTENE" alt="Pantene">
+                        </div>
+                        <h4>Pantene Pro-V</h4>
+                        <p class="text-muted">Champú reparador</p>
+                        <span class="label label-warning">Cuidado del Cabello</span>
+                        <div class="product-price">€4.50</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-category="dental">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/183657/ffffff?text=ORAL-B" alt="Oral-B">
+                        </div>
+                        <h4>Oral-B Pro-Expert</h4>
+                        <p class="text-muted">Pasta dental protección</p>
+                        <span class="label label-info">Higiene Dental</span>
+                        <div class="product-price">€2.85</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Catálogo completo -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Catálogo Completo</h3>
+                  <div class="box-tools pull-right">
+                    <select class="form-control" style="width: 200px; display: inline-block;">
+                      <option>Ordenar por precio</option>
+                      <option>Precio: menor a mayor</option>
+                      <option>Precio: mayor a menor</option>
+                      <option>Más vendidos</option>
+                      <option>Novedades</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <!-- Fila 1 -->
+                    <div class="col-md-3 col-sm-6" data-category="desodorantes">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/14D5AA/ffffff?text=DOVE" alt="Dove">
+                        </div>
+                        <h4>Dove Original</h4>
+                        <p class="text-muted">Desodorante roll-on</p>
+                        <span class="label label-default">Desodorantes</span>
+                        <div class="product-price">€2.50</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-category="afeitado">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/183657/ffffff?text=GILLETTE" alt="Gillette">
+                        </div>
+                        <h4>Gillette Fusion5</h4>
+                        <p class="text-muted">Maquinilla de afeitar</p>
+                        <span class="label label-primary">Afeitado</span>
+                        <div class="product-price">€12.95</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-category="manos">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/FF1E70/ffffff?text=NEUTROGENA" alt="Neutrogena">
+                        </div>
+                        <h4>Neutrogena</h4>
+                        <p class="text-muted">Crema de manos concentrada</p>
+                        <span class="label label-warning">Cuidado de Manos</span>
+                        <div class="product-price">€4.25</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-category="facial">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/14D5AA/ffffff?text=LOREAL" alt="L'Oreal">
+                        </div>
+                        <h4>L'Oréal Men Expert</h4>
+                        <p class="text-muted">Gel limpiador facial</p>
+                        <span class="label label-primary">Cuidado Facial</span>
+                        <div class="product-price">€5.95</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Fila 2 -->
+                    <div class="col-md-3 col-sm-6" data-category="corporal">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/183657/ffffff?text=BABARIA" alt="Babaria">
+                        </div>
+                        <h4>Babaria Aloe Vera</h4>
+                        <p class="text-muted">Gel corporal hidratante</p>
+                        <span class="label label-success">Cuidado Corporal</span>
+                        <div class="product-price">€3.50</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-category="dental">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/FF1E70/ffffff?text=LISTERINE" alt="Listerine">
+                        </div>
+                        <h4>Listerine Total Care</h4>
+                        <p class="text-muted">Enjuague bucal</p>
+                        <span class="label label-info">Higiene Dental</span>
+                        <div class="product-price">€4.95</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-category="cabello">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/14D5AA/ffffff?text=HERBAL" alt="Herbal Essences">
+                        </div>
+                        <h4>Herbal Essences</h4>
+                        <p class="text-muted">Acondicionador bio:renew</p>
+                        <span class="label label-warning">Cuidado del Cabello</span>
+                        <div class="product-price">€3.75</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6" data-category="facial">
+                      <div class="product-card">
+                        <div class="product-image">
+                          <img src="https://via.placeholder.com/150x120/183657/ffffff?text=VICHY" alt="Vichy">
+                        </div>
+                        <h4>Vichy Capital Soleil</h4>
+                        <p class="text-muted">Protector solar facial SPF50</p>
+                        <span class="label label-primary">Cuidado Facial</span>
+                        <div class="product-price">€18.95</div>
+                        <p class="text-success"><i class="fa fa-check"></i> En stock</p>
+                        <button class="btn btn-success btn-block">
+                          <i class="fa fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Paginación -->
+                  <div class="text-center">
+                    <ul class="pagination">
+                      <li class="disabled"><a href="#">&laquo;</a></li>
+                      <li class="active"><a href="#">1</a></li>
+                      <li><a href="#">2</a></li>
+                      <li><a href="#">3</a></li>
+                      <li><a href="#">4</a></li>
+                      <li><a href="#">&raquo;</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Consejos de cuidado personal -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-lightbulb-o"></i> Consejos de Cuidado Personal</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-tint"></i></span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">Hidratación</span>
+                          <span class="info-box-number" style="font-size: 14px;">Aplica crema hidratante diariamente, especialmente después de la ducha</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-sun-o"></i></span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">Protección Solar</span>
+                          <span class="info-box-number" style="font-size: 14px;">Usa protector solar SPF 30+ todos los días, incluso en invierno</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="info-box">
+                        <span class="info-box-icon bg-yellow"><i class="fa fa-smile-o"></i></span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">Rutina Facial</span>
+                          <span class="info-box-number" style="font-size: 14px;">Limpia, tonifica e hidrata tu rostro mañana y noche</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Filtro de categorías
+      $(document).ready(function() {
+        $('.filter-btn').click(function() {
+          $('.filter-btn').removeClass('active');
+          $(this).addClass('active');
+          
+          const category = $(this).data('category');
+          
+          if (category === 'all') {
+            $('[data-category]').show();
+          } else {
+            $('[data-category]').hide();
+            $('[data-category="' + category + '"]').show();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

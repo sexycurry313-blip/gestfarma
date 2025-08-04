@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Análisis de Competencia | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- Morris chart -->
+    <link href="../../plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      .label-danger { background-color: #dc3545 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .competitor-card {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        border-left: 4px solid #14D5AA;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .competitor-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      }
+      .competitor-leader {
+        border-left-color: #ffc107;
+        background: linear-gradient(45deg, #fffbf0, #ffffff);
+      }
+      .competitor-aggressive {
+        border-left-color: #dc3545;
+        background: linear-gradient(45deg, #fff5f5, #ffffff);
+      }
+      .competitor-premium {
+        border-left-color: #6f42c1;
+        background: linear-gradient(45deg, #f8f4ff, #ffffff);
+      }
+      
+      .competitor-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .competitor-logo {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #183657, #2a4d73);
+        color: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 16px;
+        margin-right: 15px;
+      }
+      .competitor-status {
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 11px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .status-leader {
+        background: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+        border: 1px solid #ffc107;
+      }
+      .status-follower {
+        background: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+        border: 1px solid #28a745;
+      }
+      .status-aggressive {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+        border: 1px solid #dc3545;
+      }
+      .status-premium {
+        background: rgba(111, 66, 193, 0.1);
+        color: #6f42c1;
+        border: 1px solid #6f42c1;
+      }
+      
+      .price-comparison {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .price-metric {
+        text-align: center;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 3px solid #14D5AA;
+      }
+      .price-value {
+        font-size: 16px;
+        font-weight: bold;
+        color: #183657;
+        margin-bottom: 5px;
+      }
+      .price-label {
+        font-size: 10px;
+        color: #666;
+        text-transform: uppercase;
+      }
+      .price-diff {
+        font-size: 11px;
+        margin-top: 3px;
+        font-weight: bold;
+      }
+      .diff-higher { color: #dc3545; }
+      .diff-lower { color: #28a745; }
+      .diff-equal { color: #6c757d; }
+      
+      .threat-level {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      .threat-high { background: #dc3545; animation: pulse-red 2s infinite; }
+      .threat-medium { background: #ffc107; }
+      .threat-low { background: #28a745; }
+      
+      @keyframes pulse-red {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+      }
+      
+      .market-analysis {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .analysis-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 12px;
+      }
+      .analysis-item:last-child {
+        margin-bottom: 0;
+      }
+      
+      .competitor-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .action-btn {
+        padding: 8px 15px;
+        border-radius: 6px;
+        border: none;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .btn-monitor {
+        background: #17a2b8;
+        color: white;
+      }
+      .btn-analyze {
+        background: #28a745;
+        color: white;
+      }
+      .btn-react {
+        background: #dc3545;
+        color: white;
+      }
+      
+      .quick-actions {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      }
+      
+      .market-overview {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+      }
+      .market-overview h4 {
+        color: white;
+        margin-bottom: 20px;
+      }
+      
+      .market-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+      }
+      .stat-item {
+        text-align: center;
+        padding: 15px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 8px;
+      }
+      .stat-value {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .stat-label {
+        font-size: 12px;
+        opacity: 0.8;
+      }
+      
+      .price-monitoring {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #FF1E70;
+      }
+      
+      .monitor-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .product-monitor {
+        background: #f8f9fa;
+        border-radius: 6px;
+        padding: 15px;
+        border: 1px solid #dee2e6;
+      }
+      .product-name {
+        font-weight: bold;
+        color: #183657;
+        margin-bottom: 10px;
+      }
+      .price-comparison-inline {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 12px;
+      }
+      
+      .competitive-intelligence {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #6f42c1;
+      }
+      
+      .intelligence-alert {
+        background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+        border: 1px solid #2196f3;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .alert-icon {
+        float: left;
+        margin-right: 10px;
+        color: #1976d2;
+        font-size: 18px;
+      }
+      
+      .trend-indicator {
+        display: inline-block;
+        margin-left: 8px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .trend-up { color: #dc3545; }
+      .trend-down { color: #28a745; }
+      .trend-stable { color: #6c757d; }
+      
+      .market-position {
+        position: relative;
+        height: 200px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .position-chart {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border: 1px dashed #dee2e6;
+        border-radius: 6px;
+      }
+      .position-dot {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      }
+      .dot-us { background: #14D5AA; top: 45%; left: 60%; }
+      .dot-leader { background: #ffc107; top: 30%; left: 40%; }
+      .dot-aggressive { background: #dc3545; top: 70%; left: 30%; }
+      .dot-premium { background: #6f42c1; top: 20%; left: 80%; }
+      
+      .axis-label {
+        position: absolute;
+        font-size: 11px;
+        color: #666;
+      }
+      .label-price { bottom: -20px; left: 50%; transform: translateX(-50%); }
+      .label-quality { top: 50%; left: -40px; transform: rotate(-90deg); }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="../informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="../informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>📈 Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../ventas/dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="../ventas/analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li><a href="../ventas/control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>🧪 Pujas (Labs)</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../pujas/pujas-activas.html"><i class="fa fa-gavel"></i> Pujas Activas</a></li>
+                <li><a href="../pujas/historial-pujas.html"><i class="fa fa-history"></i> Historial de Pujas</a></li>
+                <li><a href="../pujas/gestionar-labs.html"><i class="fa fa-cogs"></i> Gestionar Labs</a></li>
+              </ul>
+            </li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-cubes"></i>
+                <span>🏪 Surtido y Precios</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="gestion-surtido.html"><i class="fa fa-th"></i> Gestión de Surtido</a></li>
+                <li><a href="estrategias-precios.html"><i class="fa fa-tags"></i> Estrategias de Precios</a></li>
+                <li class="active"><a href="analisis-competencia.html"><i class="fa fa-search"></i> Análisis de Competencia</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Análisis de Competencia
+            <small>Inteligencia competitiva y monitoreo de precios</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Surtido y Precios</a></li>
+            <li class="active">Análisis de Competencia</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Resumen del mercado -->
+          <div class="market-overview">
+            <h4><i class="fa fa-globe"></i> Panorama del Mercado Farmacéutico Local</h4>
+            <div class="market-stats">
+              <div class="stat-item">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Competidores Directos</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">2,847</div>
+                <div class="stat-label">Productos Monitoreados</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">€4.2M</div>
+                <div class="stat-label">Valor de Mercado/Mes</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-value">18.3%</div>
+                <div class="stat-label">Nuestra Cuota</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acciones rápidas -->
+          <div class="quick-actions">
+            <div class="row">
+              <div class="col-md-2">
+                <button class="btn btn-success btn-block" onclick="scanCompetition()">
+                  <i class="fa fa-refresh"></i><br>Escanear Precios
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-info btn-block" onclick="alertsConfig()">
+                  <i class="fa fa-bell"></i><br>Config. Alertas
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-warning btn-block" onclick="priceGapAnalysis()">
+                  <i class="fa fa-search"></i><br>Análisis Gaps
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-primary btn-block" onclick="marketReport()">
+                  <i class="fa fa-file-text"></i><br>Informe Mercado
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-default btn-block" onclick="exportCompetitive()">
+                  <i class="fa fa-download"></i><br>Exportar Datos
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-success btn-block" onclick="location.href='estrategias-precios.html'">
+                  <i class="fa fa-cogs"></i><br>Ajustar Precios
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Posicionamiento en el mercado -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Mapa de Posicionamiento Competitivo</h3>
+                </div>
+                <div class="box-body">
+                  <div class="market-position">
+                    <div class="position-chart">
+                      <div class="position-dot dot-us" title="Nuestra Farmacia"></div>
+                      <div class="position-dot dot-leader" title="Farmacia Central"></div>
+                      <div class="position-dot dot-aggressive" title="Farma Plus"></div>
+                      <div class="position-dot dot-premium" title="Premium Health"></div>
+                      
+                      <div class="axis-label label-price">Precio →</div>
+                      <div class="axis-label label-quality">Calidad →</div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3">
+                      <small><span style="color: #14D5AA;">●</span> Nuestra Farmacia (Posición equilibrada)</small>
+                    </div>
+                    <div class="col-md-3">
+                      <small><span style="color: #ffc107;">●</span> Farmacia Central (Líder de mercado)</small>
+                    </div>
+                    <div class="col-md-3">
+                      <small><span style="color: #dc3545;">●</span> Farma Plus (Competidor agresivo)</small>
+                    </div>
+                    <div class="col-md-3">
+                      <small><span style="color: #6f42c1;">●</span> Premium Health (Segmento premium)</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inteligencia competitiva -->
+          <div class="competitive-intelligence">
+            <h4><i class="fa fa-brain"></i> Inteligencia Competitiva Automatizada</h4>
+            
+            <div class="intelligence-alert">
+              <i class="fa fa-exclamation-triangle alert-icon"></i>
+              <strong>Alerta de Movimiento:</strong> Farmacia Central ha reducido precios en 23 productos de la categoría "Analgésicos" en las últimas 48 horas. Impacto estimado en nuestras ventas: -8%.
+              <div style="margin-top: 10px;">
+                <button class="btn btn-sm btn-danger" onclick="reactToThreat()">Reaccionar Ahora</button>
+                <button class="btn btn-sm btn-info" onclick="analyzeImpact()">Analizar Impacto</button>
+              </div>
+            </div>
+
+            <div class="intelligence-alert">
+              <i class="fa fa-lightbulb-o alert-icon"></i>
+              <strong>Oportunidad Detectada:</strong> Farma Plus tiene precios 15% más altos en vitaminas. Oportunidad de captar cuota de mercado con ajuste de precios.
+              <div style="margin-top: 10px;">
+                <button class="btn btn-sm btn-success" onclick="seizeOpportunity()">Aprovechar</button>
+                <button class="btn btn-sm btn-default" onclick="scheduleAnalysis()">Programar Análisis</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monitoreo de precios en tiempo real -->
+          <div class="price-monitoring">
+            <h4><i class="fa fa-line-chart"></i> Monitoreo de Precios en Tiempo Real</h4>
+            <div class="monitor-grid">
+              <div class="product-monitor">
+                <div class="product-name">Paracetamol 500mg</div>
+                <div class="price-comparison-inline">
+                  <span>Nuestro precio:</span>
+                  <strong>€4.95</strong>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Farmacia Central:</span>
+                  <span style="color: #dc3545;"><strong>€4.75</strong> <span class="trend-indicator trend-down">↓5%</span></span>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Farma Plus:</span>
+                  <span style="color: #28a745;"><strong>€5.20</strong> <span class="trend-indicator trend-stable">→</span></span>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Cruz Verde:</span>
+                  <span style="color: #ffc107;"><strong>€4.90</strong> <span class="trend-indicator trend-up">↑3%</span></span>
+                </div>
+              </div>
+
+              <div class="product-monitor">
+                <div class="product-name">Vitamina C 1000mg</div>
+                <div class="price-comparison-inline">
+                  <span>Nuestro precio:</span>
+                  <strong>€15.95</strong>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Premium Health:</span>
+                  <span style="color: #6f42c1;"><strong>€18.50</strong> <span class="trend-indicator trend-stable">→</span></span>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Farmacia Central:</span>
+                  <span style="color: #28a745;"><strong>€16.20</strong> <span class="trend-indicator trend-up">↑2%</span></span>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Bio Salud:</span>
+                  <span style="color: #dc3545;"><strong>€14.80</strong> <span class="trend-indicator trend-down">↓8%</span></span>
+                </div>
+              </div>
+
+              <div class="product-monitor">
+                <div class="product-name">Amoxicilina 875mg</div>
+                <div class="price-comparison-inline">
+                  <span>Nuestro precio:</span>
+                  <strong>€21.45</strong>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Farmacia Central:</span>
+                  <span style="color: #28a745;"><strong>€22.00</strong> <span class="trend-indicator trend-stable">→</span></span>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Med Express:</span>
+                  <span style="color: #dc3545;"><strong>€20.95</strong> <span class="trend-indicator trend-down">↓3%</span></span>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Salud Total:</span>
+                  <span style="color: #ffc107;"><strong>€21.80</strong> <span class="trend-indicator trend-up">↑5%</span></span>
+                </div>
+              </div>
+
+              <div class="product-monitor">
+                <div class="product-name">Ibuprofeno 600mg</div>
+                <div class="price-comparison-inline">
+                  <span>Nuestro precio:</span>
+                  <strong>€7.25</strong>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Farma Plus:</span>
+                  <span style="color: #dc3545;"><strong>€6.90</strong> <span class="trend-indicator trend-down">↓12%</span></span>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Cruz Verde:</span>
+                  <span style="color: #28a745;"><strong>€7.45</strong> <span class="trend-indicator trend-stable">→</span></span>
+                </div>
+                <div class="price-comparison-inline">
+                  <span>Vida Sana:</span>
+                  <span style="color: #6c757d;"><strong>€7.25</strong> <span class="trend-indicator trend-stable">→</span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Análisis detallado de competidores -->
+          <div class="row">
+            <!-- Competidor Líder -->
+            <div class="col-md-6">
+              <div class="competitor-card competitor-leader">
+                <div class="threat-level threat-high"></div>
+                
+                <div class="competitor-header">
+                  <div style="display: flex; align-items: center;">
+                    <div class="competitor-logo" style="background: linear-gradient(135deg, #ffc107, #ff9800);">FC</div>
+                    <div>
+                      <h4 style="margin: 0; color: #183657;">Farmacia Central</h4>
+                      <small style="color: #666;">Líder del mercado • 2.5km de distancia</small>
+                    </div>
+                  </div>
+                  <div class="competitor-status status-leader">
+                    <i class="fa fa-crown"></i> Líder
+                  </div>
+                </div>
+
+                <div class="price-comparison">
+                  <div class="price-metric">
+                    <div class="price-value">24.7%</div>
+                    <div class="price-label">Cuota de Mercado</div>
+                    <div class="price-diff diff-higher">+6.4% vs nosotros</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">-3.2%</div>
+                    <div class="price-label">Dif. Precio Prom.</div>
+                    <div class="price-diff diff-lower">Más barato</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">4.8★</div>
+                    <div class="price-label">Valoración</div>
+                    <div class="price-diff diff-higher">Excelente</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">47.2%</div>
+                    <div class="price-label">Margen Est.</div>
+                    <div class="price-diff diff-equal">Similar</div>
+                  </div>
+                </div>
+
+                <div class="market-analysis">
+                  <div class="analysis-item">
+                    <span>Fortalezas:</span>
+                    <strong>Ubicación céntrica, amplio surtido, precios competitivos</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Debilidades:</span>
+                    <strong>Servicio al cliente, horarios limitados</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Última actividad:</span>
+                    <strong>Reducción de precios en analgésicos (hace 2 días)</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Nivel de amenaza:</span>
+                    <strong style="color: #dc3545;">ALTO - Monitoreo constante</strong>
+                  </div>
+                </div>
+
+                <div class="competitor-actions">
+                  <button class="action-btn btn-monitor" onclick="monitorCompetitor('farmacia-central')">
+                    <i class="fa fa-eye"></i> Monitorear
+                  </button>
+                  <button class="action-btn btn-analyze" onclick="deepAnalysis('farmacia-central')">
+                    <i class="fa fa-search-plus"></i> Análisis
+                  </button>
+                  <button class="action-btn btn-react" onclick="reactTo('farmacia-central')">
+                    <i class="fa fa-bolt"></i> Reaccionar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Competidor Agresivo -->
+            <div class="col-md-6">
+              <div class="competitor-card competitor-aggressive">
+                <div class="threat-level threat-medium"></div>
+                
+                <div class="competitor-header">
+                  <div style="display: flex; align-items: center;">
+                    <div class="competitor-logo" style="background: linear-gradient(135deg, #dc3545, #c82333);">FP</div>
+                    <div>
+                      <h4 style="margin: 0; color: #183657;">Farma Plus</h4>
+                      <small style="color: #666;">Competidor agresivo • 1.8km de distancia</small>
+                    </div>
+                  </div>
+                  <div class="competitor-status status-aggressive">
+                    <i class="fa fa-fire"></i> Agresivo
+                  </div>
+                </div>
+
+                <div class="price-comparison">
+                  <div class="price-metric">
+                    <div class="price-value">16.3%</div>
+                    <div class="price-label">Cuota de Mercado</div>
+                    <div class="price-diff diff-lower">-2.0% vs nosotros</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">-8.7%</div>
+                    <div class="price-label">Dif. Precio Prom.</div>
+                    <div class="price-diff diff-lower">Mucho más barato</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">3.9★</div>
+                    <div class="price-label">Valoración</div>
+                    <div class="price-diff diff-lower">Regular</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">32.1%</div>
+                    <div class="price-label">Margen Est.</div>
+                    <div class="price-diff diff-lower">Muy bajo</div>
+                  </div>
+                </div>
+
+                <div class="market-analysis">
+                  <div class="analysis-item">
+                    <span>Fortalezas:</span>
+                    <strong>Precios muy bajos, promociones constantes</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Debilidades:</span>
+                    <strong>Calidad variable, stock limitado, servicio básico</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Última actividad:</span>
+                    <strong>Promoción 2x1 en vitaminas (activa)</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Nivel de amenaza:</span>
+                    <strong style="color: #ffc107;">MEDIO - Impacto en precio</strong>
+                  </div>
+                </div>
+
+                <div class="competitor-actions">
+                  <button class="action-btn btn-monitor" onclick="monitorCompetitor('farma-plus')">
+                    <i class="fa fa-eye"></i> Monitorear
+                  </button>
+                  <button class="action-btn btn-analyze" onclick="deepAnalysis('farma-plus')">
+                    <i class="fa fa-search-plus"></i> Análisis
+                  </button>
+                  <button class="action-btn btn-react" onclick="reactTo('farma-plus')">
+                    <i class="fa fa-shield"></i> Defenderse
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Competidor Premium -->
+            <div class="col-md-6">
+              <div class="competitor-card competitor-premium">
+                <div class="threat-level threat-low"></div>
+                
+                <div class="competitor-header">
+                  <div style="display: flex; align-items: center;">
+                    <div class="competitor-logo" style="background: linear-gradient(135deg, #6f42c1, #5a32a3);">PH</div>
+                    <div>
+                      <h4 style="margin: 0; color: #183657;">Premium Health</h4>
+                      <small style="color: #666;">Segmento premium • 3.2km de distancia</small>
+                    </div>
+                  </div>
+                  <div class="competitor-status status-premium">
+                    <i class="fa fa-diamond"></i> Premium
+                  </div>
+                </div>
+
+                <div class="price-comparison">
+                  <div class="price-metric">
+                    <div class="price-value">8.9%</div>
+                    <div class="price-label">Cuota de Mercado</div>
+                    <div class="price-diff diff-lower">-9.4% vs nosotros</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">+22.4%</div>
+                    <div class="price-label">Dif. Precio Prom.</div>
+                    <div class="price-diff diff-higher">Mucho más caro</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">4.9★</div>
+                    <div class="price-label">Valoración</div>
+                    <div class="price-diff diff-higher">Excelente</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">68.3%</div>
+                    <div class="price-label">Margen Est.</div>
+                    <div class="price-diff diff-higher">Muy alto</div>
+                  </div>
+                </div>
+
+                <div class="market-analysis">
+                  <div class="analysis-item">
+                    <span>Fortalezas:</span>
+                    <strong>Productos premium, servicio excepcional, consultoría</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Debilidades:</span>
+                    <strong>Precios muy altos, ubicación alejada</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Última actividad:</span>
+                    <strong>Lanzamiento línea de cosmética natural</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Nivel de amenaza:</span>
+                    <strong style="color: #28a745;">BAJO - Segmento diferente</strong>
+                  </div>
+                </div>
+
+                <div class="competitor-actions">
+                  <button class="action-btn btn-monitor" onclick="monitorCompetitor('premium-health')">
+                    <i class="fa fa-eye"></i> Monitorear
+                  </button>
+                  <button class="action-btn btn-analyze" onclick="benchmarkPremium('premium-health')">
+                    <i class="fa fa-star"></i> Benchmark
+                  </button>
+                  <button class="action-btn btn-react" onclick="learnFrom('premium-health')">
+                    <i class="fa fa-lightbulb-o"></i> Aprender
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Competidor Seguidor -->
+            <div class="col-md-6">
+              <div class="competitor-card">
+                <div class="threat-level threat-low"></div>
+                
+                <div class="competitor-header">
+                  <div style="display: flex; align-items: center;">
+                    <div class="competitor-logo">CV</div>
+                    <div>
+                      <h4 style="margin: 0; color: #183657;">Cruz Verde</h4>
+                      <small style="color: #666;">Competidor tradicional • 2.1km de distancia</small>
+                    </div>
+                  </div>
+                  <div class="competitor-status status-follower">
+                    <i class="fa fa-users"></i> Seguidor
+                  </div>
+                </div>
+
+                <div class="price-comparison">
+                  <div class="price-metric">
+                    <div class="price-value">14.8%</div>
+                    <div class="price-label">Cuota de Mercado</div>
+                    <div class="price-diff diff-lower">-3.5% vs nosotros</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">+1.8%</div>
+                    <div class="price-label">Dif. Precio Prom.</div>
+                    <div class="price-diff diff-higher">Ligeramente más caro</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">4.2★</div>
+                    <div class="price-label">Valoración</div>
+                    <div class="price-diff diff-equal">Buena</div>
+                  </div>
+                  <div class="price-metric">
+                    <div class="price-value">43.7%</div>
+                    <div class="price-label">Margen Est.</div>
+                    <div class="price-diff diff-lower">Algo menor</div>
+                  </div>
+                </div>
+
+                <div class="market-analysis">
+                  <div class="analysis-item">
+                    <span>Fortalezas:</span>
+                    <strong>Tradición familiar, confianza, servicio personalizado</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Debilidades:</span>
+                    <strong>Tecnología limitada, surtido básico</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Última actividad:</span>
+                    <strong>Renovación de local y nueva decoración</strong>
+                  </div>
+                  <div class="analysis-item">
+                    <span>Nivel de amenaza:</span>
+                    <strong style="color: #28a745;">BAJO - Competencia estable</strong>
+                  </div>
+                </div>
+
+                <div class="competitor-actions">
+                  <button class="action-btn btn-monitor" onclick="monitorCompetitor('cruz-verde')">
+                    <i class="fa fa-eye"></i> Monitorear
+                  </button>
+                  <button class="action-btn btn-analyze" onclick="partnershipOpportunity('cruz-verde')">
+                    <i class="fa fa-handshake-o"></i> Oportunidad
+                  </button>
+                  <button class="action-btn btn-react" onclick="maintain('cruz-verde')">
+                    <i class="fa fa-check"></i> Mantener
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Funciones principales
+      function scanCompetition() {
+        alert('Iniciando escaneo automático de precios de competencia...');
+      }
+
+      function alertsConfig() {
+        alert('Configurando alertas de cambios de precios...');
+      }
+
+      function priceGapAnalysis() {
+        alert('Analizando gaps de precios y oportunidades...');
+      }
+
+      function marketReport() {
+        alert('Generando informe completo del mercado...');
+      }
+
+      function exportCompetitive() {
+        alert('Exportando datos de análisis competitivo...');
+      }
+
+      // Funciones de reacción a competencia
+      function reactToThreat() {
+        alert('Activando respuesta automática a amenaza competitiva...');
+      }
+
+      function analyzeImpact() {
+        alert('Analizando impacto detallado de movimientos competitivos...');
+      }
+
+      function seizeOpportunity() {
+        alert('Aprovechando oportunidad de mercado detectada...');
+      }
+
+      function scheduleAnalysis() {
+        alert('Programando análisis detallado para próxima revisión...');
+      }
+
+      // Funciones específicas de competidores
+      function monitorCompetitor(competitorId) {
+        alert(`Activando monitoreo intensivo de: ${competitorId}`);
+      }
+
+      function deepAnalysis(competitorId) {
+        alert(`Iniciando análisis profundo de: ${competitorId}`);
+      }
+
+      function reactTo(competitorId) {
+        alert(`Configurando respuesta estratégica a: ${competitorId}`);
+      }
+
+      function benchmarkPremium(competitorId) {
+        alert(`Realizando benchmark de servicios premium con: ${competitorId}`);
+      }
+
+      function learnFrom(competitorId) {
+        alert(`Analizando mejores prácticas de: ${competitorId}`);
+      }
+
+      function partnershipOpportunity(competitorId) {
+        alert(`Evaluando oportunidades de colaboración con: ${competitorId}`);
+      }
+
+      function maintain(competitorId) {
+        alert(`Manteniendo estrategia actual respecto a: ${competitorId}`);
+      }
+
+      // Event listeners y actualizaciones en tiempo real
+      document.addEventListener('DOMContentLoaded', function() {
+        // Simulación de actualizaciones de precios en tiempo real
+        setInterval(function() {
+          const monitors = document.querySelectorAll('.product-monitor');
+          const randomMonitor = monitors[Math.floor(Math.random() * monitors.length)];
+          const priceElements = randomMonitor.querySelectorAll('.price-comparison-inline strong');
+          
+          if (priceElements.length > 1) {
+            const randomPrice = priceElements[Math.floor(Math.random() * priceElements.length)];
+            randomPrice.style.animation = 'pulse 0.5s ease-in-out';
+            setTimeout(() => {
+              randomPrice.style.animation = '';
+            }, 500);
+          }
+        }, 15000);
+
+        // Animación de indicadores de amenaza
+        const threatIndicators = document.querySelectorAll('.threat-level');
+        threatIndicators.forEach(indicator => {
+          if (indicator.classList.contains('threat-high')) {
+            setInterval(() => {
+              indicator.style.animation = 'pulse-red 2s infinite';
+            }, 1000);
+          }
+        });
+
+        // Hover effects para tarjetas de competidores
+        const competitorCards = document.querySelectorAll('.competitor-card');
+        competitorCards.forEach(card => {
+          card.addEventListener('mouseenter', function() {
+            this.style.borderLeftWidth = '6px';
+          });
+          card.addEventListener('mouseleave', function() {
+            this.style.borderLeftWidth = '4px';
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

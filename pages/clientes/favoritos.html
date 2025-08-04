@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Favoritos | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .favorite-item {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        transition: all 0.3s;
+      }
+      .favorite-item:hover {
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        transform: translateY(-2px);
+      }
+      .product-image {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #eee;
+      }
+      .favorite-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #FF1E70;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      .favorite-badge:hover {
+        color: #d1184a;
+      }
+      .price-current {
+        font-size: 24px;
+        font-weight: bold;
+        color: #183657;
+      }
+      .price-original {
+        text-decoration: line-through;
+        color: #999;
+        font-size: 18px;
+      }
+      .discount-badge {
+        background: #FF1E70;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .stock-status {
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .stock-available {
+        background: #e8f5e8;
+        color: #14D5AA;
+      }
+      .stock-low {
+        background: #fff3cd;
+        color: #856404;
+      }
+      .stock-out {
+        background: #f8d7da;
+        color: #721c24;
+      }
+      .filter-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+      }
+      .category-filter {
+        display: inline-block;
+        margin: 5px;
+        padding: 8px 15px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .category-filter.active {
+        background: #183657;
+        color: white;
+        border-color: #183657;
+      }
+      .empty-favorites {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+      }
+      .quick-actions {
+        position: sticky;
+        top: 20px;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-user"></i>
+                <span>🧑‍💼 Área de Clientes</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="iniciar-sesion.html"><i class="fa fa-sign-in"></i> Iniciar sesión</a></li>
+                <li><a href="registro.html"><i class="fa fa-user-plus"></i> Registro</a></li>
+                <li><a href="historial-pedidos.html"><i class="fa fa-history"></i> Historial de pedidos</a></li>
+                <li><a href="recetas-subidas.html"><i class="fa fa-upload"></i> Recetas subidas</a></li>
+                <li><a href="datos-personales.html"><i class="fa fa-edit"></i> Datos personales</a></li>
+                <li class="active"><a href="favoritos.html"><i class="fa fa-heart"></i> Favoritos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Mis Favoritos
+            <small>Productos que has marcado como favoritos</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Área de Clientes</a></li>
+            <li class="active">Favoritos</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Estadísticas y acciones rápidas -->
+          <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-info"><i class="fa fa-heart"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Productos Favoritos</span>
+                  <span class="info-box-number">12</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="fa fa-check"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Disponibles</span>
+                  <span class="info-box-number">9</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-yellow"><i class="fa fa-exclamation"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Stock Bajo</span>
+                  <span class="info-box-number">2</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+              <div class="info-box">
+                <span class="info-box-icon bg-red"><i class="fa fa-times"></i></span>
+                <div class="info-box-content">
+                  <span class="info-box-text">Agotados</span>
+                  <span class="info-box-number">1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-9">
+              <!-- Filtros -->
+              <div class="filter-section">
+                <h4 style="margin-top: 0;"><i class="fa fa-filter"></i> Filtrar por categoría</h4>
+                <div class="category-filter active" data-category="all">
+                  <i class="fa fa-th"></i> Todos (12)
+                </div>
+                <div class="category-filter" data-category="medicamentos">
+                  <i class="fa fa-medkit"></i> Medicamentos (4)
+                </div>
+                <div class="category-filter" data-category="parafarmacia">
+                  <i class="fa fa-leaf"></i> Parafarmacia (3)
+                </div>
+                <div class="category-filter" data-category="cosmetica">
+                  <i class="fa fa-female"></i> Cosmética (2)
+                </div>
+                <div class="category-filter" data-category="infantil">
+                  <i class="fa fa-child"></i> Infantil (2)
+                </div>
+                <div class="category-filter" data-category="nutricion">
+                  <i class="fa fa-apple"></i> Nutrición (1)
+                </div>
+                
+                <div class="pull-right">
+                  <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-sort"></i> Ordenar por <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a href="#" data-sort="name">Nombre A-Z</a></li>
+                      <li><a href="#" data-sort="price-asc">Precio menor a mayor</a></li>
+                      <li><a href="#" data-sort="price-desc">Precio mayor a menor</a></li>
+                      <li><a href="#" data-sort="date">Añadido recientemente</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Lista de productos favoritos -->
+              <div id="favorites-list">
+                <!-- Producto 1 -->
+                <div class="favorite-item" data-category="medicamentos">
+                  <i class="fa fa-heart favorite-badge" title="Quitar de favoritos"></i>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="../../dist/img/products/paracetamol.jpg" alt="Paracetamol" class="product-image">
+                    </div>
+                    <div class="col-md-6">
+                      <h4 style="margin-top: 0;">Paracetamol 1g Comprimidos</h4>
+                      <p class="text-muted">20 comprimidos - Laboratorio ABC</p>
+                      <p><small>Analgésico y antipirético para el alivio del dolor y la fiebre.</small></p>
+                      <span class="stock-status stock-available">✓ Disponible</span>
+                      <span class="label label-info">Medicamento</span>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <div class="price-current">3,45 €</div>
+                      <small class="text-muted">Añadido: 15/12/2024</small>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <button class="btn btn-success btn-block">
+                        <i class="fa fa-cart-plus"></i> Añadir
+                      </button>
+                      <button class="btn btn-info btn-block" style="margin-top: 5px;">
+                        <i class="fa fa-eye"></i> Ver
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="favorite-item" data-category="parafarmacia">
+                  <i class="fa fa-heart favorite-badge" title="Quitar de favoritos"></i>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="../../dist/img/products/vitamin-c.jpg" alt="Vitamina C" class="product-image">
+                    </div>
+                    <div class="col-md-6">
+                      <h4 style="margin-top: 0;">Vitamina C 1000mg</h4>
+                      <p class="text-muted">60 comprimidos efervescentes - VitaPlus</p>
+                      <p><small>Complemento alimenticio rico en vitamina C para reforzar las defensas.</small></p>
+                      <span class="stock-status stock-available">✓ Disponible</span>
+                      <span class="label label-success">Parafarmacia</span>
+                      <span class="discount-badge">-15%</span>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <div class="price-current">12,75 €</div>
+                      <div class="price-original">15,00 €</div>
+                      <small class="text-muted">Añadido: 10/12/2024</small>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <button class="btn btn-success btn-block">
+                        <i class="fa fa-cart-plus"></i> Añadir
+                      </button>
+                      <button class="btn btn-info btn-block" style="margin-top: 5px;">
+                        <i class="fa fa-eye"></i> Ver
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="favorite-item" data-category="cosmetica">
+                  <i class="fa fa-heart favorite-badge" title="Quitar de favoritos"></i>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="../../dist/img/products/crema-hidratante.jpg" alt="Crema Hidratante" class="product-image">
+                    </div>
+                    <div class="col-md-6">
+                      <h4 style="margin-top: 0;">Crema Hidratante Facial</h4>
+                      <p class="text-muted">50ml - Dermacare Premium</p>
+                      <p><small>Crema hidratante para todo tipo de pieles con ácido hialurónico.</small></p>
+                      <span class="stock-status stock-low">⚠ Últimas unidades</span>
+                      <span class="label label-warning">Cosmética</span>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <div class="price-current">28,90 €</div>
+                      <small class="text-muted">Añadido: 08/12/2024</small>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <button class="btn btn-success btn-block">
+                        <i class="fa fa-cart-plus"></i> Añadir
+                      </button>
+                      <button class="btn btn-info btn-block" style="margin-top: 5px;">
+                        <i class="fa fa-eye"></i> Ver
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="favorite-item" data-category="infantil">
+                  <i class="fa fa-heart favorite-badge" title="Quitar de favoritos"></i>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="../../dist/img/products/apiretal.jpg" alt="Apiretal" class="product-image">
+                    </div>
+                    <div class="col-md-6">
+                      <h4 style="margin-top: 0;">Apiretal Pediatrico</h4>
+                      <p class="text-muted">100ml jarabe - Laboratorio ERN</p>
+                      <p><small>Paracetamol en jarabe para niños. Sabor fresa.</small></p>
+                      <span class="stock-status stock-available">✓ Disponible</span>
+                      <span class="label label-primary">Infantil</span>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <div class="price-current">4,25 €</div>
+                      <small class="text-muted">Añadido: 05/12/2024</small>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <button class="btn btn-success btn-block">
+                        <i class="fa fa-cart-plus"></i> Añadir
+                      </button>
+                      <button class="btn btn-info btn-block" style="margin-top: 5px;">
+                        <i class="fa fa-eye"></i> Ver
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Producto 5 -->
+                <div class="favorite-item" data-category="medicamentos">
+                  <i class="fa fa-heart favorite-badge" title="Quitar de favoritos"></i>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="../../dist/img/products/omeprazol.jpg" alt="Omeprazol" class="product-image">
+                    </div>
+                    <div class="col-md-6">
+                      <h4 style="margin-top: 0;">Omeprazol 20mg</h4>
+                      <p class="text-muted">28 cápsulas - Laboratorio XYZ</p>
+                      <p><small>Inhibidor de la bomba de protones para el tratamiento de úlceras.</small></p>
+                      <span class="stock-status stock-out">✗ Agotado</span>
+                      <span class="label label-info">Medicamento</span>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <div class="price-current">8,95 €</div>
+                      <small class="text-muted">Añadido: 02/12/2024</small>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <button class="btn btn-default btn-block" disabled>
+                        <i class="fa fa-exclamation"></i> Agotado
+                      </button>
+                      <button class="btn btn-warning btn-block" style="margin-top: 5px;">
+                        <i class="fa fa-bell"></i> Avisar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Producto 6 -->
+                <div class="favorite-item" data-category="nutricion">
+                  <i class="fa fa-heart favorite-badge" title="Quitar de favoritos"></i>
+                  <div class="row">
+                    <div class="col-md-2">
+                      <img src="../../dist/img/products/omega3.jpg" alt="Omega 3" class="product-image">
+                    </div>
+                    <div class="col-md-6">
+                      <h4 style="margin-top: 0;">Omega 3 EPA/DHA</h4>
+                      <p class="text-muted">90 cápsulas - NutriHealth</p>
+                      <p><small>Ácidos grasos esenciales para la salud cardiovascular.</small></p>
+                      <span class="stock-status stock-available">✓ Disponible</span>
+                      <span class="label label-danger">Nutrición</span>
+                      <span class="discount-badge">-20%</span>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <div class="price-current">19,96 €</div>
+                      <div class="price-original">24,95 €</div>
+                      <small class="text-muted">Añadido: 01/12/2024</small>
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <button class="btn btn-success btn-block">
+                        <i class="fa fa-cart-plus"></i> Añadir
+                      </button>
+                      <button class="btn btn-info btn-block" style="margin-top: 5px;">
+                        <i class="fa fa-eye"></i> Ver
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mensaje de lista vacía (oculto por defecto) -->
+              <div id="empty-favorites" class="empty-favorites" style="display: none;">
+                <i class="fa fa-heart-o" style="font-size: 48px; color: #ddd; margin-bottom: 20px;"></i>
+                <h3>No tienes productos favoritos</h3>
+                <p>Explora nuestro catálogo y marca tus productos preferidos para encontrarlos fácilmente aquí.</p>
+                <a href="../../index.html" class="btn btn-primary">
+                  <i class="fa fa-shopping-cart"></i> Explorar Productos
+                </a>
+              </div>
+            </div>
+
+            <!-- Panel lateral de acciones rápidas -->
+            <div class="col-md-3">
+              <div class="quick-actions">
+                <h4><i class="fa fa-bolt"></i> Acciones Rápidas</h4>
+                
+                <button class="btn btn-success btn-block" style="margin-bottom: 10px;">
+                  <i class="fa fa-cart-plus"></i> Añadir Disponibles al Carrito
+                </button>
+                
+                <button class="btn btn-info btn-block" style="margin-bottom: 10px;">
+                  <i class="fa fa-bell"></i> Avisar Cuando Haya Stock
+                </button>
+                
+                <button class="btn btn-warning btn-block" style="margin-bottom: 10px;">
+                  <i class="fa fa-share"></i> Compartir Lista
+                </button>
+                
+                <button class="btn btn-danger btn-block" style="margin-bottom: 10px;">
+                  <i class="fa fa-trash"></i> Limpiar Lista
+                </button>
+                
+                <hr>
+                
+                <h5><i class="fa fa-lightbulb-o"></i> Sugerencias</h5>
+                <p><small>Basado en tus favoritos, te recomendamos:</small></p>
+                
+                <div class="media" style="margin-bottom: 15px;">
+                  <div class="media-left">
+                    <img src="../../dist/img/products/ibuprofeno.jpg" style="width: 40px; height: 40px; border-radius: 4px;">
+                  </div>
+                  <div class="media-body">
+                    <h6 style="margin: 0;">Ibuprofeno 600mg</h6>
+                    <small class="text-muted">6,45 €</small>
+                  </div>
+                </div>
+                
+                <div class="media" style="margin-bottom: 15px;">
+                  <div class="media-left">
+                    <img src="../../dist/img/products/vitamina-d.jpg" style="width: 40px; height: 40px; border-radius: 4px;">
+                  </div>
+                  <div class="media-body">
+                    <h6 style="margin: 0;">Vitamina D3 4000UI</h6>
+                    <small class="text-muted">18,95 €</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      $(document).ready(function() {
+        // Filtros de categoría
+        $('.category-filter').click(function() {
+          $('.category-filter').removeClass('active');
+          $(this).addClass('active');
+          
+          var category = $(this).data('category');
+          if (category === 'all') {
+            $('.favorite-item').show();
+          } else {
+            $('.favorite-item').hide();
+            $('.favorite-item[data-category="' + category + '"]').show();
+          }
+        });
+        
+        // Quitar de favoritos
+        $('.favorite-badge').click(function() {
+          var item = $(this).closest('.favorite-item');
+          if (confirm('¿Quitar este producto de favoritos?')) {
+            item.fadeOut(300, function() {
+              item.remove();
+              updateFavoritesCount();
+            });
+          }
+        });
+        
+        // Añadir al carrito
+        $('.btn-success').click(function() {
+          var productName = $(this).closest('.favorite-item').find('h4').text();
+          alert('Producto "' + productName + '" añadido al carrito');
+        });
+        
+        // Avisar cuando haya stock
+        $('.btn-warning').click(function() {
+          var text = $(this).text().trim();
+          if (text.includes('Avisar')) {
+            alert('Te avisaremos cuando este producto esté disponible');
+          }
+        });
+        
+        // Acciones rápidas
+        $('.quick-actions .btn-success').click(function() {
+          alert('Productos disponibles añadidos al carrito');
+        });
+        
+        $('.quick-actions .btn-info').click(function() {
+          alert('Te avisaremos cuando los productos agotados estén disponibles');
+        });
+        
+        $('.quick-actions .btn-warning').click(function() {
+          alert('Lista de favoritos compartida');
+        });
+        
+        $('.quick-actions .btn-danger').click(function() {
+          if (confirm('¿Estás seguro de que quieres limpiar toda tu lista de favoritos?')) {
+            $('.favorite-item').fadeOut(300, function() {
+              $(this).remove();
+              $('#empty-favorites').show();
+            });
+          }
+        });
+        
+        function updateFavoritesCount() {
+          var count = $('.favorite-item').length;
+          if (count === 0) {
+            $('#favorites-list').hide();
+            $('#empty-favorites').show();
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Historial de Pedidos | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .order-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        background: white;
+        transition: all 0.3s ease;
+      }
+      .order-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-color: #14D5AA;
+      }
+      .order-header {
+        background: #f8f9fa;
+        padding: 15px 20px;
+        border-bottom: 1px solid #ddd;
+        border-radius: 8px 8px 0 0;
+      }
+      .order-body {
+        padding: 20px;
+      }
+      .order-status {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .status-completed { background: #d4edda; color: #155724; }
+      .status-processing { background: #fff3cd; color: #856404; }
+      .status-shipped { background: #d1ecf1; color: #0c5460; }
+      .status-cancelled { background: #f8d7da; color: #721c24; }
+      
+      .filter-section {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      .product-item {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .product-item:last-child {
+        border-bottom: none;
+      }
+      .product-image {
+        width: 50px;
+        height: 50px;
+        background: #f0f0f0;
+        border-radius: 4px;
+        margin-right: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-user"></i>
+                <span>🧑‍💼 Área de Clientes</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="iniciar-sesion.html"><i class="fa fa-sign-in"></i> Iniciar sesión</a></li>
+                <li><a href="registro.html"><i class="fa fa-user-plus"></i> Registro</a></li>
+                <li class="active"><a href="historial-pedidos.html"><i class="fa fa-history"></i> Historial de pedidos</a></li>
+                <li><a href="recetas-subidas.html"><i class="fa fa-upload"></i> Recetas subidas</a></li>
+                <li><a href="datos-personales.html"><i class="fa fa-edit"></i> Datos personales</a></li>
+                <li><a href="favoritos.html"><i class="fa fa-heart"></i> Favoritos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Historial de Pedidos
+            <small>Revisa todos tus pedidos anteriores</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Área de Clientes</a></li>
+            <li class="active">Historial de Pedidos</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Resumen -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>24</h3>
+                  <p>Pedidos Totales</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-shopping-bag"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>€347</h3>
+                  <p>Gastado este Año</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-euro"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>2</h3>
+                  <p>Pedidos Pendientes</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>€12</h3>
+                  <p>Ahorrado en Descuentos</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-percent"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filtros -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="filter-section">
+                <h4><i class="fa fa-filter"></i> Filtrar Pedidos</h4>
+                <div class="row" style="margin-top: 15px;">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Estado del Pedido</label>
+                      <select class="form-control" id="statusFilter">
+                        <option value="">Todos los estados</option>
+                        <option value="completed">Completado</option>
+                        <option value="processing">En proceso</option>
+                        <option value="shipped">Enviado</option>
+                        <option value="cancelled">Cancelado</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Fecha desde</label>
+                      <input type="date" class="form-control" id="dateFrom">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Fecha hasta</label>
+                      <input type="date" class="form-control" id="dateTo">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>&nbsp;</label>
+                      <button class="btn btn-primary btn-block" onclick="filterOrders()">
+                        <i class="fa fa-search"></i> Buscar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lista de pedidos -->
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Pedido 1 -->
+              <div class="order-card" data-status="completed">
+                <div class="order-header">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <strong>Pedido #ORD-2025-001</strong><br>
+                      <small>15 Enero 2025</small>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="order-status status-completed">Completado</span>
+                    </div>
+                    <div class="col-md-3">
+                      <strong>Total: €45.80</strong><br>
+                      <small>Descuento aplicado: €2.30</small>
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <button class="btn btn-sm btn-primary" onclick="toggleOrderDetails('order1')">
+                        <i class="fa fa-eye"></i> Ver Detalles
+                      </button>
+                      <button class="btn btn-sm btn-success" onclick="repeatOrder('ORD-2025-001')">
+                        <i class="fa fa-refresh"></i> Repetir
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-body" id="order1" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h5><strong>Productos</strong></h5>
+                      <div class="product-item">
+                        <div class="product-image">
+                          <i class="fa fa-medkit text-primary"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Paracetamol 1g</strong><br>
+                          <small>20 comprimidos - Laboratorio Cinfa</small>
+                        </div>
+                        <div class="text-right">
+                          <div>Cantidad: 2</div>
+                          <div><strong>€13.60</strong></div>
+                        </div>
+                      </div>
+                      <div class="product-item">
+                        <div class="product-image">
+                          <i class="fa fa-heart text-danger"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Ibuprofeno 600mg</strong><br>
+                          <small>30 comprimidos - Con receta</small>
+                        </div>
+                        <div class="text-right">
+                          <div>Cantidad: 1</div>
+                          <div><strong>€8.45</strong></div>
+                        </div>
+                      </div>
+                      <div class="product-item">
+                        <div class="product-image">
+                          <i class="fa fa-leaf text-success"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Vitamina C 1000mg</strong><br>
+                          <small>60 comprimidos efervescentes</small>
+                        </div>
+                        <div class="text-right">
+                          <div>Cantidad: 1</div>
+                          <div><strong>€25.75</strong></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <h5><strong>Información del Envío</strong></h5>
+                      <p>
+                        <strong>Dirección:</strong><br>
+                        Calle Mayor 123, 3º A<br>
+                        28013 Madrid
+                      </p>
+                      <p>
+                        <strong>Método:</strong> Recogida en farmacia<br>
+                        <strong>Fecha entrega:</strong> 16 Enero 2025<br>
+                        <strong>Farmacéutico:</strong> Dr. María González
+                      </p>
+                      <div style="margin-top: 15px;">
+                        <button class="btn btn-sm btn-info">
+                          <i class="fa fa-download"></i> Factura PDF
+                        </button>
+                        <button class="btn btn-sm btn-warning">
+                          <i class="fa fa-star"></i> Valorar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pedido 2 -->
+              <div class="order-card" data-status="processing">
+                <div class="order-header">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <strong>Pedido #ORD-2025-002</strong><br>
+                      <small>20 Enero 2025</small>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="order-status status-processing">En Proceso</span>
+                    </div>
+                    <div class="col-md-3">
+                      <strong>Total: €32.15</strong><br>
+                      <small>Envío gratuito aplicado</small>
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <button class="btn btn-sm btn-primary" onclick="toggleOrderDetails('order2')">
+                        <i class="fa fa-eye"></i> Ver Detalles
+                      </button>
+                      <button class="btn btn-sm btn-warning" onclick="trackOrder('ORD-2025-002')">
+                        <i class="fa fa-truck"></i> Seguir
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-body" id="order2" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h5><strong>Productos</strong></h5>
+                      <div class="product-item">
+                        <div class="product-image">
+                          <i class="fa fa-tint text-info"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Suero fisiológico</strong><br>
+                          <small>20 unidosis 5ml - Estéril</small>
+                        </div>
+                        <div class="text-right">
+                          <div>Cantidad: 3</div>
+                          <div><strong>€18.60</strong></div>
+                        </div>
+                      </div>
+                      <div class="product-item">
+                        <div class="product-image">
+                          <i class="fa fa-shield text-primary"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Mascarillas FFP2</strong><br>
+                          <small>Caja 20 unidades - CE certificadas</small>
+                        </div>
+                        <div class="text-right">
+                          <div>Cantidad: 1</div>
+                          <div><strong>€13.55</strong></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <h5><strong>Estado del Pedido</strong></h5>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-warning" style="width: 60%"></div>
+                      </div>
+                      <ul class="list-unstyled" style="margin-top: 15px;">
+                        <li><i class="fa fa-check text-success"></i> Pedido recibido</li>
+                        <li><i class="fa fa-check text-success"></i> En preparación</li>
+                        <li><i class="fa fa-clock-o text-warning"></i> Verificación farmacéutica</li>
+                        <li><i class="fa fa-circle-o text-muted"></i> Listo para envío</li>
+                      </ul>
+                      <p><strong>Tiempo estimado:</strong> 2-4 horas</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pedido 3 -->
+              <div class="order-card" data-status="shipped">
+                <div class="order-header">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <strong>Pedido #ORD-2025-003</strong><br>
+                      <small>22 Enero 2025</small>
+                    </div>
+                    <div class="col-md-3">
+                      <span class="order-status status-shipped">Enviado</span>
+                    </div>
+                    <div class="col-md-3">
+                      <strong>Total: €67.90</strong><br>
+                      <small>Entrega domicilio: €3.50</small>
+                    </div>
+                    <div class="col-md-3 text-right">
+                      <button class="btn btn-sm btn-primary" onclick="toggleOrderDetails('order3')">
+                        <i class="fa fa-eye"></i> Ver Detalles
+                      </button>
+                      <button class="btn btn-sm btn-info" onclick="trackShipment('SH123456789')">
+                        <i class="fa fa-map-marker"></i> Localizar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="order-body" id="order3" style="display: none;">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h5><strong>Productos</strong></h5>
+                      <div class="product-item">
+                        <div class="product-image">
+                          <i class="fa fa-heartbeat text-danger"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                          <strong>Tensiómetro Digital</strong><br>
+                          <small>Omron M3 - Validado clínicamente</small>
+                        </div>
+                        <div class="text-right">
+                          <div>Cantidad: 1</div>
+                          <div><strong>€64.40</strong></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <h5><strong>Información de Envío</strong></h5>
+                      <p>
+                        <strong>Transportista:</strong> Express Delivery<br>
+                        <strong>Número seguimiento:</strong> SH123456789<br>
+                        <strong>Entrega estimada:</strong> 24 Enero 2025<br>
+                        <strong>Franja horaria:</strong> 9:00 - 14:00
+                      </p>
+                      <div style="margin-top: 15px;">
+                        <button class="btn btn-sm btn-success">
+                          <i class="fa fa-truck"></i> Seguir Envío
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Paginación -->
+              <div class="text-center">
+                <ul class="pagination">
+                  <li class="disabled"><a href="#">&laquo;</a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      function toggleOrderDetails(orderId) {
+        $('#' + orderId).slideToggle();
+      }
+      
+      function repeatOrder(orderNumber) {
+        if (confirm('¿Deseas repetir este pedido? Se añadirán todos los productos al carrito.')) {
+          alert('Productos añadidos al carrito. Te redirigimos para completar el pedido.');
+          // Aquí iría la lógica para añadir productos al carrito
+        }
+      }
+      
+      function trackOrder(orderNumber) {
+        alert('Estado del pedido ' + orderNumber + ':\n\n✓ Pedido recibido\n✓ En preparación\n⏳ Verificación farmacéutica\n○ Listo para envío');
+      }
+      
+      function trackShipment(trackingNumber) {
+        alert('Seguimiento del envío ' + trackingNumber + ':\n\n✓ Recogido del almacén\n✓ En tránsito\n⏳ En reparto\n○ Entregado');
+      }
+      
+      function filterOrders() {
+        var status = $('#statusFilter').val();
+        var dateFrom = $('#dateFrom').val();
+        var dateTo = $('#dateTo').val();
+        
+        $('.order-card').each(function() {
+          var show = true;
+          
+          if (status && $(this).data('status') !== status) {
+            show = false;
+          }
+          
+          if (show) {
+            $(this).show();
+          } else {
+            $(this).hide();
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

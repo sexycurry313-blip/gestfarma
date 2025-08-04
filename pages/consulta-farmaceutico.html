@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Consulta al Farmacéutico | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .chat-message {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        max-width: 80%;
+      }
+      .chat-message.user {
+        background: #e3f2fd;
+        margin-left: auto;
+        text-align: right;
+      }
+      .chat-message.pharmacist {
+        background: #e8f5e8;
+        margin-right: auto;
+      }
+      .pharmacist-profile {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        background: white;
+      }
+      .consultation-topic {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        padding: 15px;
+        margin: 10px 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .consultation-topic:hover {
+        background: #e9ecef;
+        border-color: #14D5AA;
+      }
+      .consultation-topic.selected {
+        background: #183657;
+        color: white;
+        border-color: #183657;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../index.html" class="logo">
+          <img src="../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active">
+              <a href="consulta-farmaceutico.html">
+                <i class="fa fa-comments"></i> <span>💬 Consulta al Farmacéutico</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Consulta al Farmacéutico
+            <small>Resolveremos todas tus dudas sobre medicamentos y salud</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li class="active">Consulta al Farmacéutico</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <div class="row">
+            <!-- Chat principal -->
+            <div class="col-md-8">
+              <div class="box box-primary direct-chat direct-chat-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Chat con el Farmacéutico</h3>
+                  <div class="box-tools pull-right">
+                    <span data-toggle="tooltip" title="3 Nuevos Mensajes" class="badge bg-light-blue">3</span>
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  </div>
+                </div>
+                
+                <div class="box-body">
+                  <!-- Conversación -->
+                  <div class="direct-chat-messages" style="height: 400px;">
+                    
+                    <div class="direct-chat-msg">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Dr. Carlos Martínez</span>
+                        <span class="direct-chat-timestamp pull-right">10:30</span>
+                      </div>
+                      <img class="direct-chat-img" src="../dist/img/avatar.png" alt="Farmacéutico">
+                      <div class="direct-chat-text">
+                        ¡Hola! Soy Carlos, farmacéutico especialista. ¿En qué puedo ayudarte hoy?
+                      </div>
+                    </div>
+
+                    <div class="direct-chat-msg right">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Tú</span>
+                        <span class="direct-chat-timestamp pull-left">10:32</span>
+                      </div>
+                      <img class="direct-chat-img" src="../dist/img/user2-160x160.jpg" alt="Usuario">
+                      <div class="direct-chat-text">
+                        Hola doctor, tengo una duda sobre la interacción entre ibuprofeno y mis medicamentos para la hipertensión.
+                      </div>
+                    </div>
+
+                    <div class="direct-chat-msg">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Dr. Carlos Martínez</span>
+                        <span class="direct-chat-timestamp pull-right">10:35</span>
+                      </div>
+                      <img class="direct-chat-img" src="../dist/img/avatar.png" alt="Farmacéutico">
+                      <div class="direct-chat-text">
+                        Excelente pregunta. ¿Podrías decirme qué medicamentos estás tomando exactamente para la hipertensión? Y ¿con qué frecuencia planeas tomar el ibuprofeno?
+                      </div>
+                    </div>
+
+                    <div class="direct-chat-msg right">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Tú</span>
+                        <span class="direct-chat-timestamp pull-left">10:38</span>
+                      </div>
+                      <img class="direct-chat-img" src="../dist/img/user2-160x160.jpg" alt="Usuario">
+                      <div class="direct-chat-text">
+                        Tomo Enalapril 10mg una vez al día por las mañanas. El ibuprofeno lo necesito para dolor muscular, pensaba tomarlo 3-4 días.
+                      </div>
+                    </div>
+
+                    <div class="direct-chat-msg">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Dr. Carlos Martínez</span>
+                        <span class="direct-chat-timestamp pull-right">10:42</span>
+                      </div>
+                      <img class="direct-chat-img" src="../dist/img/avatar.png" alt="Farmacéutico">
+                      <div class="direct-chat-text">
+                        El ibuprofeno puede reducir la eficacia del Enalapril y aumentar la presión arterial. Para 3-4 días ocasionales no suele haber problema, pero te recomiendo:
+                        <br><br>
+                        1️⃣ Tomar la dosis mínima eficaz (400mg máximo)<br>
+                        2️⃣ Controlar tu presión estos días<br>
+                        3️⃣ Considerar paracetamol como alternativa<br><br>
+                        ¿Tienes tensiómetro en casa?
+                      </div>
+                    </div>
+
+                  </div>
+                  
+                </div>
+
+                <div class="box-footer">
+                  <form action="#" method="post">
+                    <div class="input-group">
+                      <input type="text" name="message" placeholder="Escribe tu consulta..." class="form-control">
+                      <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary btn-flat">Enviar</button>
+                      </span>
+                    </div>
+                  </form>
+                </div>
+
+              </div>
+
+              <!-- Temas de consulta frecuentes -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Consultas Frecuentes</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="consultation-topic" onclick="selectTopic(this, 'Interacciones medicamentosas')">
+                        <i class="fa fa-exclamation-triangle" style="color: #FF1E70;"></i>
+                        <strong>Interacciones entre medicamentos</strong>
+                        <p>¿Puedo tomar estos medicamentos juntos?</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="consultation-topic" onclick="selectTopic(this, 'Efectos secundarios')">
+                        <i class="fa fa-warning" style="color: #FF1E70;"></i>
+                        <strong>Efectos secundarios</strong>
+                        <p>Qué hacer ante reacciones adversas</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="consultation-topic" onclick="selectTopic(this, 'Dosis y administración')">
+                        <i class="fa fa-clock-o" style="color: #183657;"></i>
+                        <strong>Dosis y horarios</strong>
+                        <p>¿Cómo y cuándo tomar mi medicación?</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="consultation-topic" onclick="selectTopic(this, 'Embarazo y lactancia')">
+                        <i class="fa fa-heart" style="color: #FF1E70;"></i>
+                        <strong>Embarazo y lactancia</strong>
+                        <p>Medicamentos seguros en estas etapas</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel lateral -->
+            <div class="col-md-4">
+              <!-- Farmacéutico de guardia -->
+              <div class="pharmacist-profile">
+                <img src="../dist/img/avatar.png" alt="Farmacéutico" class="img-circle" style="width: 80px; height: 80px;">
+                <h4>Dr. Carlos Martínez</h4>
+                <p><strong>Farmacéutico Especialista</strong></p>
+                <p>Colegiado nº 2847</p>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div style="font-size: 20px; color: #14D5AA;">
+                      <i class="fa fa-circle"></i> En línea
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div style="font-size: 14px;">
+                      Respuesta promedio:<br>
+                      <strong>3 minutos</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Información del servicio -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-info-circle"></i> Información del Servicio</h3>
+                </div>
+                <div class="box-body">
+                  <ul class="list-unstyled">
+                    <li><i class="fa fa-check text-green"></i> <strong>Gratuito</strong> para clientes registrados</li>
+                    <li><i class="fa fa-check text-green"></i> <strong>24/7</strong> disponibilidad</li>
+                    <li><i class="fa fa-check text-green"></i> <strong>Confidencial</strong> y seguro</li>
+                    <li><i class="fa fa-check text-green"></i> <strong>Farmacéuticos</strong> colegiados</li>
+                    <li><i class="fa fa-check text-green"></i> <strong>Respuesta rápida</strong> garantizada</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Horarios de atención -->
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-clock-o"></i> Horarios de Atención</h3>
+                </div>
+                <div class="box-body">
+                  <table class="table table-condensed">
+                    <tr>
+                      <td><strong>Lunes - Viernes</strong></td>
+                      <td>9:00 - 21:00</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Sábados</strong></td>
+                      <td>9:00 - 14:00</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Domingos</strong></td>
+                      <td>Emergencias</td>
+                    </tr>
+                  </table>
+                  <p><small><i class="fa fa-info-circle"></i> Fuera del horario, las consultas se responden al día siguiente.</small></p>
+                </div>
+              </div>
+
+              <!-- Contacto de emergencia -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-phone"></i> Emergencia</h3>
+                </div>
+                <div class="box-body text-center">
+                  <p>Para emergencias médicas:</p>
+                  <a href="tel:112" class="btn btn-danger btn-lg">
+                    <i class="fa fa-phone"></i> 112
+                  </a>
+                  <p style="margin-top: 10px;">
+                    <small>Servicio de urgencias médicas</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      function selectTopic(element, topic) {
+        // Remover selección anterior
+        document.querySelectorAll('.consultation-topic').forEach(el => {
+          el.classList.remove('selected');
+        });
+        
+        // Seleccionar nuevo tema
+        element.classList.add('selected');
+        
+        // Llenar el campo de mensaje con el tema seleccionado
+        const messageInput = document.querySelector('input[name="message"]');
+        messageInput.value = `Tengo una consulta sobre: ${topic}`;
+        messageInput.focus();
+      }
+    </script>
+  </body>
+</html>

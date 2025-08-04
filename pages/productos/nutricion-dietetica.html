@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Nutrición y Dietética | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-primary .box-header .box-title { color: white !important; }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .supplement-card {
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        background: white;
+      }
+      .supplement-card:hover {
+        border-color: #14D5AA;
+        box-shadow: 0 4px 8px rgba(20, 213, 170, 0.1);
+      }
+      .nutrition-badge {
+        background-color: #14D5AA;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 3px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .price {
+        color: #FF1E70;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-medkit"></i>
+                <span>💊 Productos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="medicamentos-con-receta.html"><i class="fa fa-circle-o"></i> Medicamentos con receta</a></li>
+                <li><a href="medicamentos-sin-receta.html"><i class="fa fa-circle-o"></i> Medicamentos sin receta</a></li>
+                <li><a href="parafarmacia.html"><i class="fa fa-circle-o"></i> Parafarmacia</a></li>
+                <li><a href="infantil-maternidad.html"><i class="fa fa-circle-o"></i> Infantil y maternidad</a></li>
+                <li><a href="cuidado-personal.html"><i class="fa fa-circle-o"></i> Cuidado personal</a></li>
+                <li><a href="ortopedia.html"><i class="fa fa-circle-o"></i> Ortopedia</a></li>
+                <li><a href="salud-sexual.html"><i class="fa fa-circle-o"></i> Salud sexual</a></li>
+                <li class="active"><a href="nutricion-dietetica.html"><i class="fa fa-circle-o"></i> Nutrición y dietética</a></li>
+                <li><a href="veterinaria.html"><i class="fa fa-circle-o"></i> Veterinaria</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Nutrición y Dietética
+            <small>Complementos alimenticios y productos nutricionales</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Productos</a></li>
+            <li class="active">Nutrición y Dietética</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Categorías -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Categorías Nutricionales</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-2 col-sm-4 text-center">
+                      <div style="padding: 20px; border: 1px solid #14D5AA; border-radius: 10px; margin: 5px;">
+                        <i class="fa fa-heartbeat fa-2x" style="color: #FF1E70;"></i>
+                        <h5>Vitaminas</h5>
+                        <span class="label label-success">45 productos</span>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 text-center">
+                      <div style="padding: 20px; border: 1px solid #14D5AA; border-radius: 10px; margin: 5px;">
+                        <i class="fa fa-leaf fa-2x" style="color: #14D5AA;"></i>
+                        <h5>Minerales</h5>
+                        <span class="label label-success">32 productos</span>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 text-center">
+                      <div style="padding: 20px; border: 1px solid #14D5AA; border-radius: 10px; margin: 5px;">
+                        <i class="fa fa-flash fa-2x" style="color: #183657;"></i>
+                        <h5>Energía</h5>
+                        <span class="label label-primary">28 productos</span>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 text-center">
+                      <div style="padding: 20px; border: 1px solid #14D5AA; border-radius: 10px; margin: 5px;">
+                        <i class="fa fa-child fa-2x" style="color: #FF1E70;"></i>
+                        <h5>Infantil</h5>
+                        <span class="label label-warning">19 productos</span>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 text-center">
+                      <div style="padding: 20px; border: 1px solid #14D5AA; border-radius: 10px; margin: 5px;">
+                        <i class="fa fa-venus fa-2x" style="color: #FF1E70;"></i>
+                        <h5>Mujer</h5>
+                        <span class="label label-warning">24 productos</span>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 text-center">
+                      <div style="padding: 20px; border: 1px solid #14D5AA; border-radius: 10px; margin: 5px;">
+                        <i class="fa fa-user fa-2x" style="color: #183657;"></i>
+                        <h5>Senior</h5>
+                        <span class="label label-primary">31 productos</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Productos destacados -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="supplement-card">
+                <img src="https://via.placeholder.com/300x150?text=Multicentrum" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;" alt="Multicentrum">
+                <div class="nutrition-badge">MULTIVITAMÍNICO</div>
+                <h4 style="color: #183657; font-weight: bold; margin: 10px 0;">Multicentrum Adultos</h4>
+                <p><strong>Laboratorio:</strong> Pfizer</p>
+                <p><strong>Formato:</strong> 30 comprimidos</p>
+                <p><strong>Beneficio:</strong> Energía y vitalidad</p>
+                <div class="price">€12.95</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="supplement-card">
+                <img src="https://via.placeholder.com/300x150?text=Supradyn" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;" alt="Supradyn">
+                <div class="nutrition-badge">ENERGÍA</div>
+                <h4 style="color: #183657; font-weight: bold; margin: 10px 0;">Supradyn Energy</h4>
+                <p><strong>Laboratorio:</strong> Bayer</p>
+                <p><strong>Formato:</strong> 30 comprimidos</p>
+                <p><strong>Beneficio:</strong> Reduce el cansancio</p>
+                <div class="price">€15.50</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="supplement-card">
+                <img src="https://via.placeholder.com/300x150?text=Omegafor" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;" alt="Omegafor">
+                <div class="nutrition-badge">OMEGA-3</div>
+                <h4 style="color: #183657; font-weight: bold; margin: 10px 0;">Omegafor Forte</h4>
+                <p><strong>Laboratorio:</strong> Biover</p>
+                <p><strong>Formato:</strong> 60 cápsulas</p>
+                <p><strong>Beneficio:</strong> Salud cardiovascular</p>
+                <div class="price">€22.30</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="supplement-card">
+                <img src="https://via.placeholder.com/300x150?text=Hierro+Folico" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;" alt="Hierro">
+                <div class="nutrition-badge">MUJER</div>
+                <h4 style="color: #183657; font-weight: bold; margin: 10px 0;">Hierro + Ácido Fólico</h4>
+                <p><strong>Laboratorio:</strong> Arkopharma</p>
+                <p><strong>Formato:</strong> 30 cápsulas</p>
+                <p><strong>Beneficio:</strong> Embarazo y lactancia</p>
+                <div class="price">€9.75</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="supplement-card">
+                <img src="https://via.placeholder.com/300x150?text=Probioticos" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;" alt="Probióticos">
+                <div class="nutrition-badge">DIGESTIVO</div>
+                <h4 style="color: #183657; font-weight: bold; margin: 10px 0;">Probióticos Intestinales</h4>
+                <p><strong>Laboratorio:</strong> Lactoflora</p>
+                <p><strong>Formato:</strong> 10 viales</p>
+                <p><strong>Beneficio:</strong> Flora intestinal</p>
+                <div class="price">€18.90</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="supplement-card">
+                <img src="https://via.placeholder.com/300x150?text=Calcio+D3" style="width: 100%; height: 150px; object-fit: cover; border-radius: 5px;" alt="Calcio">
+                <div class="nutrition-badge">HUESOS</div>
+                <h4 style="color: #183657; font-weight: bold; margin: 10px 0;">Calcio + Vitamina D3</h4>
+                <p><strong>Laboratorio:</strong> Sandoz</p>
+                <p><strong>Formato:</strong> 60 comprimidos</p>
+                <p><strong>Beneficio:</strong> Salud ósea</p>
+                <div class="price">€14.25</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Asesoramiento nutricional -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-user-md"></i> Asesoramiento Nutricional Personalizado</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h4>¿Necesitas ayuda para elegir?</h4>
+                      <p>Nuestros farmacéuticos especializados en nutrición te ayudarán a encontrar el complemento ideal según:</p>
+                      <ul>
+                        <li>Tu edad y estilo de vida</li>
+                        <li>Necesidades nutricionales específicas</li>
+                        <li>Posibles interacciones con medicamentos</li>
+                        <li>Objetivos de salud</li>
+                      </ul>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <i class="fa fa-stethoscope fa-4x" style="color: #14D5AA; margin-bottom: 20px;"></i>
+                      <br>
+                      <button class="btn btn-success btn-lg">
+                        <i class="fa fa-comments"></i> Consultar Ahora
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+  </body>
+</html>

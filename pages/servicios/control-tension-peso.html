@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Control de Tensión y Peso | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .service-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background: white;
+        transition: all 0.3s ease;
+        text-align: center;
+      }
+      .service-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-color: #14D5AA;
+        transform: translateY(-2px);
+      }
+      .service-icon {
+        font-size: 48px;
+        margin-bottom: 15px;
+        color: #14D5AA;
+      }
+      .measurement-form {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      .history-card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .chart-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-stethoscope"></i>
+                <span>🩺 Servicios Farmacia</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pruebas-laboratorio.html"><i class="fa fa-flask"></i> Pruebas de laboratorio</a></li>
+                <li class="active"><a href="control-tension-peso.html"><i class="fa fa-heartbeat"></i> Control de tensión y peso</a></li>
+                <li><a href="formulas-magistrales.html"><i class="fa fa-mortar-pestle"></i> Fórmulas magistrales</a></li>
+                <li><a href="asesoramiento-farmaceutico.html"><i class="fa fa-stethoscope"></i> Asesoramiento farmacéutico</a></li>
+                <li><a href="atencion-domiciliaria.html"><i class="fa fa-home"></i> Atención domiciliaria</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Control de Tensión y Peso
+            <small>Monitorea tu salud cardiovascular</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Servicios Farmacia</a></li>
+            <li class="active">Control de Tensión y Peso</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Servicios disponibles -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-heartbeat"></i>
+                </div>
+                <h4>Control de Tensión Arterial</h4>
+                <p>Medición profesional de la presión arterial con equipos certificados</p>
+                <div style="margin: 15px 0;">
+                  <strong style="color: #14D5AA; font-size: 24px;">GRATUITO</strong>
+                </div>
+                <button class="btn btn-success btn-lg">Solicitar Medición</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-balance-scale"></i>
+                </div>
+                <h4>Control de Peso y IMC</h4>
+                <p>Pesaje profesional y cálculo del Índice de Masa Corporal</p>
+                <div style="margin: 15px 0;">
+                  <strong style="color: #14D5AA; font-size: 24px;">GRATUITO</strong>
+                </div>
+                <button class="btn btn-success btn-lg">Solicitar Pesaje</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-line-chart"></i>
+                </div>
+                <h4>Seguimiento Personalizado</h4>
+                <p>Historial y evolución de tus mediciones con gráficos</p>
+                <div style="margin: 15px 0;">
+                  <strong style="color: #14D5AA; font-size: 24px;">GRATUITO</strong>
+                </div>
+                <button class="btn btn-success btn-lg">Ver Mi Historial</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Registro de nueva medición -->
+          <div class="row">
+            <div class="col-md-8">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Registrar Nueva Medición</h3>
+                </div>
+                <div class="box-body">
+                  <div class="measurement-form">
+                    <form>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <h4><i class="fa fa-heartbeat"></i> Tensión Arterial</h4>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Sistólica (mmHg)</label>
+                                <input type="number" class="form-control" placeholder="120" min="80" max="250">
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Diastólica (mmHg)</label>
+                                <input type="number" class="form-control" placeholder="80" min="40" max="150">
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>Pulsaciones por minuto</label>
+                            <input type="number" class="form-control" placeholder="70" min="40" max="200">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <h4><i class="fa fa-balance-scale"></i> Peso y Medidas</h4>
+                          <div class="form-group">
+                            <label>Peso (kg)</label>
+                            <input type="number" step="0.1" class="form-control" placeholder="70.5" min="20" max="300">
+                          </div>
+                          <div class="form-group">
+                            <label>Altura (cm)</label>
+                            <input type="number" class="form-control" placeholder="175" min="100" max="250">
+                          </div>
+                          <div class="form-group">
+                            <label>IMC Calculado</label>
+                            <input type="text" class="form-control" readonly placeholder="Se calculará automáticamente">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label>Observaciones</label>
+                            <textarea class="form-control" rows="3" placeholder="Cualquier síntoma o situación especial..."></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                          <i class="fa fa-save"></i> Guardar Medición
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <!-- Últimas mediciones -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Últimas Mediciones</h3>
+                </div>
+                <div class="box-body">
+                  <div class="history-card">
+                    <div class="text-right text-muted small">Hoy, 10:30</div>
+                    <h5><strong>Tensión:</strong> 125/82 mmHg</h5>
+                    <p><strong>Peso:</strong> 72.5 kg | <strong>IMC:</strong> 23.7</p>
+                    <span class="label label-success">Normal</span>
+                  </div>
+                  <div class="history-card">
+                    <div class="text-right text-muted small">Ayer, 09:15</div>
+                    <h5><strong>Tensión:</strong> 130/85 mmHg</h5>
+                    <p><strong>Peso:</strong> 73.0 kg | <strong>IMC:</strong> 23.9</p>
+                    <span class="label label-warning">Elevada</span>
+                  </div>
+                  <div class="history-card">
+                    <div class="text-right text-muted small">3 días, 11:00</div>
+                    <h5><strong>Tensión:</strong> 118/78 mmHg</h5>
+                    <p><strong>Peso:</strong> 72.8 kg | <strong>IMC:</strong> 23.8</p>
+                    <span class="label label-success">Óptima</span>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <button class="btn btn-default btn-block">Ver Historial Completo</button>
+                </div>
+              </div>
+
+              <!-- Recordatorios -->
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-bell"></i> Recordatorios</h3>
+                </div>
+                <div class="box-body">
+                  <div class="form-group">
+                    <label>
+                      <input type="checkbox" checked> Medición diaria
+                    </label>
+                    <small class="text-muted">A las 09:00</small>
+                  </div>
+                  <div class="form-group">
+                    <label>
+                      <input type="checkbox"> Medición semanal
+                    </label>
+                    <small class="text-muted">Lunes a las 10:00</small>
+                  </div>
+                  <div class="form-group">
+                    <label>
+                      <input type="checkbox"> Cita médica
+                    </label>
+                    <small class="text-muted">Próxima: 15 Feb</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Gráficos de evolución -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Evolución de la Tensión Arterial</h3>
+                </div>
+                <div class="box-body">
+                  <div class="chart-container">
+                    <canvas id="tensionChart" width="400" height="200"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Evolución del Peso</h3>
+                </div>
+                <div class="box-body">
+                  <div class="chart-container">
+                    <canvas id="pesoChart" width="400" height="200"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información y consejos -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-default">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-info-circle"></i> Valores de Referencia y Consejos</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4>Tensión Arterial</h4>
+                      <table class="table table-bordered">
+                        <tr class="success">
+                          <td><strong>Óptima</strong></td>
+                          <td>&lt; 120/80 mmHg</td>
+                        </tr>
+                        <tr class="info">
+                          <td><strong>Normal</strong></td>
+                          <td>120-129/80-84 mmHg</td>
+                        </tr>
+                        <tr class="warning">
+                          <td><strong>Normal-Alta</strong></td>
+                          <td>130-139/85-89 mmHg</td>
+                        </tr>
+                        <tr class="danger">
+                          <td><strong>Hipertensión</strong></td>
+                          <td>&gt; 140/90 mmHg</td>
+                        </tr>
+                      </table>
+                    </div>
+                    <div class="col-md-6">
+                      <h4>Índice de Masa Corporal</h4>
+                      <table class="table table-bordered">
+                        <tr class="info">
+                          <td><strong>Bajo peso</strong></td>
+                          <td>&lt; 18.5</td>
+                        </tr>
+                        <tr class="success">
+                          <td><strong>Normal</strong></td>
+                          <td>18.5 - 24.9</td>
+                        </tr>
+                        <tr class="warning">
+                          <td><strong>Sobrepeso</strong></td>
+                          <td>25.0 - 29.9</td>
+                        </tr>
+                        <tr class="danger">
+                          <td><strong>Obesidad</strong></td>
+                          <td>&gt; 30.0</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="fa fa-apple"></i></span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">Alimentación</span>
+                          <span class="info-box-number" style="font-size: 14px;">Dieta baja en sal y rica en frutas y verduras</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="fa fa-running"></i></span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">Ejercicio</span>
+                          <span class="info-box-number" style="font-size: 14px;">30 minutos de actividad física moderada diaria</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="info-box">
+                        <span class="info-box-icon bg-yellow"><i class="fa fa-ban"></i></span>
+                        <div class="info-box-content">
+                          <span class="info-box-text">Evitar</span>
+                          <span class="info-box-number" style="font-size: 14px;">Tabaco, alcohol excesivo y estrés</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+      // Cálculo automático del IMC
+      function calculateIMC() {
+        const peso = parseFloat($('input[placeholder="70.5"]').val());
+        const altura = parseFloat($('input[placeholder="175"]').val());
+        
+        if (peso && altura) {
+          const alturaM = altura / 100;
+          const imc = peso / (alturaM * alturaM);
+          $('input[placeholder="Se calculará automáticamente"]').val(imc.toFixed(1));
+        }
+      }
+
+      $('input[placeholder="70.5"], input[placeholder="175"]').on('input', calculateIMC);
+
+      // Gráfico de tensión arterial
+      const ctxTension = document.getElementById('tensionChart').getContext('2d');
+      new Chart(ctxTension, {
+        type: 'line',
+        data: {
+          labels: ['Hace 7 días', 'Hace 6 días', 'Hace 5 días', 'Hace 4 días', 'Hace 3 días', 'Ayer', 'Hoy'],
+          datasets: [{
+            label: 'Sistólica',
+            data: [128, 132, 125, 130, 118, 130, 125],
+            borderColor: '#FF1E70',
+            tension: 0.1
+          }, {
+            label: 'Diastólica',
+            data: [82, 88, 80, 85, 78, 85, 82],
+            borderColor: '#14D5AA',
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 60,
+              max: 160
+            }
+          }
+        }
+      });
+
+      // Gráfico de peso
+      const ctxPeso = document.getElementById('pesoChart').getContext('2d');
+      new Chart(ctxPeso, {
+        type: 'line',
+        data: {
+          labels: ['Hace 7 días', 'Hace 6 días', 'Hace 5 días', 'Hace 4 días', 'Hace 3 días', 'Ayer', 'Hoy'],
+          datasets: [{
+            label: 'Peso (kg)',
+            data: [74.2, 73.8, 73.5, 73.1, 72.8, 73.0, 72.5],
+            borderColor: '#183657',
+            backgroundColor: 'rgba(24, 54, 87, 0.1)',
+            fill: true,
+            tension: 0.1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: false,
+              min: 70,
+              max: 76
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

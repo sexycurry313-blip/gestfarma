@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Comparador de Precios | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .comparison-search {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .price-comparison-card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #14D5AA;
+      }
+      .supplier-card {
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+        transition: all 0.3s;
+        background: white;
+      }
+      .supplier-card.best-price {
+        border-color: #14D5AA;
+        background: linear-gradient(135deg, rgba(20, 213, 170, 0.05), rgba(255, 255, 255, 1));
+      }
+      .supplier-card.worst-price {
+        border-color: #FF1E70;
+        background: linear-gradient(135deg, rgba(255, 30, 112, 0.05), rgba(255, 255, 255, 1));
+      }
+      .price-badge {
+        font-size: 24px;
+        font-weight: bold;
+        padding: 10px 15px;
+        border-radius: 8px;
+        display: inline-block;
+        margin-bottom: 10px;
+      }
+      .price-best {
+        background: #14D5AA;
+        color: white;
+      }
+      .price-worst {
+        background: #FF1E70;
+        color: white;
+      }
+      .price-normal {
+        background: #6c757d;
+        color: white;
+      }
+      .savings-indicator {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 10px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+      .savings-high {
+        background: rgba(20, 213, 170, 0.1);
+        color: #14D5AA;
+      }
+      .savings-medium {
+        background: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+      }
+      .savings-low {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+      }
+      .comparison-chart {
+        height: 300px;
+        margin: 20px 0;
+      }
+      .quick-compare {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .product-selector {
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        margin: 10px 0;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .product-selector:hover {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.05);
+      }
+      .product-selector.selected {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.1);
+        border-style: solid;
+      }
+      .market-analysis {
+        background: linear-gradient(45deg, #f8f9fa, #ffffff);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #dee2e6;
+      }
+      .trend-indicator {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .trend-up {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+      }
+      .trend-down {
+        background: rgba(20, 213, 170, 0.1);
+        color: #14D5AA;
+      }
+      .trend-stable {
+        background: rgba(108, 117, 125, 0.1);
+        color: #6c757d;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="../informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="../informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>📈 Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../ventas/dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="../ventas/analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li><a href="../ventas/control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>🧪 Pujas (Labs)</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../pujas/pujas-activas.html"><i class="fa fa-gavel"></i> Pujas Activas</a></li>
+                <li><a href="../pujas/historial-pujas.html"><i class="fa fa-history"></i> Historial de Pujas</a></li>
+                <li><a href="../pujas/gestionar-labs.html"><i class="fa fa-cogs"></i> Gestionar Labs</a></li>
+              </ul>
+            </li>
+
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-tags"></i>
+                <span>💰 Surtido y Precios</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="catalogo-productos.html"><i class="fa fa-book"></i> Catálogo Productos</a></li>
+                <li><a href="ver-tarifas.html"><i class="fa fa-list"></i> Ver Tarifas</a></li>
+                <li class="active"><a href="comparador.html"><i class="fa fa-exchange"></i> Comparador</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-share-alt"></i>
+                <span>🤝 Recursos Compartidos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../recursos/ver-disponibilidad.html"><i class="fa fa-calendar"></i> Ver Disponibilidad</a></li>
+                <li><a href="../recursos/solicitar-recurso.html"><i class="fa fa-hand-paper-o"></i> Solicitar Recurso</a></li>
+                <li><a href="../recursos/mis-peticiones.html"><i class="fa fa-user"></i> Mis Peticiones</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-gift"></i>
+                <span>🎁 Promos y Fidelización</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../promos/crear-promocion.html"><i class="fa fa-plus"></i> Crear Promoción</a></li>
+                <li><a href="../promos/club-fidelidad.html"><i class="fa fa-star"></i> Club Fidelidad</a></li>
+                <li><a href="../promos/analisis-campanas.html"><i class="fa fa-pie-chart"></i> Análisis Campañas</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Comparador Inteligente de Precios
+            <small>Análisis competitivo y optimización de compras</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Surtido y Precios</a></li>
+            <li class="active">Comparador</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Buscador inteligente -->
+          <div class="comparison-search">
+            <div class="row">
+              <div class="col-md-8">
+                <h3><i class="fa fa-search"></i> Búsqueda Inteligente de Productos</h3>
+                <div class="input-group input-group-lg">
+                  <input type="text" class="form-control" placeholder="Buscar por nombre, principio activo, CNP o código de barras..." id="smartSearch">
+                  <span class="input-group-btn">
+                    <button class="btn btn-success" onclick="smartSearch()">
+                      <i class="fa fa-search"></i> Buscar
+                    </button>
+                  </span>
+                </div>
+                <small style="opacity: 0.9;">Ejemplo: "paracetamol", "ibuprofeno 600", "123456789"</small>
+              </div>
+              <div class="col-md-4">
+                <h4><i class="fa fa-bolt"></i> Acceso Rápido</h4>
+                <button class="btn btn-outline btn-sm" style="margin: 2px; border-color: white; color: white;" onclick="quickCompare('bestsellers')">
+                  🏆 Más Vendidos
+                </button>
+                <button class="btn btn-outline btn-sm" style="margin: 2px; border-color: white; color: white;" onclick="quickCompare('generics')">
+                  💊 Genéricos
+                </button>
+                <button class="btn btn-outline btn-sm" style="margin: 2px; border-color: white; color: white;" onclick="quickCompare('otc')">
+                  🧴 OTC
+                </button>
+                <button class="btn btn-outline btn-sm" style="margin: 2px; border-color: white; color: white;" onclick="quickCompare('cosmetics')">
+                  💄 Cosmética
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparación rápida de múltiples productos -->
+          <div class="quick-compare">
+            <h4><i class="fa fa-bolt"></i> Comparación Rápida Múltiple</h4>
+            <p class="text-muted">Selecciona hasta 5 productos para comparar precios instantáneamente</p>
+            
+            <div class="row" id="productSelectors">
+              <div class="col-md-2">
+                <div class="product-selector" onclick="selectProduct(1)">
+                  <i class="fa fa-plus fa-2x text-muted"></i>
+                  <p>Producto 1</p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="product-selector" onclick="selectProduct(2)">
+                  <i class="fa fa-plus fa-2x text-muted"></i>
+                  <p>Producto 2</p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="product-selector" onclick="selectProduct(3)">
+                  <i class="fa fa-plus fa-2x text-muted"></i>
+                  <p>Producto 3</p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="product-selector" onclick="selectProduct(4)">
+                  <i class="fa fa-plus fa-2x text-muted"></i>
+                  <p>Producto 4</p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="product-selector" onclick="selectProduct(5)">
+                  <i class="fa fa-plus fa-2x text-muted"></i>
+                  <p>Producto 5</p>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-primary btn-lg btn-block" style="height: 100px;" onclick="compareSelected()">
+                  <i class="fa fa-exchange"></i><br>
+                  <strong>Comparar</strong><br>
+                  <small>Seleccionados</small>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Resultado de comparación activa -->
+          <div class="price-comparison-card">
+            <div class="row">
+              <div class="col-md-3">
+                <h4><strong>Paracetamol 1g (20 comprimidos)</strong></h4>
+                <p class="text-muted">CNP: 123456789 | EAN: 8470001234567</p>
+                <p><strong>Laboratorio:</strong> Cinfa</p>
+                <p><strong>Categoría:</strong> Analgésicos/Antipiréticos</p>
+                
+                <div class="market-analysis">
+                  <h6><i class="fa fa-line-chart"></i> Análisis de Mercado</h6>
+                  <p><strong>Precio Medio:</strong> €3.67</p>
+                  <p><strong>Tendencia:</strong> <span class="trend-indicator trend-down"><i class="fa fa-arrow-down"></i> -2.1%</span></p>
+                  <p><strong>Volatilidad:</strong> Baja</p>
+                </div>
+              </div>
+              
+              <div class="col-md-9">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="supplier-card best-price">
+                      <div class="text-center">
+                        <div class="price-badge price-best">€3.45</div>
+                        <h5><strong>Cofares</strong></h5>
+                        <span class="savings-indicator savings-high">
+                          <i class="fa fa-trophy"></i> Mejor Precio
+                        </span>
+                      </div>
+                      <hr>
+                      <p><strong>Stock:</strong> Disponible (156 ud.)</p>
+                      <p><strong>Plazo:</strong> 24h</p>
+                      <p><strong>Mín. Pedido:</strong> 10 unidades</p>
+                      <p><strong>Descuento:</strong> 2% adicional por volumen</p>
+                      <button class="btn btn-success btn-block btn-sm" onclick="createOrder('cofares', 'PAR001')">
+                        <i class="fa fa-shopping-cart"></i> Pedir Ahora
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-3">
+                    <div class="supplier-card">
+                      <div class="text-center">
+                        <div class="price-badge price-normal">€3.52</div>
+                        <h5><strong>Bidafarma</strong></h5>
+                        <span class="savings-indicator savings-medium">
+                          <i class="fa fa-arrow-up"></i> +€0.07
+                        </span>
+                      </div>
+                      <hr>
+                      <p><strong>Stock:</strong> Disponible (89 ud.)</p>
+                      <p><strong>Plazo:</strong> 48h</p>
+                      <p><strong>Mín. Pedido:</strong> 5 unidades</p>
+                      <p><strong>Descuento:</strong> Socio cooperativa</p>
+                      <button class="btn btn-primary btn-block btn-sm" onclick="createOrder('bidafarma', 'PAR001')">
+                        <i class="fa fa-shopping-cart"></i> Pedir
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-3">
+                    <div class="supplier-card">
+                      <div class="text-center">
+                        <div class="price-badge price-normal">€3.67</div>
+                        <h5><strong>Alliance</strong></h5>
+                        <span class="savings-indicator savings-medium">
+                          <i class="fa fa-arrow-up"></i> +€0.22
+                        </span>
+                      </div>
+                      <hr>
+                      <p><strong>Stock:</strong> Limitado (12 ud.)</p>
+                      <p><strong>Plazo:</strong> 24h</p>
+                      <p><strong>Mín. Pedido:</strong> 1 unidad</p>
+                      <p><strong>Descuento:</strong> No aplicable</p>
+                      <button class="btn btn-warning btn-block btn-sm" onclick="createOrder('alliance', 'PAR001')">
+                        <i class="fa fa-shopping-cart"></i> Pedir
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class="col-md-3">
+                    <div class="supplier-card worst-price">
+                      <div class="text-center">
+                        <div class="price-badge price-worst">€3.89</div>
+                        <h5><strong>Novaltia</strong></h5>
+                        <span class="savings-indicator savings-low">
+                          <i class="fa fa-arrow-up"></i> +€0.44
+                        </span>
+                      </div>
+                      <hr>
+                      <p><strong>Stock:</strong> Agotado</p>
+                      <p><strong>Plazo:</strong> 5-7 días</p>
+                      <p><strong>Mín. Pedido:</strong> 20 unidades</p>
+                      <p><strong>Descuento:</strong> 3% por pedido >€500</p>
+                      <button class="btn btn-default btn-block btn-sm" disabled>
+                        <i class="fa fa-times"></i> No Disponible
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Gráfico de evolución de precios -->
+            <div class="row" style="margin-top: 20px;">
+              <div class="col-md-12">
+                <h5><i class="fa fa-line-chart"></i> Evolución de Precios - Últimos 6 meses</h5>
+                <div class="comparison-chart">
+                  <canvas id="priceEvolutionChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estadísticas de ahorro -->
+          <div class="row">
+            <div class="col-md-3 col-sm-6">
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>€1,247</h3>
+                  <p>Ahorro Potencial Mensual</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-piggy-bank"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Ver detalles <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>156</h3>
+                  <p>Productos Analizados</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-search"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Ver comparaciones <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>12.5%</h3>
+                  <p>Ahorro Promedio</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-percent"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Ver tendencias <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>5</h3>
+                  <p>Alertas de Precio</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-bell"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Ver alertas <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Herramientas avanzadas -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">Análisis Inteligente</h3>
+                </div>
+                <div class="box-body">
+                  <h5><i class="fa fa-robot"></i> Recomendaciones IA</h5>
+                  <div class="callout callout-success">
+                    <h4>Oportunidad de Ahorro</h4>
+                    <p>Cambiando al proveedor <strong>Cofares</strong> para los 15 productos más vendidos, podrías ahorrar <strong>€89.50/mes</strong>.</p>
+                    <button class="btn btn-success btn-sm" onclick="applyRecommendation()">Aplicar Recomendación</button>
+                  </div>
+                  
+                  <div class="callout callout-info">
+                    <h4>Alerta de Tendencia</h4>
+                    <p>Los precios de <strong>analgésicos</strong> han bajado un 3.2% este mes. Es buen momento para hacer pedidos de stock.</p>
+                    <button class="btn btn-info btn-sm" onclick="createStockOrder()">Crear Pedido de Stock</button>
+                  </div>
+                  
+                  <div class="callout callout-warning">
+                    <h4>Riesgo de Precio</h4>
+                    <p>El <strong>Ibuprofeno 600mg</strong> subirá 5% la próxima semana según análisis predictivo.</p>
+                    <button class="btn btn-warning btn-sm" onclick="advanceOrder()">Adelantar Pedido</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="box box-success">
+                <div class="box-header">
+                  <h3 class="box-title">Herramientas de Optimización</h3>
+                </div>
+                <div class="box-body">
+                  <h5><i class="fa fa-cogs"></i> Configuración Automática</h5>
+                  
+                  <div class="form-group">
+                    <label>Alertas de Precio</label>
+                    <div class="input-group">
+                      <input type="number" class="form-control" value="5" />
+                      <span class="input-group-addon">% de diferencia</span>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Frecuencia de Comparación</label>
+                    <select class="form-control">
+                      <option>Diaria</option>
+                      <option selected>Semanal</option>
+                      <option>Mensual</option>
+                    </select>
+                  </div>
+                  
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" checked> Alertas automáticas por email
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" checked> Considerar stock disponible
+                    </label>
+                  </div>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox"> Solo proveedores de confianza
+                    </label>
+                  </div>
+                  
+                  <button class="btn btn-primary btn-block" onclick="saveSettings()">
+                    <i class="fa fa-save"></i> Guardar Configuración
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Historial y reportes -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-info">
+                <div class="box-header">
+                  <h3 class="box-title">Historial de Comparaciones y Reportes</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-success btn-sm" onclick="exportReport()">
+                      <i class="fa fa-download"></i> Exportar Informe
+                    </button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h5>📈 Últimas Comparaciones</h5>
+                      <ul class="list-unstyled">
+                        <li><i class="fa fa-clock-o text-muted"></i> Hace 5 min - Paracetamol 1g</li>
+                        <li><i class="fa fa-clock-o text-muted"></i> Hace 15 min - Ibuprofeno 600mg</li>
+                        <li><i class="fa fa-clock-o text-muted"></i> Hace 1 hora - Vitamina C 1000mg</li>
+                        <li><i class="fa fa-clock-o text-muted"></i> Hace 2 horas - Omeprazol 20mg</li>
+                      </ul>
+                    </div>
+                    <div class="col-md-4">
+                      <h5>💰 Ahorros del Mes</h5>
+                      <div class="progress">
+                        <div class="progress-bar" style="width: 75%; background-color: #14D5AA;">
+                          <span class="sr-only">75% del objetivo</span>
+                        </div>
+                      </div>
+                      <p>€1,247 de €1,600 objetivo</p>
+                      <small class="text-muted">Faltan €353 para el objetivo mensual</small>
+                    </div>
+                    <div class="col-md-4">
+                      <h5>🎯 Acciones Rápidas</h5>
+                      <button class="btn btn-primary btn-sm btn-block" onclick="bulkCompare()">
+                        <i class="fa fa-list"></i> Comparación Masiva
+                      </button>
+                      <button class="btn btn-success btn-sm btn-block" onclick="priceAlert()">
+                        <i class="fa fa-bell"></i> Configurar Alertas
+                      </button>
+                      <button class="btn btn-info btn-sm btn-block" onclick="marketReport()">
+                        <i class="fa fa-file-text"></i> Informe de Mercado
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Gráfico de evolución de precios
+      const ctx = document.getElementById('priceEvolutionChart').getContext('2d');
+      const priceChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+          datasets: [{
+            label: 'Cofares',
+            data: [3.52, 3.48, 3.45, 3.47, 3.45, 3.45],
+            borderColor: '#14D5AA',
+            backgroundColor: 'rgba(20, 213, 170, 0.1)',
+            tension: 0.4
+          }, {
+            label: 'Alliance',
+            data: [3.70, 3.68, 3.65, 3.67, 3.69, 3.67],
+            borderColor: '#183657',
+            backgroundColor: 'rgba(24, 54, 87, 0.1)',
+            tension: 0.4
+          }, {
+            label: 'Bidafarma',
+            data: [3.55, 3.53, 3.50, 3.52, 3.54, 3.52],
+            borderColor: '#FF1E70',
+            backgroundColor: 'rgba(255, 30, 112, 0.1)',
+            tension: 0.4
+          }, {
+            label: 'Novaltia',
+            data: [3.95, 3.92, 3.89, 3.91, 3.93, 3.89],
+            borderColor: '#ffc107',
+            backgroundColor: 'rgba(255, 193, 7, 0.1)',
+            tension: 0.4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: false,
+              ticks: {
+                callback: function(value) {
+                  return '€' + value.toFixed(2);
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }
+      });
+
+      // Variables globales
+      let selectedProducts = [];
+
+      // Funciones de búsqueda
+      function smartSearch() {
+        const query = document.getElementById('smartSearch').value;
+        if (query.trim()) {
+          alert('Buscando: ' + query);
+          // Aquí se implementaría la búsqueda real
+        }
+      }
+
+      function quickCompare(category) {
+        alert('Comparación rápida de categoría: ' + category);
+      }
+
+      // Funciones de selección de productos
+      function selectProduct(slot) {
+        alert('Seleccionando producto para slot: ' + slot);
+        // Aquí se abriría un modal para seleccionar producto
+      }
+
+      function compareSelected() {
+        if (selectedProducts.length < 2) {
+          alert('Selecciona al menos 2 productos para comparar');
+          return;
+        }
+        alert('Comparando productos seleccionados...');
+      }
+
+      // Funciones de pedidos
+      function createOrder(supplier, productId) {
+        alert('Creando pedido con ' + supplier + ' para producto: ' + productId);
+      }
+
+      // Funciones de IA y recomendaciones
+      function applyRecommendation() {
+        alert('Aplicando recomendación de IA...');
+      }
+
+      function createStockOrder() {
+        alert('Creando pedido de stock según recomendación...');
+      }
+
+      function advanceOrder() {
+        alert('Adelantando pedido para evitar subida de precios...');
+      }
+
+      // Funciones de configuración
+      function saveSettings() {
+        alert('Guardando configuración de comparación...');
+      }
+
+      function exportReport() {
+        alert('Exportando informe de comparación...');
+      }
+
+      // Funciones de herramientas
+      function bulkCompare() {
+        alert('Iniciando comparación masiva...');
+      }
+
+      function priceAlert() {
+        alert('Configurando alertas de precio...');
+      }
+
+      function marketReport() {
+        alert('Generando informe de mercado...');
+      }
+
+      // Búsqueda con Enter
+      document.getElementById('smartSearch').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          smartSearch();
+        }
+      });
+
+      // Actualización automática cada 30 segundos
+      setInterval(function() {
+        console.log('Actualizando precios en tiempo real...');
+        // Aquí se actualizarían los precios automáticamente
+      }, 30000);
+    </script>
+  </body>
+</html>

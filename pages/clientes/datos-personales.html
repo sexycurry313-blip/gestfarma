@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Datos Personales | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .profile-section {
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        margin-bottom: 20px;
+      }
+      .profile-header {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .avatar-section {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .avatar-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 4px solid #14D5AA;
+        margin-bottom: 15px;
+      }
+      .privacy-notice {
+        background: #fff3cd;
+        border: 1px solid #ffc107;
+        border-radius: 4px;
+        padding: 15px;
+        margin: 20px 0;
+        color: #856404;
+      }
+      .loyalty-status {
+        background: #e8f5e8;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #14D5AA;
+        margin-bottom: 20px;
+      }
+      .tab-content {
+        padding: 20px 0;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-user"></i>
+                <span>🧑‍💼 Área de Clientes</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="iniciar-sesion.html"><i class="fa fa-sign-in"></i> Iniciar sesión</a></li>
+                <li><a href="registro.html"><i class="fa fa-user-plus"></i> Registro</a></li>
+                <li><a href="historial-pedidos.html"><i class="fa fa-history"></i> Historial de pedidos</a></li>
+                <li><a href="recetas-subidas.html"><i class="fa fa-upload"></i> Recetas subidas</a></li>
+                <li class="active"><a href="datos-personales.html"><i class="fa fa-edit"></i> Datos personales</a></li>
+                <li><a href="favoritos.html"><i class="fa fa-heart"></i> Favoritos</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Datos Personales
+            <small>Gestiona tu información personal y preferencias</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Área de Clientes</a></li>
+            <li class="active">Datos Personales</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Header Profile -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="profile-header">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="avatar-section">
+                      <img src="../../dist/img/user2-160x160.jpg" class="avatar-img" alt="Avatar">
+                      <br>
+                      <button class="btn btn-warning">
+                        <i class="fa fa-camera"></i> Cambiar Foto
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-md-9">
+                    <h2>Gabriel Gutierrez Martínez</h2>
+                    <p style="font-size: 16px; margin-top: 15px;">
+                      Cliente desde Noviembre 2022 • ID: CL-2022-10456
+                    </p>
+                    <div style="margin-top: 20px;">
+                      <span class="label label-success">Nivel Silver</span>
+                      <span class="label label-info">Email Verificado</span>
+                      <span class="label label-warning">Teléfono Verificado</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status de fidelidad -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="loyalty-status">
+                <div class="row">
+                  <div class="col-md-3">
+                    <h4><i class="fa fa-star"></i> Estado de Fidelidad</h4>
+                  </div>
+                  <div class="col-md-3">
+                    <strong>Nivel Actual:</strong> Silver<br>
+                    <small>750 puntos acumulados</small>
+                  </div>
+                  <div class="col-md-3">
+                    <strong>Próximo Nivel:</strong> Gold<br>
+                    <small>250 puntos restantes</small>
+                  </div>
+                  <div class="col-md-3">
+                    <strong>Descuento Activo:</strong> 5%<br>
+                    <small>En todos los productos</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabs de información -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                  <li class="active"><a href="#personal" data-toggle="tab"><i class="fa fa-user"></i> Datos Personales</a></li>
+                  <li><a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i> Contacto</a></li>
+                  <li><a href="#medical" data-toggle="tab"><i class="fa fa-heartbeat"></i> Información Médica</a></li>
+                  <li><a href="#preferences" data-toggle="tab"><i class="fa fa-cogs"></i> Preferencias</a></li>
+                  <li><a href="#security" data-toggle="tab"><i class="fa fa-lock"></i> Seguridad</a></li>
+                </ul>
+                <div class="tab-content">
+                  <!-- Datos Personales -->
+                  <div class="active tab-pane" id="personal">
+                    <form id="personalForm">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Nombre *</label>
+                            <input type="text" class="form-control" name="nombre" value="Gabriel" required>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Apellidos *</label>
+                            <input type="text" class="form-control" name="apellidos" value="Gutierrez Martínez" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>DNI/NIE *</label>
+                            <input type="text" class="form-control" name="dni" value="12345678X" required readonly>
+                            <small class="text-muted">El DNI no se puede modificar. Contacta si hay un error.</small>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Fecha de nacimiento *</label>
+                            <input type="date" class="form-control" name="fechaNacimiento" value="1985-03-15" required>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Sexo</label>
+                            <select class="form-control" name="sexo">
+                              <option value="M" selected>Masculino</option>
+                              <option value="F">Femenino</option>
+                              <option value="O">Otro</option>
+                              <option value="N">Prefiero no decirlo</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Tarjeta Sanitaria</label>
+                            <input type="text" class="form-control" name="tarjetaSanitaria" value="28 12345678 90">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <button type="submit" class="btn btn-success">
+                          <i class="fa fa-save"></i> Guardar Cambios
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <!-- Contacto -->
+                  <div class="tab-pane" id="contact">
+                    <form id="contactForm">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Email *</label>
+                            <div class="input-group">
+                              <input type="email" class="form-control" name="email" value="gabriel.gutierrez@email.com" required>
+                              <span class="input-group-addon">
+                                <i class="fa fa-check text-success" title="Verificado"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Teléfono móvil *</label>
+                            <div class="input-group">
+                              <input type="tel" class="form-control" name="telefono" value="600 123 456" required>
+                              <span class="input-group-addon">
+                                <i class="fa fa-check text-success" title="Verificado"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Teléfono fijo</label>
+                        <input type="tel" class="form-control" name="telefonoFijo" value="91 123 45 67">
+                      </div>
+                      
+                      <h4>Dirección Principal</h4>
+                      <div class="form-group">
+                        <label>Dirección *</label>
+                        <input type="text" class="form-control" name="direccion" value="Calle Mayor 123, 3º A" required>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Código Postal *</label>
+                            <input type="text" class="form-control" name="codigoPostal" value="28013" required>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Ciudad *</label>
+                            <input type="text" class="form-control" name="ciudad" value="Madrid" required>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Provincia *</label>
+                            <input type="text" class="form-control" name="provincia" value="Madrid" required>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <h4>Dirección Alternativa</h4>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="direccionAlternativa" id="altAddressCheck">
+                          Tengo una dirección alternativa de entrega
+                        </label>
+                      </div>
+                      
+                      <div id="altAddressSection" style="display: none; margin-top: 15px;">
+                        <div class="form-group">
+                          <label>Dirección alternativa</label>
+                          <input type="text" class="form-control" name="direccionAlternativa" placeholder="Dirección de trabajo, familiar, etc.">
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label>Código Postal</label>
+                              <input type="text" class="form-control" name="cpAlternativo">
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label>Ciudad</label>
+                              <input type="text" class="form-control" name="ciudadAlternativa">
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label>Provincia</label>
+                              <input type="text" class="form-control" name="provinciaAlternativa">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="text-right">
+                        <button type="submit" class="btn btn-success">
+                          <i class="fa fa-save"></i> Guardar Cambios
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <!-- Información Médica -->
+                  <div class="tab-pane" id="medical">
+                    <form id="medicalForm">
+                      <div class="privacy-notice">
+                        <i class="fa fa-shield"></i> <strong>Información Confidencial</strong><br>
+                        Esta información está protegida por el secreto médico y solo será utilizada para mejorar tu atención farmacéutica.
+                      </div>
+                      
+                      <h4>Alergias e Intolerancias</h4>
+                      <div class="form-group">
+                        <label>Alergias a medicamentos</label>
+                        <textarea class="form-control" name="alergiasMedicamentos" rows="3" placeholder="Ej: Penicilina, Aspirina, etc.">Penicilina - reacción cutánea</textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>Alergias alimentarias</label>
+                        <textarea class="form-control" name="alergiasAlimentos" rows="2" placeholder="Ej: Frutos secos, lactosa, etc.">Lactosa - intolerancia digestiva</textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>Otras alergias</label>
+                        <textarea class="form-control" name="otrasAlergias" rows="2" placeholder="Ej: Polen, ácaros, etc."></textarea>
+                      </div>
+                      
+                      <h4>Condiciones Médicas</h4>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="checkbox">
+                            <label><input type="checkbox" name="diabetes" checked> Diabetes</label>
+                          </div>
+                          <div class="checkbox">
+                            <label><input type="checkbox" name="hipertension"> Hipertensión arterial</label>
+                          </div>
+                          <div class="checkbox">
+                            <label><input type="checkbox" name="asma"> Asma</label>
+                          </div>
+                          <div class="checkbox">
+                            <label><input type="checkbox" name="cardiovascular"> Problemas cardiovasculares</label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="checkbox">
+                            <label><input type="checkbox" name="hepatica"> Enfermedad hepática</label>
+                          </div>
+                          <div class="checkbox">
+                            <label><input type="checkbox" name="renal"> Enfermedad renal</label>
+                          </div>
+                          <div class="checkbox">
+                            <label><input type="checkbox" name="tiroides"> Problemas de tiroides</label>
+                          </div>
+                          <div class="checkbox">
+                            <label><input type="checkbox" name="embarazada"> Embarazada/Lactando</label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="form-group">
+                        <label>Otras condiciones médicas</label>
+                        <textarea class="form-control" name="otrasCondiciones" rows="3" placeholder="Describe cualquier otra condición médica relevante..."></textarea>
+                      </div>
+                      
+                      <h4>Medicación Actual</h4>
+                      <div class="form-group">
+                        <label>Medicamentos que tomas regularmente</label>
+                        <textarea class="form-control" name="medicacionActual" rows="4" placeholder="Lista todos los medicamentos que tomas habitualmente, incluyendo dosis y frecuencia...">Metformina 850mg - 1 comprimido cada 12 horas
+Enalapril 10mg - 1 comprimido al día por la mañana</textarea>
+                      </div>
+                      
+                      <div class="text-right">
+                        <button type="submit" class="btn btn-success">
+                          <i class="fa fa-save"></i> Guardar Información Médica
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <!-- Preferencias -->
+                  <div class="tab-pane" id="preferences">
+                    <form id="preferencesForm">
+                      <h4>Comunicaciones</h4>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="notificacionesEmail" checked>
+                              Recibir notificaciones por email
+                            </label>
+                          </div>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="notificacionesSMS" checked>
+                              Recibir notificaciones por SMS
+                            </label>
+                          </div>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="ofertas" checked>
+                              Recibir ofertas y promociones
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="newsletter" checked>
+                              Newsletter de salud y bienestar
+                            </label>
+                          </div>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="recordatorios" checked>
+                              Recordatorios de medicación
+                            </label>
+                          </div>
+                          <div class="checkbox">
+                            <label>
+                              <input type="checkbox" name="whatsapp">
+                              Notificaciones por WhatsApp
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <h4>Preferencias de Entrega</h4>
+                      <div class="form-group">
+                        <label>Método de entrega preferido</label>
+                        <select class="form-control" name="metodoEntrega">
+                          <option value="farmacia" selected>Recogida en farmacia</option>
+                          <option value="domicilio">Entrega a domicilio</option>
+                          <option value="ambos">Según disponibilidad</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>Horario preferido para entregas</label>
+                        <select class="form-control" name="horarioEntrega">
+                          <option value="manana">Mañana (9:00 - 14:00)</option>
+                          <option value="tarde" selected>Tarde (15:00 - 20:00)</option>
+                          <option value="flexible">Flexible</option>
+                        </select>
+                      </div>
+                      
+                      <h4>Idioma y Formato</h4>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Idioma preferido</label>
+                            <select class="form-control" name="idioma">
+                              <option value="es" selected>Español</option>
+                              <option value="en">English</option>
+                              <option value="fr">Français</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Formato de fecha</label>
+                            <select class="form-control" name="formatoFecha">
+                              <option value="dd/mm/yyyy" selected>DD/MM/YYYY</option>
+                              <option value="mm/dd/yyyy">MM/DD/YYYY</option>
+                              <option value="yyyy-mm-dd">YYYY-MM-DD</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div class="text-right">
+                        <button type="submit" class="btn btn-success">
+                          <i class="fa fa-save"></i> Guardar Preferencias
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+
+                  <!-- Seguridad -->
+                  <div class="tab-pane" id="security">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <h4>Cambiar Contraseña</h4>
+                        <form id="passwordForm">
+                          <div class="form-group">
+                            <label>Contraseña actual *</label>
+                            <input type="password" class="form-control" name="currentPassword" required>
+                          </div>
+                          <div class="form-group">
+                            <label>Nueva contraseña *</label>
+                            <input type="password" class="form-control" name="newPassword" required>
+                            <small class="text-muted">Mínimo 8 caracteres, una mayúscula y un número</small>
+                          </div>
+                          <div class="form-group">
+                            <label>Confirmar nueva contraseña *</label>
+                            <input type="password" class="form-control" name="confirmPassword" required>
+                          </div>
+                          <button type="submit" class="btn btn-warning">
+                            <i class="fa fa-key"></i> Cambiar Contraseña
+                          </button>
+                        </form>
+                      </div>
+                      
+                      <div class="col-md-6">
+                        <h4>Sesiones Activas</h4>
+                        <div class="list-group">
+                          <div class="list-group-item">
+                            <div class="row">
+                              <div class="col-xs-8">
+                                <strong>Navegador actual</strong><br>
+                                <small>Chrome en Windows 10</small><br>
+                                <small class="text-muted">Madrid, España</small>
+                              </div>
+                              <div class="col-xs-4 text-right">
+                                <span class="label label-success">Activa</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="list-group-item">
+                            <div class="row">
+                              <div class="col-xs-8">
+                                <strong>App móvil</strong><br>
+                                <small>Android - Samsung Galaxy</small><br>
+                                <small class="text-muted">Hace 2 horas</small>
+                              </div>
+                              <div class="col-xs-4 text-right">
+                                <button class="btn btn-xs btn-danger">
+                                  <i class="fa fa-times"></i> Cerrar
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <h4 style="margin-top: 30px;">Autenticación en Dos Pasos</h4>
+                        <p>Añade una capa extra de seguridad a tu cuenta.</p>
+                        <button class="btn btn-info">
+                          <i class="fa fa-shield"></i> Configurar 2FA
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <h4>Eliminar Cuenta</h4>
+                    <div class="alert alert-danger">
+                      <i class="fa fa-warning"></i> <strong>¡Atención!</strong> Esta acción es irreversible. Se eliminarán todos tus datos permanentemente.
+                    </div>
+                    <button class="btn btn-danger" onclick="confirmDeleteAccount()">
+                      <i class="fa fa-trash"></i> Eliminar Mi Cuenta
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Mostrar/ocultar dirección alternativa
+      $('#altAddressCheck').change(function() {
+        if ($(this).is(':checked')) {
+          $('#altAddressSection').slideDown();
+        } else {
+          $('#altAddressSection').slideUp();
+        }
+      });
+      
+      // Validación de formularios
+      $('#personalForm, #contactForm, #medicalForm, #preferencesForm').submit(function(e) {
+        e.preventDefault();
+        alert('Datos actualizados correctamente.');
+      });
+      
+      $('#passwordForm').submit(function(e) {
+        e.preventDefault();
+        var newPassword = $('input[name="newPassword"]').val();
+        var confirmPassword = $('input[name="confirmPassword"]').val();
+        
+        if (newPassword !== confirmPassword) {
+          alert('Las contraseñas no coinciden.');
+          return;
+        }
+        
+        alert('Contraseña cambiada correctamente.');
+      });
+      
+      function confirmDeleteAccount() {
+        if (confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
+          if (confirm('Por favor, confirma nuevamente. Se eliminarán TODOS tus datos.')) {
+            alert('Cuenta eliminada. Serás redirigido a la página principal.');
+            // Aquí iría la lógica de eliminación
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

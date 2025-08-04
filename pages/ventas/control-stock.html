@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Control de Stock | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- DataTables -->
+    <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      .label-danger { background-color: #dc3545 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .stock-card {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #14D5AA;
+      }
+      .stock-critical {
+        border-left-color: #dc3545;
+        background: linear-gradient(45deg, #fff5f5, #ffffff);
+      }
+      .stock-low {
+        border-left-color: #ffc107;
+        background: linear-gradient(45deg, #fffdf0, #ffffff);
+      }
+      .stock-optimal {
+        border-left-color: #14D5AA;
+        background: linear-gradient(45deg, #f0fff4, #ffffff);
+      }
+      .stock-level {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .level-critical {
+        background: #dc3545;
+        color: white;
+      }
+      .level-low {
+        background: #ffc107;
+        color: #212529;
+      }
+      .level-optimal {
+        background: #14D5AA;
+        color: white;
+      }
+      .level-excess {
+        background: #6f42c1;
+        color: white;
+      }
+      .quick-actions {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+      .action-btn {
+        margin: 5px;
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 12px;
+      }
+      .inventory-metric {
+        text-align: center;
+        padding: 20px;
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      }
+      .metric-number {
+        font-size: 28px;
+        font-weight: bold;
+        color: #183657;
+        margin-bottom: 5px;
+      }
+      .metric-label {
+        color: #666;
+        font-size: 14px;
+      }
+      .rotation-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+      .rotation-high { background: #14D5AA; }
+      .rotation-medium { background: #ffc107; }
+      .rotation-low { background: #dc3545; }
+      .barcode-scanner {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .expiry-alert {
+        background: linear-gradient(45deg, #FF1E70, #ff6b9d);
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+      .supplier-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        background: #e9ecef;
+        border-radius: 12px;
+        font-size: 11px;
+        margin-right: 5px;
+      }
+      .movement-log {
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        padding: 10px;
+      }
+      .movement-item {
+        display: flex;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .movement-item:last-child {
+        border-bottom: none;
+      }
+      .movement-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        font-size: 14px;
+      }
+      .movement-in {
+        background: rgba(20, 213, 170, 0.1);
+        color: #14D5AA;
+      }
+      .movement-out {
+        background: rgba(255, 30, 112, 0.1);
+        color: #FF1E70;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="../informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="../informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>📈 Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li class="active"><a href="control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Control Inteligente de Stock
+            <small>Gestión automatizada de inventario</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Ventas e Inventario</a></li>
+            <li class="active">Control de Stock</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Scanner y acciones rápidas -->
+          <div class="barcode-scanner">
+            <h4><i class="fa fa-barcode"></i> Scanner Integrado</h4>
+            <div class="row">
+              <div class="col-md-8">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Escanear código de barras o buscar producto..." id="productSearch">
+                  <span class="input-group-btn">
+                    <button class="btn btn-success" onclick="searchProduct()">
+                      <i class="fa fa-search"></i> Buscar
+                    </button>
+                  </span>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-warning btn-block" onclick="openScanner()">
+                  <i class="fa fa-camera"></i> Activar Cámara Scanner
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alertas de caducidad -->
+          <div class="expiry-alert">
+            <h4><i class="fa fa-calendar-times-o"></i> Alertas de Caducidad Inmediata</h4>
+            <div class="row">
+              <div class="col-md-4">
+                <strong>Próximos a Caducar (≤15 días)</strong><br>
+                <span style="font-size: 24px;">23 productos</span>
+              </div>
+              <div class="col-md-4">
+                <strong>Caducados</strong><br>
+                <span style="font-size: 24px;">7 productos</span>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-light btn-block" onclick="showExpiryDetails()">
+                  <i class="fa fa-eye"></i> Ver Detalles Completos
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Métricas de inventario -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="inventory-metric">
+                <div class="metric-number">1,247</div>
+                <div class="metric-label">Productos Totales</div>
+                <small class="text-muted">Última actualización: hace 5 min</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="inventory-metric">
+                <div class="metric-number" style="color: #dc3545;">38</div>
+                <div class="metric-label">Stock Crítico</div>
+                <small class="text-danger">Requiere acción inmediata</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="inventory-metric">
+                <div class="metric-number" style="color: #ffc107;">67</div>
+                <div class="metric-label">Stock Bajo</div>
+                <small class="text-warning">Planificar reposición</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="inventory-metric">
+                <div class="metric-number" style="color: #14D5AA;">€487,650</div>
+                <div class="metric-label">Valor Total Stock</div>
+                <small class="text-success">+2.3% vs mes anterior</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acciones rápidas -->
+          <div class="quick-actions">
+            <div class="row">
+              <div class="col-md-12">
+                <h5><i class="fa fa-flash"></i> Acciones Rápidas</h5>
+                <button class="btn btn-primary action-btn" onclick="newEntry()">
+                  <i class="fa fa-plus"></i> Nueva Entrada
+                </button>
+                <button class="btn btn-warning action-btn" onclick="newExit()">
+                  <i class="fa fa-minus"></i> Nueva Salida
+                </button>
+                <button class="btn btn-info action-btn" onclick="quickInventory()">
+                  <i class="fa fa-clipboard"></i> Inventario Rápido
+                </button>
+                <button class="btn btn-success action-btn" onclick="generateOrder()">
+                  <i class="fa fa-shopping-cart"></i> Generar Pedido
+                </button>
+                <button class="btn btn-default action-btn" onclick="printLabels()">
+                  <i class="fa fa-print"></i> Imprimir Etiquetas
+                </button>
+                <button class="btn btn-danger action-btn" onclick="auditStock()">
+                  <i class="fa fa-check-square"></i> Auditar Stock
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Lista de productos críticos -->
+            <div class="col-md-8">
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Productos que Requieren Atención Inmediata</h3>
+                  <div class="box-tools pull-right">
+                    <div class="btn-group">
+                      <button class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-filter"></i> Filtros <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="#" onclick="filterBy('critical')">Solo Críticos</a></li>
+                        <li><a href="#" onclick="filterBy('low')">Stock Bajo</a></li>
+                        <li><a href="#" onclick="filterBy('expiry')">Próximos a Caducar</a></li>
+                        <li><a href="#" onclick="filterBy('all')">Todos</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table id="stockTable" class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Producto</th>
+                          <th>Stock Actual</th>
+                          <th>Mín/Máx</th>
+                          <th>Estado</th>
+                          <th>Rotación</th>
+                          <th>Caducidad</th>
+                          <th>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr class="stock-critical">
+                          <td>
+                            <strong>Paracetamol 1g</strong><br>
+                            <small class="text-muted">CNP: 123456789</small><br>
+                            <span class="supplier-badge">Cofares</span>
+                          </td>
+                          <td>
+                            <span style="font-size: 18px; font-weight: bold; color: #dc3545;">3</span> unidades<br>
+                            <small class="text-muted">€12.50 c/u</small>
+                          </td>
+                          <td>
+                            <small>Mín: 50</small><br>
+                            <small>Máx: 200</small>
+                          </td>
+                          <td>
+                            <span class="stock-level level-critical">Crítico</span>
+                          </td>
+                          <td>
+                            <span class="rotation-indicator rotation-high"></span>
+                            <small>Alta (8.2 veces/mes)</small>
+                          </td>
+                          <td>
+                            <strong>Mar 2025</strong><br>
+                            <small class="text-success">85 días</small>
+                          </td>
+                          <td>
+                            <button class="btn btn-xs btn-danger" onclick="urgentOrder('PAR001')">
+                              <i class="fa fa-exclamation"></i> Urgente
+                            </button><br>
+                            <button class="btn btn-xs btn-info" onclick="viewDetails('PAR001')">
+                              <i class="fa fa-eye"></i> Detalles
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="stock-critical">
+                          <td>
+                            <strong>Ibuprofeno 600mg</strong><br>
+                            <small class="text-muted">CNP: 234567890</small><br>
+                            <span class="supplier-badge">Alliance</span>
+                          </td>
+                          <td>
+                            <span style="font-size: 18px; font-weight: bold; color: #dc3545;">7</span> unidades<br>
+                            <small class="text-muted">€8.90 c/u</small>
+                          </td>
+                          <td>
+                            <small>Mín: 30</small><br>
+                            <small>Máx: 150</small>
+                          </td>
+                          <td>
+                            <span class="stock-level level-critical">Crítico</span>
+                          </td>
+                          <td>
+                            <span class="rotation-indicator rotation-high"></span>
+                            <small>Alta (6.8 veces/mes)</small>
+                          </td>
+                          <td>
+                            <strong style="color: #ffc107;">Ene 2025</strong><br>
+                            <small class="text-warning">28 días</small>
+                          </td>
+                          <td>
+                            <button class="btn btn-xs btn-danger" onclick="urgentOrder('IBU001')">
+                              <i class="fa fa-exclamation"></i> Urgente
+                            </button><br>
+                            <button class="btn btn-xs btn-info" onclick="viewDetails('IBU001')">
+                              <i class="fa fa-eye"></i> Detalles
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="stock-low">
+                          <td>
+                            <strong>Vitamina C 1000mg</strong><br>
+                            <small class="text-muted">CNP: 345678901</small><br>
+                            <span class="supplier-badge">Bidafarma</span>
+                          </td>
+                          <td>
+                            <span style="font-size: 18px; font-weight: bold; color: #ffc107;">18</span> unidades<br>
+                            <small class="text-muted">€15.30 c/u</small>
+                          </td>
+                          <td>
+                            <small>Mín: 25</small><br>
+                            <small>Máx: 100</small>
+                          </td>
+                          <td>
+                            <span class="stock-level level-low">Bajo</span>
+                          </td>
+                          <td>
+                            <span class="rotation-indicator rotation-medium"></span>
+                            <small>Media (3.2 veces/mes)</small>
+                          </td>
+                          <td>
+                            <strong>Jun 2025</strong><br>
+                            <small class="text-success">167 días</small>
+                          </td>
+                          <td>
+                            <button class="btn btn-xs btn-warning" onclick="planOrder('VIT001')">
+                              <i class="fa fa-calendar"></i> Planificar
+                            </button><br>
+                            <button class="btn btn-xs btn-info" onclick="viewDetails('VIT001')">
+                              <i class="fa fa-eye"></i> Detalles
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="stock-low">
+                          <td>
+                            <strong>Crema Hidratante Facial</strong><br>
+                            <small class="text-muted">CNP: 456789012</small><br>
+                            <span class="supplier-badge">Cosmética Plus</span>
+                          </td>
+                          <td>
+                            <span style="font-size: 18px; font-weight: bold; color: #ffc107;">12</span> unidades<br>
+                            <small class="text-muted">€28.90 c/u</small>
+                          </td>
+                          <td>
+                            <small>Mín: 15</small><br>
+                            <small>Máx: 60</small>
+                          </td>
+                          <td>
+                            <span class="stock-level level-low">Bajo</span>
+                          </td>
+                          <td>
+                            <span class="rotation-indicator rotation-medium"></span>
+                            <small>Media (2.8 veces/mes)</small>
+                          </td>
+                          <td>
+                            <strong style="color: #FF1E70;">Dic 2024</strong><br>
+                            <small class="text-danger">2 días</small>
+                          </td>
+                          <td>
+                            <button class="btn btn-xs btn-danger" onclick="promoteProduct('CRE001')">
+                              <i class="fa fa-percent"></i> Promocionar
+                            </button><br>
+                            <button class="btn btn-xs btn-info" onclick="viewDetails('CRE001')">
+                              <i class="fa fa-eye"></i> Detalles
+                            </button>
+                          </td>
+                        </tr>
+                        <tr class="stock-optimal">
+                          <td>
+                            <strong>Omeprazol 20mg</strong><br>
+                            <small class="text-muted">CNP: 567890123</small><br>
+                            <span class="supplier-badge">Cofares</span>
+                          </td>
+                          <td>
+                            <span style="font-size: 18px; font-weight: bold; color: #14D5AA;">85</span> unidades<br>
+                            <small class="text-muted">€22.45 c/u</small>
+                          </td>
+                          <td>
+                            <small>Mín: 40</small><br>
+                            <small>Máx: 120</small>
+                          </td>
+                          <td>
+                            <span class="stock-level level-optimal">Óptimo</span>
+                          </td>
+                          <td>
+                            <span class="rotation-indicator rotation-high"></span>
+                            <small>Alta (5.5 veces/mes)</small>
+                          </td>
+                          <td>
+                            <strong>Abr 2025</strong><br>
+                            <small class="text-success">112 días</small>
+                          </td>
+                          <td>
+                            <button class="btn btn-xs btn-success" onclick="viewDetails('OME001')">
+                              <i class="fa fa-eye"></i> Detalles
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <small class="text-muted">Mostrando 5 de 38 productos críticos</small>
+                    </div>
+                    <div class="col-md-6 text-right">
+                      <button class="btn btn-primary btn-sm" onclick="showAllCritical()">
+                        Ver Todos los Productos Críticos
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel de movimientos recientes -->
+            <div class="col-md-4">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Movimientos Recientes</h3>
+                  <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" onclick="refreshMovements()">
+                      <i class="fa fa-refresh"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <div class="movement-log">
+                    <div class="movement-item">
+                      <div class="movement-icon movement-in">
+                        <i class="fa fa-plus"></i>
+                      </div>
+                      <div style="flex: 1;">
+                        <strong>Entrada</strong><br>
+                        <small>Paracetamol 1g - 50 unidades</small><br>
+                        <small class="text-muted">Hace 2 horas</small>
+                      </div>
+                    </div>
+                    <div class="movement-item">
+                      <div class="movement-icon movement-out">
+                        <i class="fa fa-minus"></i>
+                      </div>
+                      <div style="flex: 1;">
+                        <strong>Venta</strong><br>
+                        <small>Ibuprofeno 600mg - 2 unidades</small><br>
+                        <small class="text-muted">Hace 3 horas</small>
+                      </div>
+                    </div>
+                    <div class="movement-item">
+                      <div class="movement-icon movement-in">
+                        <i class="fa fa-plus"></i>
+                      </div>
+                      <div style="flex: 1;">
+                        <strong>Entrada</strong><br>
+                        <small>Vitamina C - 30 unidades</small><br>
+                        <small class="text-muted">Hace 5 horas</small>
+                      </div>
+                    </div>
+                    <div class="movement-item">
+                      <div class="movement-icon movement-out">
+                        <i class="fa fa-minus"></i>
+                      </div>
+                      <div style="flex: 1;">
+                        <strong>Ajuste</strong><br>
+                        <small>Crema Facial - 1 unidad (rotura)</small><br>
+                        <small class="text-muted">Hace 6 horas</small>
+                      </div>
+                    </div>
+                    <div class="movement-item">
+                      <div class="movement-icon movement-in">
+                        <i class="fa fa-plus"></i>
+                      </div>
+                      <div style="flex: 1;">
+                        <strong>Devolución</strong><br>
+                        <small>Omeprazol 20mg - 5 unidades</small><br>
+                        <small class="text-muted">Hace 8 horas</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <button class="btn btn-info btn-block btn-sm" onclick="showAllMovements()">
+                    Ver Historial Completo
+                  </button>
+                </div>
+              </div>
+
+              <!-- Panel de pedidos automáticos -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Pedidos Automáticos Sugeridos</h3>
+                </div>
+                <div class="box-body">
+                  <div class="callout callout-info">
+                    <h5>Cofares - Próximo Pedido</h5>
+                    <p><strong>18 productos</strong> necesitan reposición</p>
+                    <p>Valor estimado: <strong>€2,450</strong></p>
+                    <button class="btn btn-success btn-sm" onclick="generateAutoOrder('cofares')">
+                      <i class="fa fa-magic"></i> Generar Pedido
+                    </button>
+                  </div>
+                  <div class="callout callout-warning">
+                    <h5>Alliance Healthcare</h5>
+                    <p><strong>12 productos</strong> stock bajo</p>
+                    <p>Valor estimado: <strong>€1,840</strong></p>
+                    <button class="btn btn-warning btn-sm" onclick="generateAutoOrder('alliance')">
+                      <i class="fa fa-magic"></i> Generar Pedido
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel de configuración de alertas -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Configuración Inteligente de Stock</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <h5>Alertas Automáticas</h5>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" checked> Stock crítico (< mínimo)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" checked> Próximos a caducar (< 30 días)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> Exceso de stock (> máximo)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" checked> Rotación baja (< 1 vez/mes)
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <h5>Pedidos Automáticos</h5>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" checked> Generar sugerencias automáticas
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> Enviar por email a proveedores
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" checked> Considerar estacionalidad
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" checked> Optimizar por margen
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <h5>Notificaciones</h5>
+                      <div class="form-group">
+                        <label>Email de alertas</label>
+                        <input type="email" class="form-control" value="admin@gestfarma.com">
+                      </div>
+                      <div class="form-group">
+                        <label>Frecuencia de informes</label>
+                        <select class="form-control">
+                          <option>Diario</option>
+                          <option selected>Semanal</option>
+                          <option>Mensual</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <h5>Integraciones</h5>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" checked> Conectar con proveedores
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" checked> Sincronizar con TPV
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"> API externa de precios
+                        </label>
+                      </div>
+                      <button class="btn btn-primary btn-sm" onclick="saveSettings()">
+                        <i class="fa fa-save"></i> Guardar Configuración
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="../../plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Inicializar DataTable
+      $(document).ready(function() {
+        $('#stockTable').DataTable({
+          "paging": false,
+          "searching": false,
+          "ordering": true,
+          "info": false,
+          "columnDefs": [
+            { "orderable": false, "targets": 6 }
+          ]
+        });
+      });
+
+      // Funciones de búsqueda y scanner
+      function searchProduct() {
+        const search = document.getElementById('productSearch').value;
+        if (search.trim()) {
+          alert('Buscando producto: ' + search);
+          // Aquí se implementaría la búsqueda real
+        }
+      }
+
+      function openScanner() {
+        alert('Activando cámara para escanear código de barras...');
+        // Aquí se implementaría la funcionalidad de scanner
+      }
+
+      // Funciones de acciones rápidas
+      function newEntry() {
+        alert('Abriendo formulario de nueva entrada de stock...');
+      }
+
+      function newExit() {
+        alert('Registrando nueva salida de stock...');
+      }
+
+      function quickInventory() {
+        alert('Iniciando inventario rápido...');
+      }
+
+      function generateOrder() {
+        alert('Generando pedido automático basado en stock mínimo...');
+      }
+
+      function printLabels() {
+        alert('Preparando etiquetas para impresión...');
+      }
+
+      function auditStock() {
+        alert('Iniciando auditoría de stock...');
+      }
+
+      // Funciones de filtrado
+      function filterBy(type) {
+        alert('Filtrando productos por: ' + type);
+        // Aquí se implementaría el filtrado real
+      }
+
+      // Funciones específicas de productos
+      function urgentOrder(productId) {
+        alert('Creando pedido urgente para producto: ' + productId);
+      }
+
+      function planOrder(productId) {
+        alert('Planificando pedido para producto: ' + productId);
+      }
+
+      function promoteProduct(productId) {
+        alert('Creando promoción para producto próximo a caducar: ' + productId);
+      }
+
+      function viewDetails(productId) {
+        alert('Mostrando detalles completos del producto: ' + productId);
+      }
+
+      // Funciones de movimientos
+      function refreshMovements() {
+        alert('Actualizando movimientos recientes...');
+      }
+
+      function showAllMovements() {
+        alert('Mostrando historial completo de movimientos...');
+      }
+
+      // Funciones de pedidos automáticos
+      function generateAutoOrder(supplier) {
+        alert('Generando pedido automático para proveedor: ' + supplier);
+      }
+
+      // Otras funciones
+      function showExpiryDetails() {
+        alert('Mostrando detalles completos de productos próximos a caducar...');
+      }
+
+      function showAllCritical() {
+        alert('Mostrando todos los productos con stock crítico...');
+      }
+
+      function saveSettings() {
+        alert('Guardando configuración de alertas y pedidos automáticos...');
+      }
+
+      // Búsqueda con Enter
+      document.getElementById('productSearch').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          searchProduct();
+        }
+      });
+
+      // Actualización automática cada 2 minutos
+      setInterval(function() {
+        console.log('Actualizando datos de stock en tiempo real...');
+        // Aquí se actualizarían los datos automáticamente
+      }, 120000);
+    </script>
+  </body>
+</html>

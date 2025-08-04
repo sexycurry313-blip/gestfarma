@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Atención Domiciliaria | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .home-care-hero {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 40px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .service-category {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        background: white;
+        transition: all 0.3s ease;
+      }
+      .service-category:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-color: #14D5AA;
+      }
+      .service-header {
+        background: #f8f9fa;
+        padding: 20px;
+        border-bottom: 1px solid #ddd;
+      }
+      .service-content {
+        padding: 20px;
+      }
+      .service-icon {
+        font-size: 40px;
+        color: #14D5AA;
+        margin-bottom: 15px;
+      }
+      .coverage-area {
+        background: #e8f5e8;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #14D5AA;
+      }
+      .delivery-form {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 8px;
+      }
+      .zone-badge {
+        display: inline-block;
+        background: #14D5AA;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 15px;
+        margin: 3px;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-stethoscope"></i>
+                <span>🩺 Servicios Farmacia</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pruebas-laboratorio.html"><i class="fa fa-flask"></i> Pruebas de laboratorio</a></li>
+                <li><a href="control-tension-peso.html"><i class="fa fa-heartbeat"></i> Control de tensión y peso</a></li>
+                <li><a href="formulas-magistrales.html"><i class="fa fa-mortar-pestle"></i> Fórmulas magistrales</a></li>
+                <li><a href="asesoramiento-farmaceutico.html"><i class="fa fa-stethoscope"></i> Asesoramiento farmacéutico</a></li>
+                <li class="active"><a href="atencion-domiciliaria.html"><i class="fa fa-home"></i> Atención domiciliaria</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Atención Domiciliaria
+            <small>Servicios farmacéuticos en tu hogar</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Servicios Farmacia</a></li>
+            <li class="active">Atención Domiciliaria</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Hero Section -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="home-care-hero">
+                <div class="row">
+                  <div class="col-md-8">
+                    <h2><i class="fa fa-home"></i> Llevamos la Farmacia a Tu Casa</h2>
+                    <p style="font-size: 18px; margin-top: 20px;">
+                      Servicio completo de entrega a domicilio, cuidado farmacéutico personalizado 
+                      y atención especializada para personas con movilidad reducida o tratamientos complejos.
+                    </p>
+                  </div>
+                  <div class="col-md-4">
+                    <div style="margin-top: 20px;">
+                      <button class="btn btn-warning btn-lg" style="margin: 5px;">
+                        <i class="fa fa-truck"></i> Solicitar Entrega
+                      </button>
+                      <br>
+                      <button class="btn btn-default btn-lg" style="margin: 5px; background: rgba(255,255,255,0.2); border-color: white;">
+                        <i class="fa fa-calendar"></i> Programar Visita
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Servicios disponibles -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="service-category">
+                <div class="service-header">
+                  <div class="text-center">
+                    <div class="service-icon">
+                      <i class="fa fa-truck"></i>
+                    </div>
+                    <h4>Entrega de Medicamentos</h4>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <ul class="list-unstyled">
+                    <li><i class="fa fa-check text-success"></i> Medicamentos con y sin receta</li>
+                    <li><i class="fa fa-check text-success"></i> Productos de parafarmacia</li>
+                    <li><i class="fa fa-check text-success"></i> Material sanitario</li>
+                    <li><i class="fa fa-check text-success"></i> Entrega en menos de 2 horas</li>
+                    <li><i class="fa fa-check text-success"></i> Horario extendido hasta 21:00</li>
+                  </ul>
+                  <div class="text-center" style="margin-top: 20px;">
+                    <span class="label label-success">GRATUITO > 30€</span>
+                    <span class="label label-warning">3€ < 30€</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="service-category">
+                <div class="service-header">
+                  <div class="text-center">
+                    <div class="service-icon">
+                      <i class="fa fa-user-md"></i>
+                    </div>
+                    <h4>Visita Farmacéutica</h4>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <ul class="list-unstyled">
+                    <li><i class="fa fa-check text-success"></i> Revisión de medicación</li>
+                    <li><i class="fa fa-check text-success"></i> Control de adherencia</li>
+                    <li><i class="fa fa-check text-success"></i> Educación sanitaria</li>
+                    <li><i class="fa fa-check text-success"></i> Seguimiento personalizado</li>
+                    <li><i class="fa fa-check text-success"></i> Informe al médico</li>
+                  </ul>
+                  <div class="text-center" style="margin-top: 20px;">
+                    <span class="label label-primary">35€/VISITA</span>
+                    <span class="label label-success">GRATUITO 1ª VEZ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="service-category">
+                <div class="service-header">
+                  <div class="text-center">
+                    <div class="service-icon">
+                      <i class="fa fa-heartbeat"></i>
+                    </div>
+                    <h4>Servicios Sanitarios</h4>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <ul class="list-unstyled">
+                    <li><i class="fa fa-check text-success"></i> Toma de tensión arterial</li>
+                    <li><i class="fa fa-check text-success"></i> Control de glucemia</li>
+                    <li><i class="fa fa-check text-success"></i> Inyecciones intramusculares</li>
+                    <li><i class="fa fa-check text-success"></i> Curas básicas</li>
+                    <li><i class="fa fa-check text-success"></i> Administración de medicación</li>
+                  </ul>
+                  <div class="text-center" style="margin-top: 20px;">
+                    <span class="label label-primary">15-25€/SERVICIO</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="service-category">
+                <div class="service-header">
+                  <div class="text-center">
+                    <div class="service-icon">
+                      <i class="fa fa-wheelchair"></i>
+                    </div>
+                    <h4>Atención Especializada</h4>
+                  </div>
+                </div>
+                <div class="service-content">
+                  <ul class="list-unstyled">
+                    <li><i class="fa fa-check text-success"></i> Pacientes con movilidad reducida</li>
+                    <li><i class="fa fa-check text-success"></i> Personas mayores dependientes</li>
+                    <li><i class="fa fa-check text-success"></i> Tratamientos oncológicos</li>
+                    <li><i class="fa fa-check text-success"></i> Cuidados paliativos</li>
+                    <li><i class="fa fa-check text-success"></i> Coordinación sociosanitaria</li>
+                  </ul>
+                  <div class="text-center" style="margin-top: 20px;">
+                    <span class="label label-primary">PERSONALIZADO</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de solicitud -->
+          <div class="row">
+            <div class="col-md-8">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Solicitar Servicio Domiciliario</h3>
+                </div>
+                <div class="box-body">
+                  <div class="delivery-form">
+                    <form>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Nombre completo *</label>
+                            <input type="text" class="form-control" placeholder="Nombre del paciente">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Teléfono *</label>
+                            <input type="tel" class="form-control" placeholder="Número de contacto">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Dirección completa *</label>
+                        <input type="text" class="form-control" placeholder="Calle, número, piso, puerta">
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Código postal *</label>
+                            <input type="text" class="form-control" placeholder="28001">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Ciudad *</label>
+                            <input type="text" class="form-control" placeholder="Madrid">
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>Provincia *</label>
+                            <input type="text" class="form-control" placeholder="Madrid">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Tipo de servicio *</label>
+                        <select class="form-control" required>
+                          <option>Selecciona el servicio</option>
+                          <option>Entrega de medicamentos</option>
+                          <option>Visita farmacéutica</option>
+                          <option>Servicios sanitarios</option>
+                          <option>Atención especializada</option>
+                          <option>Varios servicios</option>
+                        </select>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Fecha preferida *</label>
+                            <input type="date" class="form-control" min="2024-01-01">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Hora preferida *</label>
+                            <select class="form-control">
+                              <option>Selecciona horario</option>
+                              <option>9:00 - 11:00</option>
+                              <option>11:00 - 13:00</option>
+                              <option>13:00 - 15:00</option>
+                              <option>15:00 - 17:00</option>
+                              <option>17:00 - 19:00</option>
+                              <option>19:00 - 21:00</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Medicamentos/Productos necesarios</label>
+                        <textarea class="form-control" rows="3" placeholder="Lista los medicamentos o productos que necesitas..."></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>Observaciones especiales</label>
+                        <textarea class="form-control" rows="3" placeholder="Indicaciones sobre acceso al domicilio, estado del paciente, etc."></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>¿Es urgente?</label>
+                        <div>
+                          <label class="radio-inline">
+                            <input type="radio" name="urgency" value="normal" checked> Normal (24-48h)
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="urgency" value="urgente"> Urgente (mismo día)
+                          </label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>
+                          <input type="checkbox" required> 
+                          Acepto las condiciones del servicio y autorizo el tratamiento de datos
+                        </label>
+                      </div>
+                      <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                          <i class="fa fa-send"></i> Solicitar Servicio
+                        </button>
+                        <button type="reset" class="btn btn-default">
+                          <i class="fa fa-refresh"></i> Limpiar
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <!-- Zona de cobertura -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-map-marker"></i> Zona de Cobertura</h3>
+                </div>
+                <div class="box-body">
+                  <div class="coverage-area">
+                    <h5><strong>Atendemos en:</strong></h5>
+                    <div style="margin: 15px 0;">
+                      <span class="zone-badge">Centro</span>
+                      <span class="zone-badge">Chamberí</span>
+                      <span class="zone-badge">Salamanca</span>
+                      <span class="zone-badge">Retiro</span>
+                      <span class="zone-badge">Arganzuela</span>
+                      <span class="zone-badge">Chamartín</span>
+                      <span class="zone-badge">Tetuán</span>
+                      <span class="zone-badge">Moncloa</span>
+                    </div>
+                    <p><strong>Radio de acción:</strong> 15 km desde farmacia</p>
+                    <p><small>Consulta disponibilidad para otras zonas</small></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tarifas -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-euro"></i> Tarifas</h3>
+                </div>
+                <div class="box-body">
+                  <table class="table table-striped">
+                    <tr>
+                      <td><strong>Entrega medicamentos</strong></td>
+                      <td>GRATIS > 30€<br><small>3€ < 30€</small></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Entrega urgente</strong></td>
+                      <td>6€</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Visita farmacéutica</strong></td>
+                      <td>35€<br><small>GRATIS 1ª vez</small></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Servicios sanitarios</strong></td>
+                      <td>15-25€</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Fuera de zona</strong></td>
+                      <td>+10€</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Contacto urgente -->
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-phone"></i> Contacto Directo</h3>
+                </div>
+                <div class="box-body">
+                  <div class="text-center">
+                    <p><strong>Servicio Domiciliario</strong></p>
+                    <a href="tel:+34123456789" class="btn btn-warning btn-lg">
+                      <i class="fa fa-phone"></i> 123 456 789
+                    </a>
+                    <p style="margin-top: 10px;">
+                      <small>Lun-Vie: 9:00-21:00<br>Sáb: 9:00-14:00</small>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- WhatsApp -->
+              <div class="box box-default">
+                <div class="box-body">
+                  <div class="text-center">
+                    <p><strong>También por WhatsApp</strong></p>
+                    <a href="https://wa.me/34123456789" class="btn btn-success btn-lg" style="background-color: #25D366 !important; border-color: #25D366 !important;">
+                      <i class="fa fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <p style="margin-top: 10px;">
+                      <small>Respuesta inmediata</small>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Información adicional -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-default">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-info-circle"></i> Información del Servicio</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h5><strong>Condiciones de Entrega</strong></h5>
+                      <ul>
+                        <li>Entrega sin contacto disponible</li>
+                        <li>Pago en efectivo, tarjeta o transferencia</li>
+                        <li>Medicamentos refrigerados en cadena de frío</li>
+                        <li>Entrega con firma y documentación</li>
+                        <li>Seguimiento por SMS/WhatsApp</li>
+                      </ul>
+                    </div>
+                    <div class="col-md-6">
+                      <h5><strong>Requisitos Importantes</strong></h5>
+                      <ul>
+                        <li>Recetas originales para medicamentos con receta</li>
+                        <li>DNI del titular en primera entrega</li>
+                        <li>Autorización por escrito para terceras personas</li>
+                        <li>Pago al recibir el pedido</li>
+                        <li>Cancelación gratuita hasta 2h antes</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+  </body>
+</html>

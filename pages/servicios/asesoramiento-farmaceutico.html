@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Asesoramiento Farmacéutico | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .consultation-types {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+      }
+      .service-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        background: white;
+        transition: all 0.3s ease;
+        text-align: center;
+        height: 100%;
+      }
+      .service-card:hover {
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        border-color: #14D5AA;
+        transform: translateY(-2px);
+      }
+      .service-icon {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #14D5AA;
+      }
+      .pharmacist-card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .faq-item {
+        border-bottom: 1px solid #eee;
+        padding: 15px 0;
+      }
+      .faq-item:last-child {
+        border-bottom: none;
+      }
+      .consultation-form {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 8px;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-stethoscope"></i>
+                <span>🩺 Servicios Farmacia</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="pruebas-laboratorio.html"><i class="fa fa-flask"></i> Pruebas de laboratorio</a></li>
+                <li><a href="control-tension-peso.html"><i class="fa fa-heartbeat"></i> Control de tensión y peso</a></li>
+                <li><a href="formulas-magistrales.html"><i class="fa fa-mortar-pestle"></i> Fórmulas magistrales</a></li>
+                <li class="active"><a href="asesoramiento-farmaceutico.html"><i class="fa fa-stethoscope"></i> Asesoramiento farmacéutico</a></li>
+                <li><a href="atencion-domiciliaria.html"><i class="fa fa-home"></i> Atención domiciliaria</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Asesoramiento Farmacéutico
+            <small>Consulta profesional personalizada</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Servicios Farmacia</a></li>
+            <li class="active">Asesoramiento Farmacéutico</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Tipos de consulta -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="consultation-types">
+                <div class="row">
+                  <div class="col-md-8">
+                    <h2><i class="fa fa-user-md"></i> Consulta con Nuestros Farmacéuticos</h2>
+                    <p style="font-size: 16px; margin-top: 15px;">
+                      Nuestro equipo de farmacéuticos colegiados te ofrece asesoramiento profesional 
+                      sobre medicamentos, tratamientos y salud en general. Consultas presenciales, 
+                      telefónicas y online disponibles.
+                    </p>
+                  </div>
+                  <div class="col-md-4 text-center">
+                    <div style="margin-top: 20px;">
+                      <button class="btn btn-warning btn-lg" style="margin: 5px;">
+                        <i class="fa fa-calendar"></i> Reservar Cita
+                      </button>
+                      <br>
+                      <button class="btn btn-default btn-lg" style="margin: 5px; background: rgba(255,255,255,0.2); border-color: white;">
+                        <i class="fa fa-phone"></i> Llamar Ahora
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tipos de servicios -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-pills"></i>
+                </div>
+                <h4>Revisión de Medicación</h4>
+                <p>Evaluamos tu medicación actual para detectar interacciones, duplicidades o problemas de dosificación.</p>
+                <div style="margin: 15px 0;">
+                  <span class="label label-success">GRATUITO</span>
+                </div>
+                <button class="btn btn-success">Solicitar Revisión</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-comments"></i>
+                </div>
+                <h4>Consulta de Síntomas</h4>
+                <p>Te ayudamos a identificar el tratamiento más adecuado para síntomas menores y molestias comunes.</p>
+                <div style="margin: 15px 0;">
+                  <span class="label label-success">GRATUITO</span>
+                </div>
+                <button class="btn btn-success">Consultar Síntomas</button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-heart"></i>
+                </div>
+                <h4>Seguimiento Farmacoterapéutico</h4>
+                <p>Monitorizamos la efectividad y seguridad de tu tratamiento a largo plazo.</p>
+                <div style="margin: 15px 0;">
+                  <span class="label label-primary">PREMIUM</span>
+                </div>
+                <button class="btn btn-primary">Más Información</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de consulta -->
+          <div class="row">
+            <div class="col-md-8">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Formulario de Consulta</h3>
+                </div>
+                <div class="box-body">
+                  <div class="consultation-form">
+                    <form>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Nombre completo *</label>
+                            <input type="text" class="form-control" placeholder="Tu nombre">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Teléfono *</label>
+                            <input type="tel" class="form-control" placeholder="Número de contacto">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" placeholder="correo@email.com">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Edad</label>
+                            <input type="number" class="form-control" placeholder="Tu edad" min="0" max="120">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Tipo de consulta *</label>
+                        <select class="form-control" required>
+                          <option>Selecciona el tipo de consulta</option>
+                          <option>Revisión de medicación</option>
+                          <option>Consulta de síntomas</option>
+                          <option>Interacciones medicamentosas</option>
+                          <option>Efectos secundarios</option>
+                          <option>Dosificación</option>
+                          <option>Uso de productos sanitarios</option>
+                          <option>Consulta nutricional</option>
+                          <option>Otros</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label>¿Estás tomando algún medicamento actualmente?</label>
+                        <textarea class="form-control" rows="3" placeholder="Lista todos los medicamentos que tomas actualmente, incluyendo dosis y frecuencia..."></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label>Describe tu consulta *</label>
+                        <textarea class="form-control" rows="4" placeholder="Explica detalladamente tu consulta, síntomas o dudas..."></textarea>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>¿Tienes alergias conocidas?</label>
+                            <textarea class="form-control" rows="2" placeholder="Alergias a medicamentos, alimentos, etc."></textarea>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Enfermedades crónicas</label>
+                            <textarea class="form-control" rows="2" placeholder="Diabetes, hipertensión, etc."></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Método de respuesta preferido</label>
+                        <div>
+                          <label class="radio-inline">
+                            <input type="radio" name="contact_method" value="phone" checked> Teléfono
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="contact_method" value="email"> Email
+                          </label>
+                          <label class="radio-inline">
+                            <input type="radio" name="contact_method" value="presencial"> Presencial
+                          </label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>
+                          <input type="checkbox" required> 
+                          Acepto que esta consulta no sustituye la visita médica y es solo orientativa
+                        </label>
+                      </div>
+                      <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                          <i class="fa fa-send"></i> Enviar Consulta
+                        </button>
+                        <button type="reset" class="btn btn-default">
+                          <i class="fa fa-refresh"></i> Limpiar
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <!-- Nuestro equipo -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-users"></i> Nuestro Equipo</h3>
+                </div>
+                <div class="box-body">
+                  <div class="pharmacist-card">
+                    <img src="https://via.placeholder.com/100x100/183657/ffffff?text=Dr.M" class="img-circle" style="width: 80px; height: 80px; margin-bottom: 15px;">
+                    <h5><strong>Dr. María González</strong></h5>
+                    <p>Farmacéutica Adjunta</p>
+                    <small>Col. 12345 - 15 años experiencia</small>
+                    <br>
+                    <span class="label label-success">Disponible</span>
+                  </div>
+                  <div class="pharmacist-card">
+                    <img src="https://via.placeholder.com/100x100/14D5AA/ffffff?text=Dr.J" class="img-circle" style="width: 80px; height: 80px; margin-bottom: 15px;">
+                    <h5><strong>Dr. Juan López</strong></h5>
+                    <p>Farmacéutico Titular</p>
+                    <small>Col. 67890 - 20 años experiencia</small>
+                    <br>
+                    <span class="label label-warning">En consulta</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Horarios -->
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-clock-o"></i> Horarios de Atención</h3>
+                </div>
+                <div class="box-body">
+                  <table class="table table-striped">
+                    <tr>
+                      <td><strong>Lunes - Viernes</strong></td>
+                      <td>9:00 - 21:00</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Sábados</strong></td>
+                      <td>9:00 - 14:00</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Domingos</strong></td>
+                      <td>Cerrado</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Urgencias</strong></td>
+                      <td>24/7 teléfono</td>
+                    </tr>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Contacto urgente -->
+              <div class="box box-danger">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-exclamation-triangle"></i> Urgencias</h3>
+                </div>
+                <div class="box-body">
+                  <p>Para consultas urgentes fuera del horario:</p>
+                  <div class="text-center">
+                    <a href="tel:+34123456789" class="btn btn-danger btn-lg">
+                      <i class="fa fa-phone"></i> 123 456 789
+                    </a>
+                  </div>
+                  <p class="text-center" style="margin-top: 10px;">
+                    <small>Servicio 24 horas</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Preguntas frecuentes -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-default">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-question-circle"></i> Preguntas Frecuentes</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="faq-item">
+                        <h5><strong>¿Las consultas farmacéuticas son gratuitas?</strong></h5>
+                        <p>Sí, ofrecemos consultas básicas sin coste. Solo el seguimiento farmacoterapéutico personalizado tiene coste.</p>
+                      </div>
+                      <div class="faq-item">
+                        <h5><strong>¿Cuánto tiempo tardan en responder?</strong></h5>
+                        <p>Respondemos en menos de 2 horas en horario comercial y en 24 horas los fines de semana.</p>
+                      </div>
+                      <div class="faq-item">
+                        <h5><strong>¿Pueden recetar medicamentos?</strong></h5>
+                        <p>No, solo los médicos pueden prescribir. Nosotros asesoramos sobre medicamentos sin receta y orientamos sobre cuándo acudir al médico.</p>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="faq-item">
+                        <h5><strong>¿Qué información necesitan?</strong></h5>
+                        <p>Para un asesoramiento completo necesitamos conocer tu medicación actual, alergias y el motivo de la consulta.</p>
+                      </div>
+                      <div class="faq-item">
+                        <h5><strong>¿Atienden consultas de niños?</strong></h5>
+                        <p>Sí, tenemos especialistas en medicación pediátrica. Para menores siempre recomendamos consulta médica previa.</p>
+                      </div>
+                      <div class="faq-item">
+                        <h5><strong>¿Guardan confidencialidad?</strong></h5>
+                        <p>Absolutamente. Toda la información está protegida por el secreto profesional farmacéutico.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+  </body>
+</html>

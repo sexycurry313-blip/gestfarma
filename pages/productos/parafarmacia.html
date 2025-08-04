@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Parafarmacia | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .product-card {
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        background: white;
+      }
+      .product-card:hover {
+        border-color: #14D5AA;
+        box-shadow: 0 4px 8px rgba(20, 213, 170, 0.1);
+      }
+      .product-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+      .product-title {
+        color: #183657;
+        font-weight: bold;
+        margin: 10px 0;
+      }
+      .product-price {
+        color: #FF1E70;
+        font-size: 18px;
+        font-weight: bold;
+      }
+      .wellness-badge {
+        background-color: #14D5AA;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 3px;
+        font-size: 11px;
+        font-weight: bold;
+      }
+      .category-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-medkit"></i>
+                <span>💊 Productos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="medicamentos-con-receta.html"><i class="fa fa-circle-o"></i> Medicamentos con receta</a></li>
+                <li><a href="medicamentos-sin-receta.html"><i class="fa fa-circle-o"></i> Medicamentos sin receta</a></li>
+                <li class="active"><a href="parafarmacia.html"><i class="fa fa-circle-o"></i> Parafarmacia</a></li>
+                <li><a href="infantil-maternidad.html"><i class="fa fa-circle-o"></i> Infantil y maternidad</a></li>
+                <li><a href="cuidado-personal.html"><i class="fa fa-circle-o"></i> Cuidado personal</a></li>
+                <li><a href="ortopedia.html"><i class="fa fa-circle-o"></i> Ortopedia</a></li>
+                <li><a href="salud-sexual.html"><i class="fa fa-circle-o"></i> Salud sexual</a></li>
+                <li><a href="nutricion-dietetica.html"><i class="fa fa-circle-o"></i> Nutrición y dietética</a></li>
+                <li><a href="veterinaria.html"><i class="fa fa-circle-o"></i> Veterinaria</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Parafarmacia
+            <small>Productos de salud y bienestar</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Productos</a></li>
+            <li class="active">Parafarmacia</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Categorías destacadas -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Categorías de Parafarmacia</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                      <div class="category-section text-center">
+                        <i class="fa fa-heart fa-3x" style="color: #FF1E70;"></i>
+                        <h4>Cosmética</h4>
+                        <p>Cremas, serums y productos de belleza</p>
+                        <span class="label label-primary">89 productos</span>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                      <div class="category-section text-center">
+                        <i class="fa fa-leaf fa-3x" style="color: #14D5AA;"></i>
+                        <h4>Natural</h4>
+                        <p>Fitoterapia y productos naturales</p>
+                        <span class="label label-success">67 productos</span>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                      <div class="category-section text-center">
+                        <i class="fa fa-flask fa-3x" style="color: #183657;"></i>
+                        <h4>Dermofarmacia</h4>
+                        <p>Cuidado especializado de la piel</p>
+                        <span class="label label-primary">125 productos</span>
+                      </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                      <div class="category-section text-center">
+                        <i class="fa fa-sun-o fa-3x" style="color: #FF1E70;"></i>
+                        <h4>Protección Solar</h4>
+                        <p>Fotoprotectores y after sun</p>
+                        <span class="label label-warning">34 productos</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Productos destacados -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="product-card">
+                <img src="https://via.placeholder.com/300x150?text=La+Roche+Posay" class="product-image" alt="La Roche Posay">
+                <div class="wellness-badge">DERMOFARMACIA</div>
+                <h4 class="product-title">La Roche Posay Effaclar</h4>
+                <p><strong>Tipo:</strong> Gel limpiador purificante</p>
+                <p><strong>Formato:</strong> 400ml</p>
+                <p><strong>Indicación:</strong> Piel grasa y acneica</p>
+                <div class="product-price">€15.90</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="product-card">
+                <img src="https://via.placeholder.com/300x150?text=Eucerin" class="product-image" alt="Eucerin">
+                <div class="wellness-badge">COSMÉTICA</div>
+                <h4 class="product-title">Eucerin Hyaluron-Filler</h4>
+                <p><strong>Tipo:</strong> Crema anti-edad</p>
+                <p><strong>Formato:</strong> 50ml</p>
+                <p><strong>Indicación:</strong> Arrugas y firmeza</p>
+                <div class="product-price">€28.50</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="product-card">
+                <img src="https://via.placeholder.com/300x150?text=Avene" class="product-image" alt="Avene">
+                <div class="wellness-badge">PROTECCIÓN</div>
+                <h4 class="product-title">Avène Fluide Minéral</h4>
+                <p><strong>Tipo:</strong> Protector solar SPF 50+</p>
+                <p><strong>Formato:</strong> 40ml</p>
+                <p><strong>Indicación:</strong> Protección facial</p>
+                <div class="product-price">€18.95</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="product-card">
+                <img src="https://via.placeholder.com/300x150?text=Vichy" class="product-image" alt="Vichy">
+                <div class="wellness-badge">DERMOFARMACIA</div>
+                <h4 class="product-title">Vichy Capital Soleil</h4>
+                <p><strong>Tipo:</strong> Agua termal protectora</p>
+                <p><strong>Formato:</strong> 200ml</p>
+                <p><strong>Indicación:</strong> Hidratación y protección</p>
+                <div class="product-price">€22.40</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="product-card">
+                <img src="https://via.placeholder.com/300x150?text=Arkopharma" class="product-image" alt="Arkopharma">
+                <div class="wellness-badge">NATURAL</div>
+                <h4 class="product-title">Arkocápsulas Valeriana</h4>
+                <p><strong>Tipo:</strong> Complemento alimenticio</p>
+                <p><strong>Formato:</strong> 45 cápsulas</p>
+                <p><strong>Indicación:</strong> Relajación natural</p>
+                <div class="product-price">€12.75</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="product-card">
+                <img src="https://via.placeholder.com/300x150?text=Isdin" class="product-image" alt="Isdin">
+                <div class="wellness-badge">DERMOFARMACIA</div>
+                <h4 class="product-title">Isdin Fotoprotektor</h4>
+                <p><strong>Tipo:</strong> Fusion Water SPF 50</p>
+                <p><strong>Formato:</strong> 50ml</p>
+                <p><strong>Indicación:</strong> Protección diaria</p>
+                <div class="product-price">€19.85</div>
+                <button class="btn btn-success btn-sm pull-right">Añadir al carrito</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Marcas destacadas -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-star"></i> Marcas de Confianza</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row text-center">
+                    <div class="col-md-2 col-sm-4 col-xs-6">
+                      <div style="padding: 20px; border: 1px solid #e9ecef; border-radius: 5px; margin: 5px;">
+                        <h5>La Roche Posay</h5>
+                        <small>Dermofarmacia</small>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-6">
+                      <div style="padding: 20px; border: 1px solid #e9ecef; border-radius: 5px; margin: 5px;">
+                        <h5>Eucerin</h5>
+                        <small>Cuidado facial</small>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-6">
+                      <div style="padding: 20px; border: 1px solid #e9ecef; border-radius: 5px; margin: 5px;">
+                        <h5>Vichy</h5>
+                        <small>Agua termal</small>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-6">
+                      <div style="padding: 20px; border: 1px solid #e9ecef; border-radius: 5px; margin: 5px;">
+                        <h5>Avène</h5>
+                        <small>Piel sensible</small>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-6">
+                      <div style="padding: 20px; border: 1px solid #e9ecef; border-radius: 5px; margin: 5px;">
+                        <h5>ISDIN</h5>
+                        <small>Fotoprotección</small>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-4 col-xs-6">
+                      <div style="padding: 20px; border: 1px solid #e9ecef; border-radius: 5px; margin: 5px;">
+                        <h5>Arkopharma</h5>
+                        <small>Fitoterapia</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+  </body>
+</html>

@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Gestión de Surtido | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- DataTables -->
+    <link href="../../plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      .label-danger { background-color: #dc3545 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .product-card {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        border-left: 4px solid #14D5AA;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .product-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      }
+      .product-high-rotation {
+        border-left-color: #28a745;
+        background: linear-gradient(45deg, #f0fff4, #ffffff);
+      }
+      .product-medium-rotation {
+        border-left-color: #ffc107;
+        background: linear-gradient(45deg, #fffbf0, #ffffff);
+      }
+      .product-low-rotation {
+        border-left-color: #dc3545;
+        background: linear-gradient(45deg, #fff5f5, #ffffff);
+      }
+      .product-out-stock {
+        border-left-color: #6c757d;
+        background: linear-gradient(45deg, #f8f9fa, #ffffff);
+        opacity: 0.7;
+      }
+      
+      .product-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+      .product-image {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #183657, #2a4d73);
+        color: white;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+        margin-right: 15px;
+      }
+      .product-info h4 {
+        color: #183657;
+        margin-bottom: 5px;
+        font-size: 16px;
+      }
+      .product-brand {
+        color: #666;
+        font-size: 12px;
+        margin-bottom: 8px;
+      }
+      .product-status {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .status-in-stock {
+        background: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+        border: 1px solid #28a745;
+      }
+      .status-low-stock {
+        background: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+        border: 1px solid #ffc107;
+      }
+      .status-out-stock {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+        border: 1px solid #dc3545;
+      }
+      .status-discontinued {
+        background: rgba(108, 117, 125, 0.1);
+        color: #6c757d;
+        border: 1px solid #6c757d;
+      }
+      
+      .product-metrics {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 15px;
+      }
+      .metric-box {
+        text-align: center;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 6px;
+      }
+      .metric-value {
+        font-size: 16px;
+        font-weight: bold;
+        color: #183657;
+        margin-bottom: 3px;
+      }
+      .metric-label {
+        font-size: 9px;
+        color: #666;
+        text-transform: uppercase;
+      }
+      
+      .pricing-info {
+        background: #f8f9fa;
+        border-radius: 6px;
+        padding: 12px;
+        margin-bottom: 15px;
+      }
+      .price-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        font-size: 12px;
+      }
+      .price-row:last-child {
+        margin-bottom: 0;
+        font-weight: bold;
+        border-top: 1px solid #dee2e6;
+        padding-top: 5px;
+      }
+      
+      .rotation-indicator {
+        position: absolute;
+        top: -2px;
+        right: 15px;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+      }
+      .rotation-high { background: #28a745; }
+      .rotation-medium { background: #ffc107; }
+      .rotation-low { background: #dc3545; }
+      
+      .product-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .action-btn {
+        padding: 6px 12px;
+        border-radius: 4px;
+        border: none;
+        font-size: 11px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .btn-edit-price {
+        background: #17a2b8;
+        color: white;
+      }
+      .btn-adjust-stock {
+        background: #28a745;
+        color: white;
+      }
+      .btn-discontinue {
+        background: #dc3545;
+        color: white;
+      }
+      .btn-reorder {
+        background: #ffc107;
+        color: #212529;
+      }
+      
+      .quick-actions {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      }
+      
+      .add-product-form {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #14D5AA;
+        display: none;
+      }
+      
+      .form-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      
+      .category-chip {
+        display: inline-block;
+        padding: 3px 8px;
+        background: rgba(24, 54, 87, 0.1);
+        color: #183657;
+        border-radius: 10px;
+        font-size: 10px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+      }
+      
+      .stock-alert {
+        position: relative;
+        overflow: hidden;
+      }
+      .stock-alert::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        animation: shimmer 2s infinite;
+      }
+      @keyframes shimmer {
+        0% { left: -100%; }
+        100% { left: 100%; }
+      }
+      
+      .bulk-actions {
+        background: #e9ecef;
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 20px;
+        display: none;
+      }
+      .bulk-actions.show {
+        display: block;
+      }
+      
+      .performance-badge {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+      .badge-bestseller {
+        background: linear-gradient(45deg, #FFD700, #FFA500);
+        color: #fff;
+      }
+      .badge-trending {
+        background: linear-gradient(45deg, #FF1E70, #FF6B9D);
+        color: #fff;
+      }
+      .badge-seasonal {
+        background: linear-gradient(45deg, #14D5AA, #20E0BB);
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="../informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="../informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>📈 Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../ventas/dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="../ventas/analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li><a href="../ventas/control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>🧪 Pujas (Labs)</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../pujas/pujas-activas.html"><i class="fa fa-gavel"></i> Pujas Activas</a></li>
+                <li><a href="../pujas/historial-pujas.html"><i class="fa fa-history"></i> Historial de Pujas</a></li>
+                <li><a href="../pujas/gestionar-labs.html"><i class="fa fa-cogs"></i> Gestionar Labs</a></li>
+              </ul>
+            </li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-cubes"></i>
+                <span>🏪 Surtido y Precios</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="gestion-surtido.html"><i class="fa fa-th"></i> Gestión de Surtido</a></li>
+                <li><a href="estrategias-precios.html"><i class="fa fa-tags"></i> Estrategias de Precios</a></li>
+                <li><a href="analisis-competencia.html"><i class="fa fa-search"></i> Análisis de Competencia</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Gestión de Surtido
+            <small>Control completo del inventario y productos</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Surtido y Precios</a></li>
+            <li class="active">Gestión de Surtido</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Estadísticas del surtido -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>2,847</h3>
+                  <p>Productos Activos</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-cubes"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  +145 este mes <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>23</h3>
+                  <p>Stock Bajo</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-warning"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Requiere atención <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>7</h3>
+                  <p>Sin Stock</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-exclamation-triangle"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Acción inmediata <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>94.2%</h3>
+                  <p>Disponibilidad</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-check-circle"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Meta: 95% <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acciones rápidas -->
+          <div class="quick-actions">
+            <div class="row">
+              <div class="col-md-2">
+                <button class="btn btn-success btn-block" onclick="showAddProductForm()">
+                  <i class="fa fa-plus"></i><br>Nuevo Producto
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-info btn-block" onclick="importProducts()">
+                  <i class="fa fa-upload"></i><br>Importar CSV
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-warning btn-block" onclick="checkLowStock()">
+                  <i class="fa fa-warning"></i><br>Stock Bajo
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-primary btn-block" onclick="generateCatalog()">
+                  <i class="fa fa-book"></i><br>Generar Catálogo
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-default btn-block" onclick="exportProducts()">
+                  <i class="fa fa-download"></i><br>Exportar Datos
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-success btn-block" onclick="location.href='estrategias-precios.html'">
+                  <i class="fa fa-tags"></i><br>Gestionar Precios
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario agregar producto (oculto inicialmente) -->
+          <div class="add-product-form" id="addProductForm">
+            <h4><i class="fa fa-plus"></i> Agregar Nuevo Producto</h4>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Nombre del Producto *</label>
+                <input type="text" class="form-control" placeholder="Ej: Paracetamol 500mg">
+              </div>
+              <div class="form-group">
+                <label>Laboratorio</label>
+                <select class="form-control">
+                  <option>Pfizer</option>
+                  <option>Bayer</option>
+                  <option>Roche</option>
+                  <option>Novartis</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Código de Barras</label>
+                <input type="text" class="form-control" placeholder="8470001234567">
+              </div>
+              <div class="form-group">
+                <label>Categoría</label>
+                <select class="form-control">
+                  <option>Analgésicos</option>
+                  <option>Antibióticos</option>
+                  <option>Vitaminas</option>
+                  <option>Dermatología</option>
+                  <option>Digestivo</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Precio de Compra (€)</label>
+                <input type="number" class="form-control" placeholder="15.50" step="0.01">
+              </div>
+              <div class="form-group">
+                <label>Precio de Venta (€)</label>
+                <input type="number" class="form-control" placeholder="22.95" step="0.01">
+              </div>
+              <div class="form-group">
+                <label>Stock Inicial</label>
+                <input type="number" class="form-control" placeholder="100">
+              </div>
+              <div class="form-group">
+                <label>Stock Mínimo</label>
+                <input type="number" class="form-control" placeholder="10">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <label>Descripción</label>
+                <textarea class="form-control" rows="2" placeholder="Descripción del producto y usos..."></textarea>
+              </div>
+            </div>
+            <div style="margin-top: 20px;">
+              <button class="btn btn-success" onclick="saveProduct()">
+                <i class="fa fa-save"></i> Guardar Producto
+              </button>
+              <button class="btn btn-default" onclick="hideAddProductForm()">
+                <i class="fa fa-times"></i> Cancelar
+              </button>
+            </div>
+          </div>
+
+          <!-- Acciones en lote -->
+          <div class="bulk-actions" id="bulkActions">
+            <div class="row">
+              <div class="col-md-8">
+                <span><strong id="selectedCount">0</strong> productos seleccionados</span>
+              </div>
+              <div class="col-md-4 text-right">
+                <button class="btn btn-sm btn-info" onclick="bulkPriceUpdate()">
+                  <i class="fa fa-tags"></i> Actualizar Precios
+                </button>
+                <button class="btn btn-sm btn-warning" onclick="bulkDiscontinue()">
+                  <i class="fa fa-ban"></i> Descontinuar
+                </button>
+                <button class="btn btn-sm btn-success" onclick="bulkReorder()">
+                  <i class="fa fa-refresh"></i> Reordenar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filtros -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Filtros y Búsqueda</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <input type="text" class="form-control" placeholder="Buscar producto..." id="searchProduct">
+                    </div>
+                    <div class="col-md-2">
+                      <select class="form-control" id="categoryFilter">
+                        <option value="">Todas las categorías</option>
+                        <option value="analgesicos">Analgésicos</option>
+                        <option value="antibioticos">Antibióticos</option>
+                        <option value="vitaminas">Vitaminas</option>
+                        <option value="dermatologia">Dermatología</option>
+                        <option value="digestivo">Digestivo</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <select class="form-control" id="stockFilter">
+                        <option value="">Todos los stocks</option>
+                        <option value="in-stock">En Stock</option>
+                        <option value="low-stock">Stock Bajo</option>
+                        <option value="out-stock">Sin Stock</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <select class="form-control" id="rotationFilter">
+                        <option value="">Todas las rotaciones</option>
+                        <option value="high">Alta Rotación</option>
+                        <option value="medium">Media Rotación</option>
+                        <option value="low">Baja Rotación</option>
+                      </select>
+                    </div>
+                    <div class="col-md-2">
+                      <select class="form-control" id="labFilter">
+                        <option value="">Todos los labs</option>
+                        <option value="pfizer">Pfizer</option>
+                        <option value="bayer">Bayer</option>
+                        <option value="roche">Roche</option>
+                        <option value="novartis">Novartis</option>
+                      </select>
+                    </div>
+                    <div class="col-md-1">
+                      <button class="btn btn-primary btn-block" onclick="applyFilters()">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lista de productos -->
+          <div class="row" id="productsList">
+            <!-- Producto Best Seller -->
+            <div class="col-md-6">
+              <div class="product-card product-high-rotation">
+                <div class="performance-badge badge-bestseller">★ BESTSELLER</div>
+                <div class="rotation-indicator rotation-high"></div>
+                
+                <div class="product-header">
+                  <div style="display: flex; align-items: center;">
+                    <input type="checkbox" class="product-checkbox" data-product="paracetamol" style="margin-right: 15px;">
+                    <div class="product-image">PAR</div>
+                    <div class="product-info">
+                      <h4>Paracetamol 500mg 20 comp</h4>
+                      <div class="product-brand">Pfizer España • 8470001234567</div>
+                      <div class="category-chip">Analgésicos</div>
+                      <div class="category-chip">OTC</div>
+                    </div>
+                  </div>
+                  <div class="product-status status-in-stock">
+                    <i class="fa fa-check"></i> En Stock
+                  </div>
+                </div>
+
+                <div class="product-metrics">
+                  <div class="metric-box">
+                    <div class="metric-value">450</div>
+                    <div class="metric-label">Stock Actual</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">25</div>
+                    <div class="metric-label">Stock Mín.</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">1,247</div>
+                    <div class="metric-label">Ventas/Mes</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">95.2%</div>
+                    <div class="metric-label">Disponib.</div>
+                  </div>
+                </div>
+
+                <div class="pricing-info">
+                  <div class="price-row">
+                    <span>Precio de Compra:</span>
+                    <span><strong>€2.45</strong></span>
+                  </div>
+                  <div class="price-row">
+                    <span>Precio de Venta:</span>
+                    <span><strong>€4.95</strong></span>
+                  </div>
+                  <div class="price-row">
+                    <span>Margen Bruto:</span>
+                    <span><strong>€2.50 (50.5%)</strong></span>
+                  </div>
+                </div>
+
+                <div class="product-actions">
+                  <button class="action-btn btn-edit-price" onclick="editPrice('paracetamol')">
+                    <i class="fa fa-tags"></i> Precio
+                  </button>
+                  <button class="action-btn btn-adjust-stock" onclick="adjustStock('paracetamol')">
+                    <i class="fa fa-cubes"></i> Stock
+                  </button>
+                  <button class="action-btn btn-reorder" onclick="reorderProduct('paracetamol')">
+                    <i class="fa fa-refresh"></i> Reordenar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto Trending -->
+            <div class="col-md-6">
+              <div class="product-card product-medium-rotation">
+                <div class="performance-badge badge-trending">📈 TRENDING</div>
+                <div class="rotation-indicator rotation-medium"></div>
+                
+                <div class="product-header">
+                  <div style="display: flex; align-items: center;">
+                    <input type="checkbox" class="product-checkbox" data-product="vitamina-c" style="margin-right: 15px;">
+                    <div class="product-image" style="background: linear-gradient(135deg, #14D5AA, #20e0bb);">VTC</div>
+                    <div class="product-info">
+                      <h4>Vitamina C 1000mg 30 comp</h4>
+                      <div class="product-brand">Bayer HealthCare • 8470002345678</div>
+                      <div class="category-chip">Vitaminas</div>
+                      <div class="category-chip">Suplementos</div>
+                    </div>
+                  </div>
+                  <div class="product-status status-in-stock">
+                    <i class="fa fa-check"></i> En Stock
+                  </div>
+                </div>
+
+                <div class="product-metrics">
+                  <div class="metric-box">
+                    <div class="metric-value">235</div>
+                    <div class="metric-label">Stock Actual</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">50</div>
+                    <div class="metric-label">Stock Mín.</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">687</div>
+                    <div class="metric-label">Ventas/Mes</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">89.3%</div>
+                    <div class="metric-label">Disponib.</div>
+                  </div>
+                </div>
+
+                <div class="pricing-info">
+                  <div class="price-row">
+                    <span>Precio de Compra:</span>
+                    <span><strong>€8.20</strong></span>
+                  </div>
+                  <div class="price-row">
+                    <span>Precio de Venta:</span>
+                    <span><strong>€15.95</strong></span>
+                  </div>
+                  <div class="price-row">
+                    <span>Margen Bruto:</span>
+                    <span><strong>€7.75 (48.6%)</strong></span>
+                  </div>
+                </div>
+
+                <div class="product-actions">
+                  <button class="action-btn btn-edit-price" onclick="editPrice('vitamina-c')">
+                    <i class="fa fa-tags"></i> Precio
+                  </button>
+                  <button class="action-btn btn-adjust-stock" onclick="adjustStock('vitamina-c')">
+                    <i class="fa fa-cubes"></i> Stock
+                  </button>
+                  <button class="action-btn btn-reorder" onclick="reorderProduct('vitamina-c')">
+                    <i class="fa fa-refresh"></i> Reordenar
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto Stock Bajo -->
+            <div class="col-md-6">
+              <div class="product-card product-low-rotation stock-alert">
+                <div class="rotation-indicator rotation-low"></div>
+                
+                <div class="product-header">
+                  <div style="display: flex; align-items: center;">
+                    <input type="checkbox" class="product-checkbox" data-product="antibiotico" style="margin-right: 15px;">
+                    <div class="product-image" style="background: linear-gradient(135deg, #FF1E70, #ff6b9d);">AMX</div>
+                    <div class="product-info">
+                      <h4>Amoxicilina 875mg 14 comp</h4>
+                      <div class="product-brand">Roche Farma • 8470003456789</div>
+                      <div class="category-chip">Antibióticos</div>
+                      <div class="category-chip">Prescripción</div>
+                    </div>
+                  </div>
+                  <div class="product-status status-low-stock">
+                    <i class="fa fa-warning"></i> Stock Bajo
+                  </div>
+                </div>
+
+                <div class="product-metrics">
+                  <div class="metric-box">
+                    <div class="metric-value">8</div>
+                    <div class="metric-label">Stock Actual</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">15</div>
+                    <div class="metric-label">Stock Mín.</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">156</div>
+                    <div class="metric-label">Ventas/Mes</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">76.4%</div>
+                    <div class="metric-label">Disponib.</div>
+                  </div>
+                </div>
+
+                <div class="pricing-info">
+                  <div class="price-row">
+                    <span>Precio de Compra:</span>
+                    <span><strong>€12.80</strong></span>
+                  </div>
+                  <div class="price-row">
+                    <span>Precio de Venta:</span>
+                    <span><strong>€21.45</strong></span>
+                  </div>
+                  <div class="price-row">
+                    <span>Margen Bruto:</span>
+                    <span><strong>€8.65 (40.3%)</strong></span>
+                  </div>
+                </div>
+
+                <div class="product-actions">
+                  <button class="action-btn btn-reorder" onclick="urgentReorder('antibiotico')" style="background: #dc3545; color: white;">
+                    <i class="fa fa-exclamation"></i> Urgente
+                  </button>
+                  <button class="action-btn btn-edit-price" onclick="editPrice('antibiotico')">
+                    <i class="fa fa-tags"></i> Precio
+                  </button>
+                  <button class="action-btn btn-adjust-stock" onclick="adjustStock('antibiotico')">
+                    <i class="fa fa-cubes"></i> Stock
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto Sin Stock -->
+            <div class="col-md-6">
+              <div class="product-card product-out-stock">
+                
+                <div class="product-header">
+                  <div style="display: flex; align-items: center;">
+                    <input type="checkbox" class="product-checkbox" data-product="dermatologico" style="margin-right: 15px;">
+                    <div class="product-image" style="background: #6c757d;">CRT</div>
+                    <div class="product-info">
+                      <h4>Crema Hidrocortisona 1% 30g</h4>
+                      <div class="product-brand">Novartis • 8470004567890</div>
+                      <div class="category-chip">Dermatología</div>
+                      <div class="category-chip">Prescripción</div>
+                    </div>
+                  </div>
+                  <div class="product-status status-out-stock">
+                    <i class="fa fa-times"></i> Sin Stock
+                  </div>
+                </div>
+
+                <div class="product-metrics">
+                  <div class="metric-box">
+                    <div class="metric-value">0</div>
+                    <div class="metric-label">Stock Actual</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">10</div>
+                    <div class="metric-label">Stock Mín.</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">89</div>
+                    <div class="metric-label">Ventas/Mes</div>
+                  </div>
+                  <div class="metric-box">
+                    <div class="metric-value">0%</div>
+                    <div class="metric-label">Disponib.</div>
+                  </div>
+                </div>
+
+                <div class="pricing-info">
+                  <div class="price-row">
+                    <span>Precio de Compra:</span>
+                    <span><strong>€6.50</strong></span>
+                  </div>
+                  <div class="price-row">
+                    <span>Precio de Venta:</span>
+                    <span><strong>€12.95</strong></span>
+                  </div>
+                  <div class="price-row">
+                    <span>Margen Bruto:</span>
+                    <span><strong>€6.45 (49.8%)</strong></span>
+                  </div>
+                </div>
+
+                <div class="product-actions">
+                  <button class="action-btn btn-reorder" onclick="criticalReorder('dermatologico')" style="background: #dc3545; color: white; animation: pulse 1.5s infinite;">
+                    <i class="fa fa-bolt"></i> Crítico
+                  </button>
+                  <button class="action-btn btn-discontinue" onclick="discontinueProduct('dermatologico')">
+                    <i class="fa fa-ban"></i> Descontinuar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paginación -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="text-center">
+                <ul class="pagination">
+                  <li class="disabled"><a href="#">&laquo;</a></li>
+                  <li class="active"><a href="#">1</a></li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">&raquo;</a></li>
+                </ul>
+                <small class="text-muted">Mostrando 4 de 2,847 productos</small>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Funciones principales
+      function showAddProductForm() {
+        document.getElementById('addProductForm').style.display = 'block';
+      }
+
+      function hideAddProductForm() {
+        document.getElementById('addProductForm').style.display = 'none';
+      }
+
+      function saveProduct() {
+        alert('Producto guardado exitosamente');
+        hideAddProductForm();
+      }
+
+      // Funciones de filtrado
+      function applyFilters() {
+        const search = document.getElementById('searchProduct').value;
+        const category = document.getElementById('categoryFilter').value;
+        const stock = document.getElementById('stockFilter').value;
+        const rotation = document.getElementById('rotationFilter').value;
+        const lab = document.getElementById('labFilter').value;
+        
+        alert(`Aplicando filtros: Búsqueda="${search}", Categoría="${category}", Stock="${stock}", Rotación="${rotation}", Lab="${lab}"`);
+      }
+
+      // Funciones de acciones individuales
+      function editPrice(productId) {
+        alert(`Editando precio del producto: ${productId}`);
+      }
+
+      function adjustStock(productId) {
+        alert(`Ajustando stock del producto: ${productId}`);
+      }
+
+      function reorderProduct(productId) {
+        alert(`Reordenando producto: ${productId}`);
+      }
+
+      function urgentReorder(productId) {
+        alert(`¡Orden urgente para producto: ${productId}!`);
+      }
+
+      function criticalReorder(productId) {
+        alert(`¡¡ORDEN CRÍTICA para producto: ${productId}!!`);
+      }
+
+      function discontinueProduct(productId) {
+        if (confirm(`¿Descontinuar producto ${productId}?`)) {
+          alert(`Producto ${productId} descontinuado`);
+        }
+      }
+
+      // Funciones de selección múltiple
+      function updateBulkActions() {
+        const checkboxes = document.querySelectorAll('.product-checkbox:checked');
+        const count = checkboxes.length;
+        
+        document.getElementById('selectedCount').textContent = count;
+        document.getElementById('bulkActions').classList.toggle('show', count > 0);
+      }
+
+      function bulkPriceUpdate() {
+        const selected = document.querySelectorAll('.product-checkbox:checked');
+        alert(`Actualizando precios de ${selected.length} productos seleccionados`);
+      }
+
+      function bulkDiscontinue() {
+        const selected = document.querySelectorAll('.product-checkbox:checked');
+        if (confirm(`¿Descontinuar ${selected.length} productos seleccionados?`)) {
+          alert(`${selected.length} productos descontinuados`);
+        }
+      }
+
+      function bulkReorder() {
+        const selected = document.querySelectorAll('.product-checkbox:checked');
+        alert(`Reordenando ${selected.length} productos seleccionados`);
+      }
+
+      // Funciones de acciones rápidas
+      function importProducts() {
+        alert('Abriendo importador de productos CSV...');
+      }
+
+      function checkLowStock() {
+        alert('Mostrando productos con stock bajo...');
+      }
+
+      function generateCatalog() {
+        alert('Generando catálogo de productos...');
+      }
+
+      function exportProducts() {
+        alert('Exportando datos de productos a Excel...');
+      }
+
+      // Event listeners
+      document.addEventListener('DOMContentLoaded', function() {
+        // Agregar event listeners a checkboxes
+        document.querySelectorAll('.product-checkbox').forEach(checkbox => {
+          checkbox.addEventListener('change', updateBulkActions);
+        });
+
+        // Agregar event listeners a filtros
+        document.querySelectorAll('#searchProduct, #categoryFilter, #stockFilter, #rotationFilter, #labFilter').forEach(filter => {
+          filter.addEventListener('change', function() {
+            console.log('Filtro cambiado:', this.id, this.value);
+          });
+        });
+
+        // Búsqueda en tiempo real
+        document.getElementById('searchProduct').addEventListener('input', function() {
+          const searchTerm = this.value.toLowerCase();
+          console.log('Buscando:', searchTerm);
+        });
+
+        // Animación de pulse para productos críticos
+        const style = document.createElement('style');
+        style.textContent = `
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+          }
+        `;
+        document.head.appendChild(style);
+      });
+    </script>
+  </body>
+</html>

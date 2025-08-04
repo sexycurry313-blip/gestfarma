@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Pujas Activas | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      .label-danger { background-color: #dc3545 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .auction-card {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        border-left: 5px solid #14D5AA;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .auction-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      }
+      .auction-active {
+        border-left-color: #14D5AA;
+        background: linear-gradient(45deg, #f8fff9, #ffffff);
+      }
+      .auction-ending {
+        border-left-color: #ffc107;
+        background: linear-gradient(45deg, #fffbf0, #ffffff);
+        animation: pulse-warning 2s infinite;
+      }
+      .auction-closed {
+        border-left-color: #dc3545;
+        background: linear-gradient(45deg, #fff5f5, #ffffff);
+        opacity: 0.8;
+      }
+      
+      @keyframes pulse-warning {
+        0% { box-shadow: 0 4px 20px rgba(255, 193, 7, 0.2); }
+        50% { box-shadow: 0 4px 20px rgba(255, 193, 7, 0.4); }
+        100% { box-shadow: 0 4px 20px rgba(255, 193, 7, 0.2); }
+      }
+      
+      .auction-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 20px;
+      }
+      .auction-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #183657;
+        margin-bottom: 5px;
+      }
+      .auction-lab {
+        color: #666;
+        font-size: 14px;
+      }
+      .auction-status {
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .status-active {
+        background: rgba(20, 213, 170, 0.1);
+        color: #14D5AA;
+        border: 1px solid #14D5AA;
+      }
+      .status-ending {
+        background: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+        border: 1px solid #ffc107;
+      }
+      .status-closed {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+        border: 1px solid #dc3545;
+      }
+      
+      .auction-details {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .detail-item {
+        text-align: center;
+      }
+      .detail-value {
+        font-size: 20px;
+        font-weight: bold;
+        color: #183657;
+        margin-bottom: 5px;
+      }
+      .detail-label {
+        color: #666;
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+      
+      .countdown-timer {
+        background: linear-gradient(135deg, #FF1E70, #ff6b9d);
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .countdown-time {
+        font-size: 24px;
+        font-weight: bold;
+        font-family: 'Courier New', monospace;
+      }
+      
+      .bid-section {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+      .bid-input-group {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .bid-amount {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid #14D5AA;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .bid-btn {
+        background: linear-gradient(135deg, #14D5AA, #20e0bb);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .bid-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(20, 213, 170, 0.3);
+      }
+      
+      .current-leader {
+        background: linear-gradient(135deg, #183657, #2a4d73);
+        color: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
+      .leader-info {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .leader-crown {
+        font-size: 24px;
+        color: #ffc107;
+      }
+      
+      .bid-history {
+        max-height: 300px;
+        overflow-y: auto;
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+      }
+      .bid-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .bid-item:last-child {
+        border-bottom: none;
+      }
+      
+      .filters-panel {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      }
+      
+      .quick-bid-buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+        flex-wrap: wrap;
+      }
+      .quick-bid {
+        background: #e9ecef;
+        border: 1px solid #dee2e6;
+        padding: 8px 15px;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 12px;
+      }
+      .quick-bid:hover {
+        background: #14D5AA;
+        color: white;
+        border-color: #14D5AA;
+      }
+      
+      .lab-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        background: #e3f2fd;
+        color: #1976d2;
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      
+      .urgent-auction {
+        position: relative;
+        overflow: hidden;
+      }
+      .urgent-auction::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(45deg, #FF1E70, #ffc107, #14D5AA, #183657);
+        background-size: 400% 400%;
+        animation: gradient-border 3s ease infinite;
+        border-radius: 12px;
+        z-index: -1;
+      }
+      
+      @keyframes gradient-border {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="../informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="../informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>📈 Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../ventas/dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="../ventas/analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li><a href="../ventas/control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>🧪 Pujas (Labs)</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="pujas-activas.html"><i class="fa fa-gavel"></i> Pujas Activas</a></li>
+                <li><a href="historial-pujas.html"><i class="fa fa-history"></i> Historial de Pujas</a></li>
+                <li><a href="gestionar-labs.html"><i class="fa fa-cogs"></i> Gestionar Labs</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Pujas Activas de Laboratorios
+            <small>Sistema de licitaciones en tiempo real</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Pujas (Labs)</a></li>
+            <li class="active">Pujas Activas</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Panel de filtros -->
+          <div class="filters-panel">
+            <div class="row">
+              <div class="col-md-3">
+                <label>Filtrar por Estado</label>
+                <select class="form-control" id="statusFilter">
+                  <option value="">Todos los estados</option>
+                  <option value="active">Activas</option>
+                  <option value="ending">Terminando pronto</option>
+                  <option value="closed">Cerradas</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label>Laboratorio</label>
+                <select class="form-control" id="labFilter">
+                  <option value="">Todos los laboratorios</option>
+                  <option value="pfizer">Pfizer</option>
+                  <option value="bayer">Bayer</option>
+                  <option value="roche">Roche</option>
+                  <option value="novartis">Novartis</option>
+                  <option value="gsk">GSK</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label>Categoría de Producto</label>
+                <select class="form-control" id="categoryFilter">
+                  <option value="">Todas las categorías</option>
+                  <option value="medicamentos">Medicamentos</option>
+                  <option value="genericos">Genéricos</option>
+                  <option value="antibioticos">Antibióticos</option>
+                  <option value="analgesicos">Analgésicos</option>
+                  <option value="vitaminas">Vitaminas</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label>Ordenar por</label>
+                <select class="form-control" id="sortBy">
+                  <option value="time">Tiempo restante</option>
+                  <option value="price">Precio actual</option>
+                  <option value="participants">Participantes</option>
+                  <option value="savings">Descuento %</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estadísticas rápidas -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>12</h3>
+                  <p>Pujas Activas</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-gavel"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Participando en 8 <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>€18,450</h3>
+                  <p>Ahorro Potencial</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-euro"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  23% promedio <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>4</h3>
+                  <p>Terminan Hoy</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Revisar urgente <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>67</h3>
+                  <p>Total Participantes</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-users"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Ver ranking <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pujas urgentes -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="callout callout-danger">
+                <h4><i class="fa fa-exclamation-triangle"></i> ¡Pujas Terminando en Menos de 2 Horas!</h4>
+                <p><strong>3 pujas</strong> requieren tu atención inmediata. No pierdas la oportunidad de obtener los mejores precios.</p>
+                <button class="btn btn-danger btn-sm" onclick="showUrgentAuctions()">Ver Pujas Urgentes</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lista de pujas activas -->
+          <div class="row" id="auctionsList">
+            <!-- Puja 1 - Urgente -->
+            <div class="col-md-12">
+              <div class="auction-card auction-ending urgent-auction">
+                <div class="auction-header">
+                  <div>
+                    <div class="auction-title">Lote Paracetamol 1g - 500 Cajas</div>
+                    <div class="auction-lab">
+                      <span class="lab-badge">Pfizer</span>
+                      <i class="fa fa-map-marker"></i> Madrid • Lote: #PF2024-001
+                    </div>
+                  </div>
+                  <div class="auction-status status-ending">
+                    <i class="fa fa-clock-o"></i> Terminando
+                  </div>
+                </div>
+
+                <div class="countdown-timer">
+                  <div>⏰ Tiempo Restante</div>
+                  <div class="countdown-time" id="countdown1">01:23:45</div>
+                </div>
+
+                <div class="auction-details">
+                  <div class="detail-item">
+                    <div class="detail-value">€24.50</div>
+                    <div class="detail-label">Precio Actual</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">€32.00</div>
+                    <div class="detail-label">Precio Original</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">23.4%</div>
+                    <div class="detail-label">Descuento</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">15</div>
+                    <div class="detail-label">Participantes</div>
+                  </div>
+                </div>
+
+                <div class="current-leader">
+                  <div class="leader-info">
+                    <span class="leader-crown">👑</span>
+                    <div>
+                      <strong>Farmacia San Martín</strong><br>
+                      <small>Líder actual con €24.50</small>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bid-section">
+                  <div class="quick-bid-buttons">
+                    <span class="quick-bid" onclick="setQuickBid(24.25)">€24.25</span>
+                    <span class="quick-bid" onclick="setQuickBid(24.00)">€24.00</span>
+                    <span class="quick-bid" onclick="setQuickBid(23.75)">€23.75</span>
+                    <span class="quick-bid" onclick="setQuickBid(23.50)">€23.50</span>
+                  </div>
+                  <div class="bid-input-group">
+                    <input type="number" class="bid-amount" placeholder="Tu oferta (€)" min="0" step="0.01" id="bidAmount1">
+                    <button class="bid-btn" onclick="submitBid(1)">
+                      <i class="fa fa-gavel"></i> Pujar
+                    </button>
+                  </div>
+                  <small class="text-muted">Puja mínima: €24.25 • Incremento mínimo: €0.25</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Puja 2 - Activa -->
+            <div class="col-md-6">
+              <div class="auction-card auction-active">
+                <div class="auction-header">
+                  <div>
+                    <div class="auction-title">Ibuprofeno 600mg - 300 Cajas</div>
+                    <div class="auction-lab">
+                      <span class="lab-badge">Bayer</span>
+                      <i class="fa fa-map-marker"></i> Barcelona • Lote: #BY2024-087
+                    </div>
+                  </div>
+                  <div class="auction-status status-active">
+                    <i class="fa fa-play"></i> Activa
+                  </div>
+                </div>
+
+                <div class="auction-details">
+                  <div class="detail-item">
+                    <div class="detail-value">€18.90</div>
+                    <div class="detail-label">Precio Actual</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">12</div>
+                    <div class="detail-label">Participantes</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">15.8%</div>
+                    <div class="detail-label">Descuento</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value" id="countdown2">2d 14h 32m</div>
+                    <div class="detail-label">Tiempo Restante</div>
+                  </div>
+                </div>
+
+                <div class="bid-section">
+                  <div class="bid-input-group">
+                    <input type="number" class="bid-amount" placeholder="Tu oferta (€)" min="0" step="0.01">
+                    <button class="bid-btn" onclick="submitBid(2)">
+                      <i class="fa fa-gavel"></i> Pujar
+                    </button>
+                  </div>
+                  <small class="text-muted">Puja mínima: €18.65</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Puja 3 - Activa -->
+            <div class="col-md-6">
+              <div class="auction-card auction-active">
+                <div class="auction-header">
+                  <div>
+                    <div class="auction-title">Vitamina C 1000mg - 200 Cajas</div>
+                    <div class="auction-lab">
+                      <span class="lab-badge">Roche</span>
+                      <i class="fa fa-map-marker"></i> Valencia • Lote: #RC2024-156
+                    </div>
+                  </div>
+                  <div class="auction-status status-active">
+                    <i class="fa fa-play"></i> Activa
+                  </div>
+                </div>
+
+                <div class="auction-details">
+                  <div class="detail-item">
+                    <div class="detail-value">€22.30</div>
+                    <div class="detail-label">Precio Actual</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">8</div>
+                    <div class="detail-label">Participantes</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">18.2%</div>
+                    <div class="detail-label">Descuento</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value" id="countdown3">1d 8h 45m</div>
+                    <div class="detail-label">Tiempo Restante</div>
+                  </div>
+                </div>
+
+                <div class="bid-section">
+                  <div class="bid-input-group">
+                    <input type="number" class="bid-amount" placeholder="Tu oferta (€)" min="0" step="0.01">
+                    <button class="bid-btn" onclick="submitBid(3)">
+                      <i class="fa fa-gavel"></i> Pujar
+                    </button>
+                  </div>
+                  <small class="text-muted">Puja mínima: €22.05</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Puja 4 - Terminando -->
+            <div class="col-md-6">
+              <div class="auction-card auction-ending">
+                <div class="auction-header">
+                  <div>
+                    <div class="auction-title">Omeprazol 20mg - 400 Cajas</div>
+                    <div class="auction-lab">
+                      <span class="lab-badge">Novartis</span>
+                      <i class="fa fa-map-marker"></i> Sevilla • Lote: #NV2024-234
+                    </div>
+                  </div>
+                  <div class="auction-status status-ending">
+                    <i class="fa fa-clock-o"></i> Terminando
+                  </div>
+                </div>
+
+                <div class="auction-details">
+                  <div class="detail-item">
+                    <div class="detail-value">€28.75</div>
+                    <div class="detail-label">Precio Actual</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">18</div>
+                    <div class="detail-label">Participantes</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">21.5%</div>
+                    <div class="detail-label">Descuento</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value" id="countdown4">0d 5h 12m</div>
+                    <div class="detail-label">Tiempo Restante</div>
+                  </div>
+                </div>
+
+                <div class="bid-section">
+                  <div class="bid-input-group">
+                    <input type="number" class="bid-amount" placeholder="Tu oferta (€)" min="0" step="0.01">
+                    <button class="bid-btn" onclick="submitBid(4)">
+                      <i class="fa fa-gavel"></i> Pujar
+                    </button>
+                  </div>
+                  <small class="text-muted">Puja mínima: €28.50</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Puja 5 - Cerrada (ejemplo) -->
+            <div class="col-md-6">
+              <div class="auction-card auction-closed">
+                <div class="auction-header">
+                  <div>
+                    <div class="auction-title">Aspirina 500mg - 250 Cajas</div>
+                    <div class="auction-lab">
+                      <span class="lab-badge">Bayer</span>
+                      <i class="fa fa-map-marker"></i> Madrid • Lote: #BY2024-088
+                    </div>
+                  </div>
+                  <div class="auction-status status-closed">
+                    <i class="fa fa-lock"></i> Cerrada
+                  </div>
+                </div>
+
+                <div class="auction-details">
+                  <div class="detail-item">
+                    <div class="detail-value">€15.40</div>
+                    <div class="detail-label">Precio Final</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">25</div>
+                    <div class="detail-label">Participantes</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">28.7%</div>
+                    <div class="detail-label">Descuento</div>
+                  </div>
+                  <div class="detail-item">
+                    <div class="detail-value">🏆 2º</div>
+                    <div class="detail-label">Tu Posición</div>
+                  </div>
+                </div>
+
+                <div class="alert alert-info">
+                  <i class="fa fa-info-circle"></i> Puja finalizada. Tu oferta fue €15.45 (2º lugar)
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Panel de acciones rápidas -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Acciones Rápidas</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <button class="btn btn-success btn-block" onclick="autoMode()">
+                        <i class="fa fa-magic"></i><br>Modo Automático
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-warning btn-block" onclick="setAlerts()">
+                        <i class="fa fa-bell"></i><br>Configurar Alertas
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-info btn-block" onclick="viewHistory()">
+                        <i class="fa fa-history"></i><br>Ver Historial
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-primary btn-block" onclick="generateReport()">
+                        <i class="fa fa-file-pdf-o"></i><br>Generar Informe
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-default btn-block" onclick="refreshAuctions()">
+                        <i class="fa fa-refresh"></i><br>Actualizar
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-success btn-block" onclick="location.href='gestionar-labs.html'">
+                        <i class="fa fa-cogs"></i><br>Gestionar Labs
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Contadores en tiempo real
+      function updateCountdowns() {
+        // Countdown 1 (urgente)
+        let time1 = 5025; // segundos restantes
+        setInterval(() => {
+          if (time1 > 0) {
+            const hours = Math.floor(time1 / 3600);
+            const minutes = Math.floor((time1 % 3600) / 60);
+            const seconds = time1 % 60;
+            document.getElementById('countdown1').textContent = 
+              `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            time1--;
+          } else {
+            document.getElementById('countdown1').textContent = "¡FINALIZADA!";
+          }
+        }, 1000);
+      }
+
+      // Funciones de puja
+      function setQuickBid(amount) {
+        document.getElementById('bidAmount1').value = amount;
+      }
+
+      function submitBid(auctionId) {
+        const bidInput = document.querySelector(`#bidAmount${auctionId}`);
+        const amount = bidInput ? bidInput.value : document.querySelector('.bid-amount').value;
+        
+        if (!amount || amount <= 0) {
+          alert('Por favor, introduce una cantidad válida para tu puja.');
+          return;
+        }
+        
+        if (confirm(`¿Confirmas tu puja de €${amount}?`)) {
+          alert(`¡Puja enviada exitosamente! Cantidad: €${amount}`);
+          // Aquí se enviaría la puja al servidor
+          
+          // Simular actualización de la interfaz
+          setTimeout(() => {
+            alert('Tu puja ha sido registrada y estás en primera posición.');
+          }, 1000);
+        }
+      }
+
+      // Funciones de filtrado
+      function filterAuctions() {
+        const status = document.getElementById('statusFilter').value;
+        const lab = document.getElementById('labFilter').value;
+        const category = document.getElementById('categoryFilter').value;
+        
+        alert(`Filtrando por: Estado=${status}, Lab=${lab}, Categoría=${category}`);
+        // Aquí se implementaría el filtrado real
+      }
+
+      // Funciones de acciones rápidas
+      function autoMode() {
+        if (confirm('¿Activar modo automático? El sistema pujará automáticamente según tus preferencias configuradas.')) {
+          alert('Modo automático activado. El sistema monitoreará las pujas por ti.');
+        }
+      }
+
+      function setAlerts() {
+        alert('Abriendo configuración de alertas...');
+      }
+
+      function viewHistory() {
+        location.href = 'historial-pujas.html';
+      }
+
+      function generateReport() {
+        alert('Generando informe de pujas activas...');
+      }
+
+      function refreshAuctions() {
+        alert('Actualizando pujas en tiempo real...');
+        location.reload();
+      }
+
+      function showUrgentAuctions() {
+        alert('Mostrando solo pujas urgentes...');
+        // Filtrar para mostrar solo las pujas terminando pronto
+      }
+
+      // Inicializar contadores al cargar la página
+      document.addEventListener('DOMContentLoaded', function() {
+        updateCountdowns();
+        
+        // Actualizar datos cada 30 segundos
+        setInterval(() => {
+          console.log('Actualizando datos de pujas...');
+          // Aquí se actualizarían los datos desde el servidor
+        }, 30000);
+      });
+
+      // Event listeners para filtros
+      document.getElementById('statusFilter').addEventListener('change', filterAuctions);
+      document.getElementById('labFilter').addEventListener('change', filterAuctions);
+      document.getElementById('categoryFilter').addEventListener('change', filterAuctions);
+    </script>
+  </body>
+</html>

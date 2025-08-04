@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Pruebas de Laboratorio | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <style>
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-primary .box-header .box-title { color: white !important; }
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .service-card {
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        background: white;
+        transition: all 0.3s ease;
+      }
+      .service-card:hover {
+        border-color: #14D5AA;
+        box-shadow: 0 4px 8px rgba(20, 213, 170, 0.1);
+      }
+      .service-icon {
+        font-size: 48px;
+        color: #183657;
+        margin-bottom: 15px;
+      }
+      .price-tag {
+        background: #FF1E70;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-weight: bold;
+        display: inline-block;
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-user-md"></i>
+                <span>👨‍⚕️ Servicios</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="pruebas-laboratorio.html"><i class="fa fa-flask"></i> Pruebas de laboratorio</a></li>
+                <li><a href="control-tension-peso.html"><i class="fa fa-heartbeat"></i> Control de tensión y peso</a></li>
+                <li><a href="formulas-magistrales.html"><i class="fa fa-mortar-pestle"></i> Fórmulas magistrales</a></li>
+                <li><a href="asesoramiento-farmaceutico.html"><i class="fa fa-stethoscope"></i> Asesoramiento farmacéutico</a></li>
+                <li><a href="atencion-domiciliaria.html"><i class="fa fa-home"></i> Atención domiciliaria</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Pruebas de Laboratorio
+            <small>Análisis clínicos sin cita previa</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Servicios</a></li>
+            <li class="active">Pruebas de Laboratorio</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          
+          <!-- Información del servicio -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-info-circle"></i> Información del Servicio</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4>✅ Ventajas de nuestro servicio:</h4>
+                      <ul>
+                        <li>Sin cita previa necesaria</li>
+                        <li>Resultados en 24-48 horas</li>
+                        <li>Profesionales cualificados</li>
+                        <li>Precios competitivos</li>
+                        <li>Máxima higiene y seguridad</li>
+                      </ul>
+                    </div>
+                    <div class="col-md-6">
+                      <h4>🕒 Horarios de atención:</h4>
+                      <ul>
+                        <li><strong>Lunes a Viernes:</strong> 8:00 - 11:00</li>
+                        <li><strong>Sábados:</strong> 8:00 - 10:00</li>
+                        <li><strong>Ayuno requerido:</strong> 12 horas</li>
+                        <li><strong>Resultados:</strong> Lunes a Viernes 16:00-19:00</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tipos de análisis -->
+          <div class="row">
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-heart"></i>
+                </div>
+                <h4>Perfil Cardiovascular</h4>
+                <p>Colesterol total, HDL, LDL, triglicéridos</p>
+                <div class="price-tag">€25.00</div>
+                <button class="btn btn-success btn-block">Solicitar</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-tint"></i>
+                </div>
+                <h4>Hemograma Completo</h4>
+                <p>Glóbulos rojos, blancos, plaquetas, hemoglobina</p>
+                <div class="price-tag">€18.00</div>
+                <button class="btn btn-success btn-block">Solicitar</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-leaf"></i>
+                </div>
+                <h4>Función Hepática</h4>
+                <p>Transaminasas, bilirrubina, fosfatasa alcalina</p>
+                <div class="price-tag">€22.00</div>
+                <button class="btn btn-success btn-block">Solicitar</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-flask"></i>
+                </div>
+                <h4>Función Renal</h4>
+                <p>Creatinina, urea, ácido úrico, filtrado glomerular</p>
+                <div class="price-tag">€20.00</div>
+                <button class="btn btn-success btn-block">Solicitar</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-fire"></i>
+                </div>
+                <h4>Perfil Tiroideo</h4>
+                <p>TSH, T3, T4 libre</p>
+                <div class="price-tag">€35.00</div>
+                <button class="btn btn-success btn-block">Solicitar</button>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="service-card">
+                <div class="service-icon">
+                  <i class="fa fa-balance-scale"></i>
+                </div>
+                <h4>Perfil Diabético</h4>
+                <p>Glucosa, hemoglobina glicosilada (HbA1c)</p>
+                <div class="price-tag">€28.00</div>
+                <button class="btn btn-success btn-block">Solicitar</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Packs especiales -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">🎁 Packs Especiales con Descuento</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-4 text-center">
+                      <div style="border: 2px solid #14D5AA; border-radius: 10px; padding: 20px;">
+                        <h4>Pack Básico</h4>
+                        <p>Hemograma + Glucosa + Colesterol</p>
+                        <div style="text-decoration: line-through; color: #999;">€50.00</div>
+                        <div class="price-tag" style="background: #14D5AA;">€35.00</div>
+                        <br><br>
+                        <button class="btn btn-success">Contratar Pack</button>
+                      </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <div style="border: 2px solid #FF1E70; border-radius: 10px; padding: 20px;">
+                        <h4>Pack Completo</h4>
+                        <p>Básico + Función Hepática + Renal + Tiroides</p>
+                        <div style="text-decoration: line-through; color: #999;">€125.00</div>
+                        <div class="price-tag">€89.00</div>
+                        <br><br>
+                        <button class="btn btn-danger">Contratar Pack</button>
+                      </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                      <div style="border: 2px solid #183657; border-radius: 10px; padding: 20px;">
+                        <h4>Pack Senior +60</h4>
+                        <p>Completo + Vitaminas + PSA/Mamografía</p>
+                        <div style="text-decoration: line-through; color: #999;">€180.00</div>
+                        <div class="price-tag" style="background: #183657;">€135.00</div>
+                        <br><br>
+                        <button class="btn btn-primary">Contratar Pack</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de cita -->
+          <div class="row">
+            <div class="col-md-8">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">📋 Solicitar Análisis</h3>
+                </div>
+                <div class="box-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Nombre completo *</label>
+                          <input type="text" class="form-control" required>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Teléfono *</label>
+                          <input type="tel" class="form-control" required>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Tipo de análisis</label>
+                      <select class="form-control">
+                        <option>Seleccionar análisis...</option>
+                        <option>Perfil Cardiovascular (€25)</option>
+                        <option>Hemograma Completo (€18)</option>
+                        <option>Función Hepática (€22)</option>
+                        <option>Función Renal (€20)</option>
+                        <option>Perfil Tiroideo (€35)</option>
+                        <option>Perfil Diabético (€28)</option>
+                        <option>Pack Básico (€35)</option>
+                        <option>Pack Completo (€89)</option>
+                        <option>Pack Senior +60 (€135)</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Observaciones</label>
+                      <textarea class="form-control" rows="3" placeholder="Alguna indicación especial..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">
+                      <i class="fa fa-send"></i> Solicitar Análisis
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">⚠️ Importante</h3>
+                </div>
+                <div class="box-body">
+                  <ul class="list-unstyled">
+                    <li><i class="fa fa-clock-o text-warning"></i> <strong>Ayuno de 12 horas</strong> para la mayoría de análisis</li>
+                    <li><i class="fa fa-tint text-info"></i> <strong>Beber solo agua</strong> durante el ayuno</li>
+                    <li><i class="fa fa-pill text-danger"></i> <strong>Consultar medicación</strong> con el farmacéutico</li>
+                    <li><i class="fa fa-id-card text-primary"></i> <strong>Traer DNI</strong> y tarjeta sanitaria</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+  </body>
+</html>

@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Crear Promoción | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- DateRangePicker -->
+    <link href="../../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <!-- Color Picker -->
+    <link href="../../plugins/colorpicker/bootstrap-colorpicker.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .promotion-creator {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 30px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .creation-wizard {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #14D5AA;
+      }
+      .promotion-type-card {
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: white;
+        margin-bottom: 15px;
+        height: 200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .promotion-type-card:hover {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.05);
+        transform: translateY(-3px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      }
+      .promotion-type-card.selected {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.1);
+        border-width: 3px;
+      }
+      .promotion-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: white;
+        margin: 0 auto 15px;
+      }
+      .discount { background-color: #FF1E70; }
+      .bundle { background-color: #14D5AA; }
+      .loyalty { background-color: #183657; }
+      .seasonal { background-color: #ffc107; }
+      .target-selector {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        margin: 15px 0;
+      }
+      .target-option {
+        padding: 10px;
+        border: 2px solid #dee2e6;
+        border-radius: 6px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: white;
+      }
+      .target-option:hover {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.05);
+      }
+      .target-option.selected {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.1);
+        font-weight: bold;
+      }
+      .preview-card {
+        border: 2px solid #14D5AA;
+        border-radius: 10px;
+        padding: 20px;
+        background: linear-gradient(135deg, #ffffff, #f8f9fa);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      .preview-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, transparent, rgba(20, 213, 170, 0.1), transparent);
+        animation: shine 3s infinite;
+      }
+      @keyframes shine {
+        0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+      }
+      .conditions-builder {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 15px 0;
+        border: 1px solid #dee2e6;
+      }
+      .condition-rule {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 15px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .condition-rule .form-control {
+        flex: 1;
+      }
+      .product-selector {
+        max-height: 300px;
+        overflow-y: auto;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 10px;
+        background: white;
+      }
+      .product-item {
+        display: flex;
+        align-items: center;
+        padding: 8px;
+        border-bottom: 1px solid #eee;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+      .product-item:hover {
+        background: rgba(20, 213, 170, 0.05);
+      }
+      .product-item.selected {
+        background: rgba(20, 213, 170, 0.1);
+        border-left: 3px solid #14D5AA;
+      }
+      .analytics-preview {
+        background: linear-gradient(45deg, #f8f9fa, #ffffff);
+        border-radius: 8px;
+        padding: 20px;
+        border: 1px solid #dee2e6;
+      }
+      .metric-card {
+        text-align: center;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        background: white;
+        border: 1px solid #eee;
+      }
+      .metric-value {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+      .color-scheme-selector {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+        margin: 15px 0;
+      }
+      .color-option {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: all 0.3s;
+      }
+      .color-option:hover {
+        transform: scale(1.1);
+      }
+      .color-option.selected {
+        border-color: #333;
+        transform: scale(1.2);
+      }
+      .distribution-channels {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin: 15px 0;
+      }
+      .channel-option {
+        padding: 15px;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: white;
+      }
+      .channel-option:hover {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.05);
+      }
+      .channel-option.selected {
+        border-color: #14D5AA;
+        background: rgba(20, 213, 170, 0.1);
+      }
+      .template-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+      }
+      .template-card {
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: white;
+      }
+      .template-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        border-color: #14D5AA;
+      }
+      .template-preview {
+        height: 120px;
+        background: linear-gradient(135deg, #14D5AA, #183657);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+      .template-info {
+        padding: 15px;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="../informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="../informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>📈 Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../ventas/dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="../ventas/analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li><a href="../ventas/control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>🧪 Pujas (Labs)</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../pujas/pujas-activas.html"><i class="fa fa-gavel"></i> Pujas Activas</a></li>
+                <li><a href="../pujas/historial-pujas.html"><i class="fa fa-history"></i> Historial de Pujas</a></li>
+                <li><a href="../pujas/gestionar-labs.html"><i class="fa fa-cogs"></i> Gestionar Labs</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-tags"></i>
+                <span>💰 Surtido y Precios</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../surtido/catalogo-productos.html"><i class="fa fa-book"></i> Catálogo Productos</a></li>
+                <li><a href="../surtido/ver-tarifas.html"><i class="fa fa-list"></i> Ver Tarifas</a></li>
+                <li><a href="../surtido/comparador.html"><i class="fa fa-exchange"></i> Comparador</a></li>
+              </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-share-alt"></i>
+                <span>🤝 Recursos Compartidos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../recursos/ver-disponibilidad.html"><i class="fa fa-calendar"></i> Ver Disponibilidad</a></li>
+                <li><a href="../recursos/solicitar-recurso.html"><i class="fa fa-hand-paper-o"></i> Solicitar Recurso</a></li>
+                <li><a href="../recursos/mis-peticiones.html"><i class="fa fa-user"></i> Mis Peticiones</a></li>
+              </ul>
+            </li>
+
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-gift"></i>
+                <span>🎁 Promos y Fidelización</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="crear-promocion.html"><i class="fa fa-plus"></i> Crear Promoción</a></li>
+                <li><a href="club-fidelidad.html"><i class="fa fa-star"></i> Club Fidelidad</a></li>
+                <li><a href="analisis-campanas.html"><i class="fa fa-pie-chart"></i> Análisis Campañas</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Crear Promoción
+            <small>Diseñador inteligente de campañas promocionales</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Promos y Fidelización</a></li>
+            <li class="active">Crear Promoción</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Header promocional -->
+          <div class="promotion-creator">
+            <div class="row">
+              <div class="col-md-8">
+                <h3><i class="fa fa-magic"></i> Creador Inteligente de Promociones</h3>
+                <p>Diseña campañas promocionales efectivas con nuestro asistente IA que optimiza automáticamente para máximo ROI</p>
+              </div>
+              <div class="col-md-4 text-right">
+                <button class="btn btn-success btn-lg" onclick="useTemplate()">
+                  <i class="fa fa-flash"></i> Usar Plantilla
+                </button>
+                <button class="btn btn-info btn-lg" onclick="importPromotion()">
+                  <i class="fa fa-upload"></i> Importar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <form id="promotionForm">
+            <!-- Paso 1: Tipo de Promoción -->
+            <div class="creation-wizard">
+              <h4><i class="fa fa-rocket"></i> 1. Selecciona el Tipo de Promoción</h4>
+              
+              <div class="row">
+                <div class="col-md-3">
+                  <div class="promotion-type-card" onclick="selectPromotionType('discount')">
+                    <div class="promotion-icon discount">
+                      <i class="fa fa-percent"></i>
+                    </div>
+                    <h5><strong>Descuentos</strong></h5>
+                    <p class="text-muted">Porcentajes, importes fijos, descuentos escalonados</p>
+                    <small class="text-success">+23% conversión promedio</small>
+                  </div>
+                </div>
+                
+                <div class="col-md-3">
+                  <div class="promotion-type-card" onclick="selectPromotionType('bundle')">
+                    <div class="promotion-icon bundle">
+                      <i class="fa fa-cubes"></i>
+                    </div>
+                    <h5><strong>Pack/Bundle</strong></h5>
+                    <p class="text-muted">Combos, ofertas 2x1, packs familiares</p>
+                    <small class="text-success">+35% ticket promedio</small>
+                  </div>
+                </div>
+                
+                <div class="col-md-3">
+                  <div class="promotion-type-card" onclick="selectPromotionType('loyalty')">
+                    <div class="promotion-icon loyalty">
+                      <i class="fa fa-star"></i>
+                    </div>
+                    <h5><strong>Fidelización</strong></h5>
+                    <p class="text-muted">Puntos, cashback, beneficios exclusivos</p>
+                    <small class="text-success">+67% retención</small>
+                  </div>
+                </div>
+                
+                <div class="col-md-3">
+                  <div class="promotion-type-card" onclick="selectPromotionType('seasonal')">
+                    <div class="promotion-icon seasonal">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                    <h5><strong>Estacional</strong></h5>
+                    <p class="text-muted">Navidad, verano, back to school</p>
+                    <small class="text-success">+45% durante temporada</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paso 2: Configuración Básica -->
+            <div class="creation-wizard" id="basicConfig" style="display: none;">
+              <h4><i class="fa fa-cogs"></i> 2. Configuración Básica</h4>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Nombre de la Promoción *</label>
+                    <input type="text" class="form-control" id="promotionName" required 
+                           placeholder="Ej: Descuento Verano 2025">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea class="form-control" rows="3" id="promotionDescription"
+                              placeholder="Describe tu promoción de manera atractiva para los clientes..."></textarea>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Fecha de Inicio *</label>
+                        <input type="date" class="form-control" id="startDate" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Fecha de Fin *</label>
+                        <input type="date" class="form-control" id="endDate" required>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Presupuesto Máximo</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">€</span>
+                      <input type="number" class="form-control" id="maxBudget" placeholder="Opcional">
+                      <span class="input-group-addon">.00</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Prioridad de la Promoción</label>
+                    <select class="form-control" id="promotionPriority">
+                      <option value="low">Baja - Se aplica al final</option>
+                      <option value="medium" selected>Media - Orden normal</option>
+                      <option value="high">Alta - Se aplica primero</option>
+                      <option value="exclusive">Exclusiva - No se combina</option>
+                    </select>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Límites de Uso</label>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <input type="number" class="form-control" id="maxUses" 
+                               placeholder="Usos totales (opcional)">
+                      </div>
+                      <div class="col-md-6">
+                        <input type="number" class="form-control" id="maxUsesPerCustomer" 
+                               placeholder="Por cliente (opcional)">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Estado Inicial</label>
+                    <div class="radio">
+                      <label><input type="radio" name="initialStatus" value="draft" checked> Borrador - No visible</label>
+                    </div>
+                    <div class="radio">
+                      <label><input type="radio" name="initialStatus" value="scheduled"> Programada - Se activa automáticamente</label>
+                    </div>
+                    <div class="radio">
+                      <label><input type="radio" name="initialStatus" value="active"> Activa - Visible inmediatamente</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paso 3: Configuración del Descuento -->
+            <div class="creation-wizard" id="discountConfig" style="display: none;">
+              <h4><i class="fa fa-percent"></i> 3. Configuración del Descuento</h4>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Tipo de Descuento</label>
+                    <select class="form-control" id="discountType" onchange="updateDiscountConfig()">
+                      <option value="percentage">Porcentaje (%)</option>
+                      <option value="fixed">Importe Fijo (€)</option>
+                      <option value="tiered">Descuento Escalonado</option>
+                      <option value="bogo">Compra X Lleva Y (BOGO)</option>
+                    </select>
+                  </div>
+                  
+                  <div id="percentageConfig">
+                    <div class="form-group">
+                      <label>Porcentaje de Descuento</label>
+                      <div class="input-group">
+                        <input type="number" class="form-control" id="discountPercentage" 
+                               min="1" max="100" placeholder="10">
+                        <span class="input-group-addon">%</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div id="fixedConfig" style="display: none;">
+                    <div class="form-group">
+                      <label>Importe del Descuento</label>
+                      <div class="input-group">
+                        <span class="input-group-addon">€</span>
+                        <input type="number" class="form-control" id="discountAmount" 
+                               step="0.01" placeholder="5.00">
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div id="tieredConfig" style="display: none;">
+                    <label>Escalones de Descuento</label>
+                    <div id="tieredRules">
+                      <div class="condition-rule">
+                        <input type="number" class="form-control" placeholder="Compra mínima €">
+                        <span> = </span>
+                        <input type="number" class="form-control" placeholder="% descuento">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeTier(this)">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-sm" onclick="addTier()">
+                      <i class="fa fa-plus"></i> Añadir Escalón
+                    </button>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Compra Mínima</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">€</span>
+                      <input type="number" class="form-control" id="minPurchase" 
+                             step="0.01" placeholder="0.00">
+                    </div>
+                    <small class="text-muted">Importe mínimo para aplicar la promoción</small>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Aplicar Descuento En</label>
+                    <div class="checkbox">
+                      <label><input type="checkbox" id="applyToProducts" checked> Productos seleccionados</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" id="applyToShipping"> Gastos de envío</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" id="applyToTotal"> Total de la compra</label>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Descuento Máximo</label>
+                    <div class="input-group">
+                      <span class="input-group-addon">€</span>
+                      <input type="number" class="form-control" id="maxDiscount" 
+                             step="0.01" placeholder="Sin límite">
+                    </div>
+                    <small class="text-muted">Límite máximo del descuento (opcional)</small>
+                  </div>
+                  
+                  <div class="analytics-preview">
+                    <h5><i class="fa fa-line-chart"></i> Previsión de Impacto</h5>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="metric-card">
+                          <div class="metric-value text-success" id="projectedUses">1,250</div>
+                          <small>Usos Estimados</small>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="metric-card">
+                          <div class="metric-value text-info" id="projectedRevenue">€15,600</div>
+                          <small>Ingresos Proyectados</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="metric-card">
+                          <div class="metric-value text-warning" id="projectedCost">€2,100</div>
+                          <small>Costo Estimado</small>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="metric-card">
+                          <div class="metric-value text-primary" id="projectedROI">540%</div>
+                          <small>ROI Estimado</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paso 4: Productos y Targeting -->
+            <div class="creation-wizard" id="targetingConfig" style="display: none;">
+              <h4><i class="fa fa-bullseye"></i> 4. Productos y Segmentación</h4>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Productos Incluidos</h5>
+                  <div class="form-group">
+                    <div class="btn-group btn-group-sm" data-toggle="buttons">
+                      <label class="btn btn-default active">
+                        <input type="radio" name="productSelection" value="all" checked> Todos los productos
+                      </label>
+                      <label class="btn btn-default">
+                        <input type="radio" name="productSelection" value="categories"> Por categorías
+                      </label>
+                      <label class="btn btn-default">
+                        <input type="radio" name="productSelection" value="specific"> Productos específicos
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div id="categorySelector" style="display: none;">
+                    <label>Categorías</label>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value="medicamentos"> Medicamentos</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value="parafarmacia"> Parafarmacia</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value="cosmetica"> Cosmética</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value="infantil"> Infantil</label>
+                    </div>
+                    <div class="checkbox">
+                      <label><input type="checkbox" value="nutricion"> Nutrición</label>
+                    </div>
+                  </div>
+                  
+                  <div id="productSelector" style="display: none;">
+                    <label>Buscar Productos</label>
+                    <input type="text" class="form-control" placeholder="Buscar por nombre o código..." 
+                           onkeyup="searchProducts(this.value)">
+                    <div class="product-selector" id="productList">
+                      <div class="product-item" onclick="toggleProduct(this)">
+                        <input type="checkbox"> 
+                        <span style="margin-left: 10px;">Paracetamol 1g (20 comp) - €3.45</span>
+                      </div>
+                      <div class="product-item" onclick="toggleProduct(this)">
+                        <input type="checkbox"> 
+                        <span style="margin-left: 10px;">Ibuprofeno 600mg (30 comp) - €5.20</span>
+                      </div>
+                      <div class="product-item" onclick="toggleProduct(this)">
+                        <input type="checkbox"> 
+                        <span style="margin-left: 10px;">Vitamina C 1000mg (60 comp) - €12.50</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <h5>Segmentación de Clientes</h5>
+                  <div class="target-selector">
+                    <div class="target-option" onclick="toggleTarget(this)" data-target="all">
+                      <i class="fa fa-users"></i><br>
+                      <small>Todos</small>
+                    </div>
+                    <div class="target-option" onclick="toggleTarget(this)" data-target="new">
+                      <i class="fa fa-user-plus"></i><br>
+                      <small>Nuevos</small>
+                    </div>
+                    <div class="target-option" onclick="toggleTarget(this)" data-target="loyal">
+                      <i class="fa fa-star"></i><br>
+                      <small>Fieles</small>
+                    </div>
+                    <div class="target-option" onclick="toggleTarget(this)" data-target="vip">
+                      <i class="fa fa-diamond"></i><br>
+                      <small>VIP</small>
+                    </div>
+                    <div class="target-option" onclick="toggleTarget(this)" data-target="inactive">
+                      <i class="fa fa-clock-o"></i><br>
+                      <small>Inactivos</small>
+                    </div>
+                    <div class="target-option" onclick="toggleTarget(this)" data-target="age">
+                      <i class="fa fa-birthday-cake"></i><br>
+                      <small>Por Edad</small>
+                    </div>
+                  </div>
+                  
+                  <div class="conditions-builder">
+                    <h6>Condiciones Adicionales</h6>
+                    <div id="additionalConditions">
+                      <div class="condition-rule">
+                        <select class="form-control">
+                          <option>Edad del cliente</option>
+                          <option>Compras previas</option>
+                          <option>Última visita</option>
+                          <option>Ubicación</option>
+                        </select>
+                        <select class="form-control">
+                          <option>Mayor que</option>
+                          <option>Menor que</option>
+                          <option>Igual a</option>
+                          <option>Entre</option>
+                        </select>
+                        <input type="text" class="form-control" placeholder="Valor">
+                        <button type="button" class="btn btn-danger btn-sm" onclick="removeCondition(this)">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-success btn-sm" onclick="addCondition()">
+                      <i class="fa fa-plus"></i> Añadir Condición
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paso 5: Diseño y Distribución -->
+            <div class="creation-wizard" id="designConfig" style="display: none;">
+              <h4><i class="fa fa-paint-brush"></i> 5. Diseño y Distribución</h4>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Diseño Visual</h5>
+                  
+                  <div class="form-group">
+                    <label>Esquema de Colores</label>
+                    <div class="color-scheme-selector">
+                      <div class="color-option" style="background: #FF1E70;" onclick="selectColor(this)"></div>
+                      <div class="color-option" style="background: #14D5AA;" onclick="selectColor(this)"></div>
+                      <div class="color-option" style="background: #183657;" onclick="selectColor(this)"></div>
+                      <div class="color-option" style="background: #ffc107;" onclick="selectColor(this)"></div>
+                      <div class="color-option" style="background: #dc3545;" onclick="selectColor(this)"></div>
+                      <div class="color-option" style="background: #6f42c1;" onclick="selectColor(this)"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Imagen Promocional</label>
+                    <input type="file" class="form-control" accept="image/*" onchange="previewImage(this)">
+                    <small class="text-muted">Tamaño recomendado: 800x400px</small>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>Texto del Call-to-Action</label>
+                    <input type="text" class="form-control" id="ctaText" 
+                           placeholder="¡Compra Ahora!" value="¡Aprovecha la Oferta!">
+                  </div>
+                  
+                  <h5>Canales de Distribución</h5>
+                  <div class="distribution-channels">
+                    <div class="channel-option" onclick="toggleChannel(this)">
+                      <i class="fa fa-envelope fa-2x text-primary"></i>
+                      <h6>Email</h6>
+                      <small>Newsletter y emails dirigidos</small>
+                    </div>
+                    <div class="channel-option" onclick="toggleChannel(this)">
+                      <i class="fa fa-mobile fa-2x text-success"></i>
+                      <h6>SMS</h6>
+                      <small>Mensajes de texto</small>
+                    </div>
+                    <div class="channel-option" onclick="toggleChannel(this)">
+                      <i class="fa fa-globe fa-2x text-info"></i>
+                      <h6>Web</h6>
+                      <small>Banner en la tienda online</small>
+                    </div>
+                    <div class="channel-option" onclick="toggleChannel(this)">
+                      <i class="fa fa-share-alt fa-2x text-warning"></i>
+                      <h6>Redes Sociales</h6>
+                      <small>Facebook, Instagram, Twitter</small>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <h5>Vista Previa</h5>
+                  <div class="preview-card">
+                    <div style="text-align: center; margin-bottom: 15px;">
+                      <h4 id="previewTitle" style="color: #183657; margin-bottom: 5px;">🎉 Oferta Especial</h4>
+                      <h3 id="previewDiscount" style="color: #FF1E70; font-weight: bold;">10% DESCUENTO</h3>
+                    </div>
+                    
+                    <div id="previewImage" style="text-align: center; margin: 15px 0;">
+                      <i class="fa fa-image fa-3x text-muted"></i>
+                      <p class="text-muted">Imagen promocional</p>
+                    </div>
+                    
+                    <p id="previewDescription" class="text-muted">
+                      Aprovecha esta increíble promoción en productos seleccionados. 
+                      ¡Válido por tiempo limitado!
+                    </p>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                      <button class="btn btn-success btn-lg" id="previewCTA">
+                        ¡Aprovecha la Oferta!
+                      </button>
+                    </div>
+                    
+                    <small class="text-muted" style="display: block; text-align: center; margin-top: 10px;">
+                      <span id="previewDates">Válido hasta: 31 Dic 2025</span>
+                    </small>
+                  </div>
+                  
+                  <div style="margin-top: 20px;">
+                    <h6>Plantillas Prediseñadas</h6>
+                    <div class="template-gallery">
+                      <div class="template-card" onclick="applyTemplate('summer')">
+                        <div class="template-preview">VERANO 2025</div>
+                        <div class="template-info">
+                          <h6>Plantilla Verano</h6>
+                          <small>Colores cálidos, tema estacional</small>
+                        </div>
+                      </div>
+                      <div class="template-card" onclick="applyTemplate('modern')">
+                        <div class="template-preview">DISEÑO MODERNO</div>
+                        <div class="template-info">
+                          <h6>Plantilla Moderna</h6>
+                          <small>Minimalista, profesional</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Botones de Navegación -->
+            <div class="creation-wizard">
+              <div class="row">
+                <div class="col-md-6">
+                  <button type="button" class="btn btn-default btn-lg btn-block" id="prevBtn" 
+                          onclick="changeStep(-1)" style="display: none;">
+                    <i class="fa fa-arrow-left"></i> Anterior
+                  </button>
+                </div>
+                <div class="col-md-6">
+                  <button type="button" class="btn btn-primary btn-lg btn-block" id="nextBtn" 
+                          onclick="changeStep(1)" disabled>
+                    <i class="fa fa-arrow-right"></i> Siguiente
+                  </button>
+                  <button type="submit" class="btn btn-success btn-lg btn-block" id="submitBtn" 
+                          style="display: none;">
+                    <i class="fa fa-rocket"></i> Lanzar Promoción
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    <script src="../../plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+    <script src="../../plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+    <script src="../../plugins/colorpicker/bootstrap-colorpicker.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Variables globales
+      let currentStep = 1;
+      let selectedPromotionType = '';
+      let selectedTargets = [];
+      let selectedChannels = [];
+      let selectedProducts = [];
+
+      // Inicialización
+      $(document).ready(function() {
+        setupFormValidation();
+        updatePreview();
+        
+        // Configurar fechas mínimas
+        const today = new Date().toISOString().split('T')[0];
+        $('#startDate').attr('min', today);
+        $('#endDate').attr('min', today);
+        
+        // Sincronizar fechas
+        $('#startDate').change(function() {
+          $('#endDate').attr('min', this.value);
+          updatePreview();
+        });
+        
+        $('#endDate').change(updatePreview);
+        $('#promotionName').on('input', updatePreview);
+        $('#promotionDescription').on('input', updatePreview);
+        $('#ctaText').on('input', updatePreview);
+      });
+
+      // Funciones de navegación
+      function selectPromotionType(type) {
+        selectedPromotionType = type;
+        $('.promotion-type-card').removeClass('selected');
+        $('[onclick="selectPromotionType(\'' + type + '\')"]').addClass('selected');
+        $('#nextBtn').prop('disabled', false);
+      }
+
+      function changeStep(direction) {
+        const totalSteps = 5;
+        const newStep = currentStep + direction;
+        
+        if (newStep < 1 || newStep > totalSteps) return;
+        
+        // Validar paso actual antes de continuar
+        if (direction > 0 && !validateCurrentStep()) return;
+        
+        // Ocultar paso actual
+        hideCurrentStep();
+        
+        // Actualizar paso
+        currentStep = newStep;
+        
+        // Mostrar nuevo paso
+        showCurrentStep();
+        
+        // Actualizar botones
+        updateNavigationButtons();
+      }
+
+      function hideCurrentStep() {
+        switch(currentStep) {
+          case 1: break; // Siempre visible
+          case 2: $('#basicConfig').hide(); break;
+          case 3: $('#discountConfig').hide(); break;
+          case 4: $('#targetingConfig').hide(); break;
+          case 5: $('#designConfig').hide(); break;
+        }
+      }
+
+      function showCurrentStep() {
+        switch(currentStep) {
+          case 1: break; // Siempre visible
+          case 2: $('#basicConfig').show(); break;
+          case 3: $('#discountConfig').show(); break;
+          case 4: $('#targetingConfig').show(); break;
+          case 5: $('#designConfig').show(); break;
+        }
+      }
+
+      function updateNavigationButtons() {
+        $('#prevBtn').toggle(currentStep > 1);
+        $('#nextBtn').toggle(currentStep < 5);
+        $('#submitBtn').toggle(currentStep === 5);
+      }
+
+      function validateCurrentStep() {
+        switch(currentStep) {
+          case 1:
+            return selectedPromotionType !== '';
+          case 2:
+            return $('#promotionName').val() && $('#startDate').val() && $('#endDate').val();
+          case 3:
+            return true; // Configuración de descuento opcional
+          case 4:
+            return true; // Targeting opcional
+          case 5:
+            return true; // Diseño opcional
+        }
+        return true;
+      }
+
+      // Funciones de configuración
+      function updateDiscountConfig() {
+        const type = $('#discountType').val();
+        
+        $('#percentageConfig, #fixedConfig, #tieredConfig').hide();
+        
+        switch(type) {
+          case 'percentage':
+            $('#percentageConfig').show();
+            break;
+          case 'fixed':
+            $('#fixedConfig').show();
+            break;
+          case 'tiered':
+            $('#tieredConfig').show();
+            break;
+        }
+        
+        updatePreview();
+      }
+
+      function addTier() {
+        const newTier = `
+          <div class="condition-rule">
+            <input type="number" class="form-control" placeholder="Compra mínima €">
+            <span> = </span>
+            <input type="number" class="form-control" placeholder="% descuento">
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeTier(this)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        `;
+        $('#tieredRules').append(newTier);
+      }
+
+      function removeTier(button) {
+        $(button).closest('.condition-rule').remove();
+      }
+
+      function addCondition() {
+        const newCondition = `
+          <div class="condition-rule">
+            <select class="form-control">
+              <option>Edad del cliente</option>
+              <option>Compras previas</option>
+              <option>Última visita</option>
+              <option>Ubicación</option>
+            </select>
+            <select class="form-control">
+              <option>Mayor que</option>
+              <option>Menor que</option>
+              <option>Igual a</option>
+              <option>Entre</option>
+            </select>
+            <input type="text" class="form-control" placeholder="Valor">
+            <button type="button" class="btn btn-danger btn-sm" onclick="removeCondition(this)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        `;
+        $('#additionalConditions').append(newCondition);
+      }
+
+      function removeCondition(button) {
+        $(button).closest('.condition-rule').remove();
+      }
+
+      // Funciones de selección
+      function toggleTarget(element) {
+        $(element).toggleClass('selected');
+        const target = $(element).data('target');
+        
+        if (selectedTargets.includes(target)) {
+          selectedTargets = selectedTargets.filter(t => t !== target);
+        } else {
+          selectedTargets.push(target);
+        }
+      }
+
+      function toggleChannel(element) {
+        $(element).toggleClass('selected');
+      }
+
+      function toggleProduct(element) {
+        const checkbox = $(element).find('input[type="checkbox"]');
+        checkbox.prop('checked', !checkbox.prop('checked'));
+        $(element).toggleClass('selected');
+      }
+
+      function selectColor(element) {
+        $('.color-option').removeClass('selected');
+        $(element).addClass('selected');
+        updatePreview();
+      }
+
+      // Funciones de vista previa
+      function updatePreview() {
+        const name = $('#promotionName').val() || 'Oferta Especial';
+        const description = $('#promotionDescription').val() || 'Aprovecha esta increíble promoción en productos seleccionados. ¡Válido por tiempo limitado!';
+        const endDate = $('#endDate').val();
+        const ctaText = $('#ctaText').val() || '¡Aprovecha la Oferta!';
+        
+        $('#previewTitle').text('🎉 ' + name);
+        $('#previewDescription').text(description);
+        $('#previewCTA').text(ctaText);
+        
+        if (endDate) {
+          const date = new Date(endDate).toLocaleDateString('es-ES');
+          $('#previewDates').text('Válido hasta: ' + date);
+        }
+        
+        // Actualizar descuento en vista previa
+        const discountType = $('#discountType').val();
+        const percentage = $('#discountPercentage').val();
+        const amount = $('#discountAmount').val();
+        
+        let discountText = 'OFERTA ESPECIAL';
+        if (discountType === 'percentage' && percentage) {
+          discountText = percentage + '% DESCUENTO';
+        } else if (discountType === 'fixed' && amount) {
+          discountText = '€' + amount + ' DESCUENTO';
+        }
+        
+        $('#previewDiscount').text(discountText);
+      }
+
+      function previewImage(input) {
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            $('#previewImage').html('<img src="' + e.target.result + '" style="max-width: 100%; height: auto; border-radius: 8px;">');
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      function applyTemplate(templateType) {
+        const templates = {
+          'summer': {
+            name: 'Promoción Verano 2025',
+            description: '¡Refréscate con nuestras ofertas de verano! Descuentos especiales en productos de temporada.',
+            cta: '¡Descubre el Verano!'
+          },
+          'modern': {
+            name: 'Oferta Exclusiva',
+            description: 'Diseño moderno y elegante para una experiencia de compra premium.',
+            cta: 'Comprar Ahora'
+          }
+        };
+        
+        const template = templates[templateType];
+        if (template) {
+          $('#promotionName').val(template.name);
+          $('#promotionDescription').val(template.description);
+          $('#ctaText').val(template.cta);
+          updatePreview();
+        }
+      }
+
+      function searchProducts(query) {
+        // Simular búsqueda de productos
+        const products = [
+          'Paracetamol 1g (20 comp) - €3.45',
+          'Ibuprofeno 600mg (30 comp) - €5.20',
+          'Vitamina C 1000mg (60 comp) - €12.50',
+          'Aspirina 500mg (40 comp) - €4.80',
+          'Omeprazol 20mg (28 comp) - €8.90'
+        ];
+        
+        const filtered = products.filter(p => 
+          p.toLowerCase().includes(query.toLowerCase())
+        );
+        
+        let html = '';
+        filtered.forEach(product => {
+          html += `
+            <div class="product-item" onclick="toggleProduct(this)">
+              <input type="checkbox"> 
+              <span style="margin-left: 10px;">${product}</span>
+            </div>
+          `;
+        });
+        
+        $('#productList').html(html);
+      }
+
+      // Manejo de selección de productos
+      $('input[name="productSelection"]').change(function() {
+        const selection = this.value;
+        $('#categorySelector, #productSelector').hide();
+        
+        if (selection === 'categories') {
+          $('#categorySelector').show();
+        } else if (selection === 'specific') {
+          $('#productSelector').show();
+        }
+      });
+
+      function setupFormValidation() {
+        $('#promotionForm').submit(function(e) {
+          e.preventDefault();
+          
+          // Simular creación de promoción
+          const btn = $('#submitBtn');
+          btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> Creando...');
+          
+          setTimeout(() => {
+            alert('¡Promoción creada exitosamente!\n\nID: PROMO-' + Math.random().toString(36).substr(2, 9).toUpperCase() + '\n\nLa promoción está lista para ser activada.');
+            window.location.href = 'analisis-campanas.html';
+          }, 2000);
+        });
+      }
+
+      // Funciones auxiliares
+      function useTemplate() {
+        alert('Abriendo galería de plantillas...');
+      }
+
+      function importPromotion() {
+        alert('Función de importación disponible próximamente...');
+      }
+
+      // Actualización en tiempo real de métricas
+      setInterval(function() {
+        // Simular actualización de métricas proyectadas
+        const uses = Math.floor(Math.random() * 500) + 1000;
+        const revenue = Math.floor(Math.random() * 5000) + 15000;
+        const cost = Math.floor(Math.random() * 1000) + 1500;
+        const roi = Math.floor((revenue - cost) / cost * 100);
+        
+        $('#projectedUses').text(uses.toLocaleString());
+        $('#projectedRevenue').text('€' + revenue.toLocaleString());
+        $('#projectedCost').text('€' + cost.toLocaleString());
+        $('#projectedROI').text(roi + '%');
+      }, 5000);
+    </script>
+  </body>
+</html>

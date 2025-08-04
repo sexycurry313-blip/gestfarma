@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Descuentos por Fidelidad | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .loyalty-hero {
+        background: linear-gradient(135deg, #183657, #14D5AA);
+        color: white;
+        padding: 40px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+      }
+      .tier-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 20px;
+        background: white;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .tier-card:hover {
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        transform: translateY(-5px);
+      }
+      .tier-bronze { border-left: 5px solid #CD7F32; }
+      .tier-silver { border-left: 5px solid #C0C0C0; }
+      .tier-gold { border-left: 5px solid #FFD700; }
+      .tier-platinum { border-left: 5px solid #E5E4E2; }
+      
+      .tier-icon {
+        font-size: 48px;
+        margin-bottom: 15px;
+      }
+      .tier-bronze .tier-icon { color: #CD7F32; }
+      .tier-silver .tier-icon { color: #C0C0C0; }
+      .tier-gold .tier-icon { color: #FFD700; }
+      .tier-platinum .tier-icon { color: #E5E4E2; }
+      
+      .points-calculator {
+        background: #f8f9fa;
+        padding: 25px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+      }
+      .benefit-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 5px;
+      }
+      .benefit-icon {
+        margin-right: 15px;
+        color: #14D5AA;
+      }
+      .progress-ring {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto 20px;
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Gabriel Gutierrez</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">MENÚ PRINCIPAL</li>
+            <li><a href="../../index.html"><i class="fa fa-home"></i> <span>🏠 Inicio</span></a></li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-tags"></i>
+                <span>🛍️ Ofertas</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="promociones-actuales.html"><i class="fa fa-percent"></i> Promociones actuales</a></li>
+                <li class="active"><a href="descuentos-fidelidad.html"><i class="fa fa-star"></i> Descuentos por fidelidad</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Programa de Fidelidad
+            <small>Descuentos exclusivos para clientes habituales</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-home"></i> Inicio</a></li>
+            <li><a href="#">Ofertas</a></li>
+            <li class="active">Descuentos por Fidelidad</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Hero Section -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="loyalty-hero">
+                <div class="row">
+                  <div class="col-md-8">
+                    <h2><i class="fa fa-star"></i> Programa de Fidelidad Gest Farma</h2>
+                    <p style="font-size: 18px; margin-top: 20px;">
+                      Acumula puntos con cada compra y disfruta de descuentos exclusivos, 
+                      promociones especiales y beneficios únicos según tu nivel de fidelidad.
+                    </p>
+                  </div>
+                  <div class="col-md-4 text-center">
+                    <div style="margin-top: 20px;">
+                      <button class="btn btn-warning btn-lg">
+                        <i class="fa fa-user-plus"></i> Unirse al Programa
+                      </button>
+                      <br><br>
+                      <button class="btn btn-default btn-lg" style="background: rgba(255,255,255,0.2); border-color: white;">
+                        <i class="fa fa-gift"></i> Canjear Puntos
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Estado actual del cliente -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-user"></i> Tu Estado Actual</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-3 text-center">
+                      <div style="position: relative; display: inline-block;">
+                        <canvas width="120" height="120" style="transform: rotate(-90deg);">
+                          <circle cx="60" cy="60" r="50" stroke="#eee" stroke-width="8" fill="none"></circle>
+                          <circle cx="60" cy="60" r="50" stroke="#14D5AA" stroke-width="8" fill="none" 
+                                  stroke-dasharray="188" stroke-dashoffset="75"></circle>
+                        </canvas>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                          <div style="font-size: 20px; font-weight: bold; color: #14D5AA;">750</div>
+                          <div style="font-size: 12px;">puntos</div>
+                        </div>
+                      </div>
+                      <h5><strong>Nivel Silver</strong></h5>
+                      <p>250 puntos para Gold</p>
+                    </div>
+                    <div class="col-md-9">
+                      <h4>¡Hola Gabriel! Estás en el <strong>Nivel Silver</strong></h4>
+                      <p>Has acumulado <strong>750 puntos</strong> y disfrutas de un <strong>5% de descuento</strong> en todos tus productos.</p>
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-success" style="width: 75%"></div>
+                      </div>
+                      <p><small>Progreso hacia nivel Gold: 750/1000 puntos</small></p>
+                      <div style="margin-top: 15px;">
+                        <span class="label label-success">5% Descuento Activo</span>
+                        <span class="label label-info">Envío Gratis</span>
+                        <span class="label label-warning">Consultas Prioritarias</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Niveles de fidelidad -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="tier-card tier-bronze">
+                <div class="tier-icon">
+                  <i class="fa fa-certificate"></i>
+                </div>
+                <h4><strong>Bronce</strong></h4>
+                <p><strong>0 - 249 puntos</strong></p>
+                <hr>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Acumulación de puntos</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Ofertas exclusivas</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Newsletter personalizado</span>
+                </div>
+                <div style="margin-top: 20px;">
+                  <span class="label label-default">2% Descuento</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="tier-card tier-silver">
+                <div class="tier-icon">
+                  <i class="fa fa-star"></i>
+                </div>
+                <h4><strong>Silver</strong></h4>
+                <p><strong>250 - 999 puntos</strong></p>
+                <hr>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Todo lo de Bronce</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Envío gratuito</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Consultas prioritarias</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Descuento en servicios</span>
+                </div>
+                <div style="margin-top: 20px;">
+                  <span class="label label-primary">5% Descuento</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="tier-card tier-gold">
+                <div class="tier-icon">
+                  <i class="fa fa-trophy"></i>
+                </div>
+                <h4><strong>Gold</strong></h4>
+                <p><strong>1000 - 2499 puntos</strong></p>
+                <hr>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Todo lo de Silver</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Servicio a domicilio gratis</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Revisiones gratuitas</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Productos exclusivos</span>
+                </div>
+                <div style="margin-top: 20px;">
+                  <span class="label label-warning">8% Descuento</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="tier-card tier-platinum">
+                <div class="tier-icon">
+                  <i class="fa fa-diamond"></i>
+                </div>
+                <h4><strong>Platinum</strong></h4>
+                <p><strong>2500+ puntos</strong></p>
+                <hr>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Todo lo de Gold</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Gestor personal</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Consultas farmacéuticas ilimitadas</span>
+                </div>
+                <div class="benefit-item">
+                  <i class="fa fa-check benefit-icon"></i>
+                  <span>Eventos exclusivos</span>
+                </div>
+                <div style="margin-top: 20px;">
+                  <span class="label label-danger">12% Descuento</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cómo ganar puntos -->
+          <div class="row">
+            <div class="col-md-8">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-plus-circle"></i> Cómo Ganar Puntos</h3>
+                </div>
+                <div class="box-body">
+                  <div class="points-calculator">
+                    <h4>Acumula puntos de múltiples formas:</h4>
+                    <div class="row" style="margin-top: 20px;">
+                      <div class="col-md-6">
+                        <div class="benefit-item">
+                          <i class="fa fa-shopping-cart benefit-icon"></i>
+                          <div>
+                            <strong>Compras</strong><br>
+                            <small>1 punto por cada 1€ gastado</small>
+                          </div>
+                        </div>
+                        <div class="benefit-item">
+                          <i class="fa fa-birthday-cake benefit-icon"></i>
+                          <div>
+                            <strong>Cumpleaños</strong><br>
+                            <small>50 puntos de regalo</small>
+                          </div>
+                        </div>
+                        <div class="benefit-item">
+                          <i class="fa fa-share benefit-icon"></i>
+                          <div>
+                            <strong>Referir amigos</strong><br>
+                            <small>100 puntos por cada amigo</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="benefit-item">
+                          <i class="fa fa-star benefit-icon"></i>
+                          <div>
+                            <strong>Reseñas</strong><br>
+                            <small>25 puntos por reseña</small>
+                          </div>
+                        </div>
+                        <div class="benefit-item">
+                          <i class="fa fa-calendar benefit-icon"></i>
+                          <div>
+                            <strong>Servicios farmacéuticos</strong><br>
+                            <small>50 puntos por servicio</small>
+                          </div>
+                        </div>
+                        <div class="benefit-item">
+                          <i class="fa fa-mobile benefit-icon"></i>
+                          <div>
+                            <strong>App móvil</strong><br>
+                            <small>20 puntos bonus al registrarte</small>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <!-- Puntos disponibles -->
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-coins"></i> Tus Puntos</h3>
+                </div>
+                <div class="box-body">
+                  <div class="text-center">
+                    <div style="font-size: 36px; color: #14D5AA; font-weight: bold;">750</div>
+                    <p>Puntos disponibles</p>
+                    <button class="btn btn-success btn-block">
+                      <i class="fa fa-gift"></i> Canjear Puntos
+                    </button>
+                  </div>
+                  <hr>
+                  <h5><strong>Próximos beneficios:</strong></h5>
+                  <ul class="list-unstyled">
+                    <li><i class="fa fa-trophy text-warning"></i> 250 pts → Nivel Gold</li>
+                    <li><i class="fa fa-percent text-info"></i> 8% descuento</li>
+                    <li><i class="fa fa-home text-success"></i> Servicio domicilio gratis</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Canjear puntos -->
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-gift"></i> Canjear Puntos</h3>
+                </div>
+                <div class="box-body">
+                  <div style="margin-bottom: 15px;">
+                    <strong>100 puntos = 5€ descuento</strong><br>
+                    <small>Aplicable en compras superiores a 20€</small>
+                  </div>
+                  <div style="margin-bottom: 15px;">
+                    <strong>250 puntos = Consulta gratuita</strong><br>
+                    <small>Asesoramiento farmacéutico personalizado</small>
+                  </div>
+                  <div style="margin-bottom: 15px;">
+                    <strong>500 puntos = Envío gratis 6 meses</strong><br>
+                    <small>Sin mínimo de compra</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Historial de puntos -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-info">
+                <div class="box-header with-border">
+                  <h3 class="box-title"><i class="fa fa-history"></i> Historial de Puntos</h3>
+                </div>
+                <div class="box-body">
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>Fecha</th>
+                          <th>Descripción</th>
+                          <th>Puntos</th>
+                          <th>Saldo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>15/01/2025</td>
+                          <td><i class="fa fa-shopping-cart text-success"></i> Compra #12345</td>
+                          <td><span class="text-success">+45</span></td>
+                          <td>750</td>
+                        </tr>
+                        <tr>
+                          <td>12/01/2025</td>
+                          <td><i class="fa fa-gift text-warning"></i> Canjeado por descuento</td>
+                          <td><span class="text-danger">-100</span></td>
+                          <td>705</td>
+                        </tr>
+                        <tr>
+                          <td>10/01/2025</td>
+                          <td><i class="fa fa-shopping-cart text-success"></i> Compra #12340</td>
+                          <td><span class="text-success">+32</span></td>
+                          <td>805</td>
+                        </tr>
+                        <tr>
+                          <td>08/01/2025</td>
+                          <td><i class="fa fa-star text-info"></i> Reseña producto</td>
+                          <td><span class="text-success">+25</span></td>
+                          <td>773</td>
+                        </tr>
+                        <tr>
+                          <td>05/01/2025</td>
+                          <td><i class="fa fa-birthday-cake text-primary"></i> Regalo cumpleaños</td>
+                          <td><span class="text-success">+50</span></td>
+                          <td>748</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+  </body>
+</html>

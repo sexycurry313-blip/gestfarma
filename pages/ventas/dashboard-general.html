@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Dashboard General | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .metric-card {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #14D5AA;
+        transition: transform 0.3s;
+      }
+      .metric-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      }
+      .metric-value {
+        font-size: 32px;
+        font-weight: bold;
+        color: #183657;
+        margin-bottom: 5px;
+      }
+      .metric-label {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+      .metric-change {
+        font-size: 12px;
+        padding: 3px 8px;
+        border-radius: 12px;
+      }
+      .change-positive { 
+        background: rgba(20, 213, 170, 0.1); 
+        color: #14D5AA; 
+      }
+      .change-negative { 
+        background: rgba(255, 30, 112, 0.1); 
+        color: #FF1E70; 
+      }
+      .dashboard-widget {
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      }
+      .widget-header {
+        background: #f8f9fa;
+        padding: 15px 20px;
+        border-bottom: 1px solid #dee2e6;
+      }
+      .widget-content {
+        padding: 20px;
+      }
+      .alert-item {
+        border-left: 4px solid #FF1E70;
+        background: #fff5f5;
+        padding: 12px 15px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+      }
+      .top-product {
+        display: flex;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+      }
+      .top-product:last-child {
+        border-bottom: none;
+      }
+      .product-rank {
+        width: 30px;
+        height: 30px;
+        background: #183657;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 15px;
+      }
+      .real-time-indicator {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: #14D5AA;
+        border-radius: 50%;
+        animation: pulse 2s infinite;
+        margin-right: 8px;
+      }
+      @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.5; }
+        100% { opacity: 1; }
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="../informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="../informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>📈 Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li class="active"><a href="dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li><a href="control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Dashboard General de Ventas e Inventario
+            <small><span class="real-time-indicator"></span>Datos en tiempo real</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Ventas e Inventario</a></li>
+            <li class="active">Dashboard General</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Métricas principales -->
+          <div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3>€12,450</h3>
+                  <p>Ventas Hoy</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-euro"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  <span class="change-positive">+15.2% vs ayer</span>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>347</h3>
+                  <p>Productos Vendidos</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-shopping-cart"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  <span class="change-positive">+8.5% vs ayer</span>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>23</h3>
+                  <p>Stock Bajo</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-exclamation-triangle"></i>
+                </div>
+                <a href="control-stock.html" class="small-box-footer">
+                  Ver detalles <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-3 col-xs-6">
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>€35.80</h3>
+                  <p>Ticket Promedio</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-calculator"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  <span class="change-negative">-2.1% vs ayer</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Gráfico principal de ventas -->
+            <div class="col-md-8">
+              <div class="box box-primary">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Evolución de Ventas - Últimos 30 días</h3>
+                  <div class="box-tools pull-right">
+                    <div class="btn-group">
+                      <button class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-calendar"></i> Período <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a href="#" data-period="7">Últimos 7 días</a></li>
+                        <li><a href="#" data-period="30">Últimos 30 días</a></li>
+                        <li><a href="#" data-period="90">Últimos 3 meses</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-body">
+                  <canvas id="salesChart" height="300"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Alertas y notificaciones -->
+            <div class="col-md-4">
+              <div class="box box-warning">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Alertas Críticas</h3>
+                  <span class="label label-warning pull-right">8</span>
+                </div>
+                <div class="box-body">
+                  <div class="alert-item">
+                    <strong><i class="fa fa-exclamation-triangle"></i> Stock Crítico</strong><br>
+                    <small>Paracetamol 1g - Solo 3 unidades</small>
+                    <div class="pull-right">
+                      <button class="btn btn-xs btn-primary">Reponer</button>
+                    </div>
+                  </div>
+                  <div class="alert-item">
+                    <strong><i class="fa fa-calendar"></i> Próximo a Caducar</strong><br>
+                    <small>Jarabe Infantil - Caduca en 15 días</small>
+                    <div class="pull-right">
+                      <button class="btn btn-xs btn-warning">Promocionar</button>
+                    </div>
+                  </div>
+                  <div class="alert-item">
+                    <strong><i class="fa fa-truck"></i> Pedido Retrasado</strong><br>
+                    <small>Proveedor ABC - 2 días de retraso</small>
+                    <div class="pull-right">
+                      <button class="btn btn-xs btn-info">Contactar</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="box-footer">
+                  <a href="control-stock.html" class="btn btn-warning btn-block">Ver Todas las Alertas</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Top productos -->
+            <div class="col-md-6">
+              <div class="dashboard-widget">
+                <div class="widget-header">
+                  <h4><i class="fa fa-trophy"></i> Top 10 Productos Más Vendidos</h4>
+                </div>
+                <div class="widget-content">
+                  <div class="top-product">
+                    <div class="product-rank">1</div>
+                    <div style="flex: 1;">
+                      <strong>Paracetamol 1g</strong><br>
+                      <small class="text-muted">156 unidades - €543.20</small>
+                    </div>
+                    <div class="text-right">
+                      <span class="label label-success">+12%</span>
+                    </div>
+                  </div>
+                  <div class="top-product">
+                    <div class="product-rank">2</div>
+                    <div style="flex: 1;">
+                      <strong>Ibuprofeno 600mg</strong><br>
+                      <small class="text-muted">134 unidades - €812.45</small>
+                    </div>
+                    <div class="text-right">
+                      <span class="label label-success">+8%</span>
+                    </div>
+                  </div>
+                  <div class="top-product">
+                    <div class="product-rank">3</div>
+                    <div style="flex: 1;">
+                      <strong>Vitamina C 1000mg</strong><br>
+                      <small class="text-muted">98 unidades - €1,249.50</small>
+                    </div>
+                    <div class="text-right">
+                      <span class="label label-warning">-3%</span>
+                    </div>
+                  </div>
+                  <div class="top-product">
+                    <div class="product-rank">4</div>
+                    <div style="flex: 1;">
+                      <strong>Omeprazol 20mg</strong><br>
+                      <small class="text-muted">87 unidades - €778.65</small>
+                    </div>
+                    <div class="text-right">
+                      <span class="label label-success">+5%</span>
+                    </div>
+                  </div>
+                  <div class="top-product">
+                    <div class="product-rank">5</div>
+                    <div style="flex: 1;">
+                      <strong>Crema Hidratante Facial</strong><br>
+                      <small class="text-muted">76 unidades - €2,196.40</small>
+                    </div>
+                    <div class="text-right">
+                      <span class="label label-success">+15%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Análisis de categorías -->
+            <div class="col-md-6">
+              <div class="dashboard-widget">
+                <div class="widget-header">
+                  <h4><i class="fa fa-pie-chart"></i> Ventas por Categoría</h4>
+                </div>
+                <div class="widget-content">
+                  <canvas id="categoryChart" height="300"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Métricas detalladas -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="metric-card">
+                <div class="metric-value">€187,450</div>
+                <div class="metric-label">Ventas del Mes</div>
+                <div class="metric-change change-positive">
+                  <i class="fa fa-arrow-up"></i> +18.5% vs mes anterior
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="metric-card">
+                <div class="metric-value">2,847</div>
+                <div class="metric-label">Transacciones</div>
+                <div class="metric-change change-positive">
+                  <i class="fa fa-arrow-up"></i> +12.3% vs mes anterior
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="metric-card">
+                <div class="metric-value">1,245</div>
+                <div class="metric-label">Productos en Stock</div>
+                <div class="metric-change change-negative">
+                  <i class="fa fa-arrow-down"></i> -5.2% vs mes anterior
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="metric-card">
+                <div class="metric-value">94.5%</div>
+                <div class="metric-label">Disponibilidad</div>
+                <div class="metric-change change-positive">
+                  <i class="fa fa-arrow-up"></i> +2.1% vs mes anterior
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acciones rápidas -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="box box-success">
+                <div class="box-header with-border">
+                  <h3 class="box-title">Acciones Rápidas</h3>
+                </div>
+                <div class="box-body">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <button class="btn btn-primary btn-block" onclick="location.href='analisis-ventas.html'">
+                        <i class="fa fa-line-chart"></i><br>Análisis Detallado
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-warning btn-block" onclick="location.href='control-stock.html'">
+                        <i class="fa fa-cubes"></i><br>Gestionar Stock
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-info btn-block" onclick="generateReport()">
+                        <i class="fa fa-file-pdf-o"></i><br>Generar Informe
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-success btn-block" onclick="exportData()">
+                        <i class="fa fa-download"></i><br>Exportar Datos
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-default btn-block" onclick="refreshDashboard()">
+                        <i class="fa fa-refresh"></i><br>Actualizar
+                      </button>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-primary btn-block" onclick="location.href='../informes/crear-informe.html'">
+                        <i class="fa fa-plus"></i><br>Nuevo Informe
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Gráfico de ventas
+      const salesCtx = document.getElementById('salesChart').getContext('2d');
+      const salesChart = new Chart(salesCtx, {
+        type: 'line',
+        data: {
+          labels: ['1 Dic', '5 Dic', '10 Dic', '15 Dic', '20 Dic', '25 Dic', '30 Dic'],
+          datasets: [{
+            label: 'Ventas (€)',
+            data: [8500, 12300, 9800, 15600, 13200, 18900, 12450],
+            borderColor: '#14D5AA',
+            backgroundColor: 'rgba(20, 213, 170, 0.1)',
+            tension: 0.4,
+            fill: true
+          }, {
+            label: 'Objetivo',
+            data: [10000, 10000, 10000, 10000, 10000, 10000, 10000],
+            borderColor: '#FF1E70',
+            borderDash: [5, 5],
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return '€' + value.toLocaleString();
+                }
+              }
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'top',
+            }
+          }
+        }
+      });
+
+      // Gráfico de categorías
+      const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+      const categoryChart = new Chart(categoryCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Medicamentos', 'Parafarmacia', 'Cosmética', 'Infantil', 'Nutrición'],
+          datasets: [{
+            data: [45, 25, 15, 10, 5],
+            backgroundColor: [
+              '#183657',
+              '#14D5AA', 
+              '#FF1E70',
+              '#ffc107',
+              '#6c757d'
+            ]
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+            }
+          }
+        }
+      });
+
+      // Funciones de acciones rápidas
+      function generateReport() {
+        alert('Generando informe completo de ventas e inventario...');
+      }
+
+      function exportData() {
+        alert('Exportando datos a Excel...');
+      }
+
+      function refreshDashboard() {
+        alert('Actualizando dashboard...');
+        location.reload();
+      }
+
+      // Actualización automática cada 5 minutos
+      setInterval(function() {
+        // Aquí se actualizarían los datos en tiempo real
+        console.log('Actualizando datos en tiempo real...');
+      }, 300000);
+
+      // Cambio de período en gráfico
+      $('[data-period]').click(function(e) {
+        e.preventDefault();
+        const period = $(this).data('period');
+        alert('Cambiando período a: ' + period + ' días');
+        // Aquí se actualizaría el gráfico con nuevos datos
+      });
+    </script>
+  </body>
+</html>

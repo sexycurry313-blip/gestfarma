@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Estrategias de Precios | Gest Farma</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- Bootstrap 3.3.2 -->
+    <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />    
+    <!-- FontAwesome 4.3.0 -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons 2.0.0 -->
+    <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />    
+    <!-- Theme style -->
+    <link href="../../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins -->
+    <link href="../../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
+    <!-- Morris chart -->
+    <link href="../../plugins/morris/morris.css" rel="stylesheet" type="text/css" />
+
+    <!-- Colores personalizados -->
+    <style>
+      /* Colores personalizados */
+      .bg-aqua, .bg-light-blue { background-color: #183657 !important; }
+      .bg-green { background-color: #14D5AA !important; }
+      .bg-red { background-color: #FF1E70 !important; }
+      .bg-yellow { background-color: #FF1E70 !important; }
+      .bg-teal { background-color: #14D5AA !important; }
+      
+      .label-success { background-color: #14D5AA !important; }
+      .label-warning { background-color: #FF1E70 !important; }
+      .label-primary { background-color: #183657 !important; }
+      .label-danger { background-color: #dc3545 !important; }
+      
+      .btn-success { background-color: #14D5AA !important; border-color: #14D5AA !important; }
+      .btn-primary { background-color: #183657 !important; border-color: #183657 !important; }
+      .btn-info { background-color: #183657 !important; border-color: #183657 !important; }
+      
+      .box.box-success .box-header { background-color: #14D5AA !important; }
+      .box.box-primary .box-header { background-color: #183657 !important; }
+      .box.box-info .box-header { background-color: #183657 !important; }
+      
+      .box.box-primary .box-header .box-title,
+      .box.box-info .box-header .box-title {
+        color: white !important;
+      }
+      
+      .main-footer { background-color: #183657 !important; color: white !important; }
+      .main-footer a { color: #14D5AA !important; }
+
+      .strategy-card {
+        background: white;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        border-top: 4px solid #14D5AA;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .strategy-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+      }
+      .strategy-premium {
+        border-top-color: #ffc107;
+        background: linear-gradient(45deg, #fffbf0, #ffffff);
+      }
+      .strategy-competitive {
+        border-top-color: #FF1E70;
+        background: linear-gradient(45deg, #fff0f5, #ffffff);
+      }
+      .strategy-penetration {
+        border-top-color: #17a2b8;
+        background: linear-gradient(45deg, #f0f9ff, #ffffff);
+      }
+      
+      .strategy-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+      .strategy-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #183657, #2a4d73);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        margin-right: 15px;
+      }
+      .strategy-status {
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 11px;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .status-active {
+        background: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+        border: 1px solid #28a745;
+      }
+      .status-testing {
+        background: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+        border: 1px solid #ffc107;
+      }
+      .status-paused {
+        background: rgba(108, 117, 125, 0.1);
+        color: #6c757d;
+        border: 1px solid #6c757d;
+      }
+      
+      .price-metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+      .metric-card {
+        text-align: center;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 3px solid #14D5AA;
+      }
+      .metric-value {
+        font-size: 18px;
+        font-weight: bold;
+        color: #183657;
+        margin-bottom: 5px;
+      }
+      .metric-label {
+        font-size: 10px;
+        color: #666;
+        text-transform: uppercase;
+      }
+      .metric-change {
+        font-size: 11px;
+        margin-top: 3px;
+      }
+      .change-positive { color: #28a745; }
+      .change-negative { color: #dc3545; }
+      
+      .pricing-rules {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .rule-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 12px;
+      }
+      .rule-item:last-child {
+        margin-bottom: 0;
+      }
+      
+      .strategy-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .action-btn {
+        padding: 8px 15px;
+        border-radius: 6px;
+        border: none;
+        font-size: 12px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .btn-configure {
+        background: #17a2b8;
+        color: white;
+      }
+      .btn-analyze {
+        background: #28a745;
+        color: white;
+      }
+      .btn-simulate {
+        background: #6f42c1;
+        color: white;
+      }
+      
+      .quick-actions {
+        background: white;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      }
+      
+      .price-simulator {
+        background: white;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        border-left: 4px solid #6f42c1;
+      }
+      
+      .simulation-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .impact-indicator {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+      .impact-positive { background: #28a745; }
+      .impact-neutral { background: #ffc107; }
+      .impact-negative { background: #dc3545; }
+      
+      .competitor-comparison {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .competitor-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 8px;
+        background: white;
+        border-radius: 6px;
+      }
+      .competitor-item:last-child {
+        margin-bottom: 0;
+      }
+      .competitor-badge {
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-size: 10px;
+        font-weight: bold;
+      }
+      .badge-leader { background: #28a745; color: white; }
+      .badge-follower { background: #6c757d; color: white; }
+      .badge-aggressive { background: #dc3545; color: white; }
+      
+      .recommendation-alert {
+        background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+        border: 1px solid #2196f3;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+      }
+      .alert-icon {
+        float: left;
+        margin-right: 10px;
+        color: #1976d2;
+        font-size: 18px;
+      }
+      
+      .dynamic-pricing {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      .dynamic-pricing h4 {
+        color: white;
+        margin-bottom: 15px;
+      }
+      
+      .automation-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+      .toggle-switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+      .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 34px;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+      }
+      input:checked + .slider {
+        background-color: #14D5AA;
+      }
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+    </style>
+  </head>
+  <body class="skin-blue">
+    <div class="wrapper">
+      
+      <header class="main-header">
+        <a href="../../index.html" class="logo">
+          <img src="../../logo-proyectoPNG.png" alt="Gest Farma" style="height: 50px; max-width: 100%;">
+        </a>
+        <nav class="navbar navbar-static-top" role="navigation">
+          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Alternar navegación</span>
+          </a>
+        </nav>
+      </header>
+
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+            </div>
+            <div class="pull-left info">
+              <p>Sistema Farmacéutico</p>
+              <a href="#"><i class="fa fa-circle text-success"></i> En línea</a>
+            </div>
+          </div>
+          
+          <ul class="sidebar-menu">
+            <li class="header">SISTEMA FARMACÉUTICO</li>
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> <span>📊 Dashboard Principal</span></a></li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-file-text"></i>
+                <span>📄 Informes Automáticos</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../informes/crear-informe.html"><i class="fa fa-plus"></i> Crear Informe</a></li>
+                <li><a href="../informes/ver-informes.html"><i class="fa fa-eye"></i> Ver Informes</a></li>
+                <li><a href="../informes/programar-envios.html"><i class="fa fa-clock-o"></i> Programar Envíos</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-bar-chart"></i>
+                <span>📈 Ventas e Inventario</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../ventas/dashboard-general.html"><i class="fa fa-dashboard"></i> Dashboard General</a></li>
+                <li><a href="../ventas/analisis-ventas.html"><i class="fa fa-line-chart"></i> Análisis de Ventas</a></li>
+                <li><a href="../ventas/control-stock.html"><i class="fa fa-cubes"></i> Control de Stock</a></li>
+              </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>🧪 Pujas (Labs)</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="../pujas/pujas-activas.html"><i class="fa fa-gavel"></i> Pujas Activas</a></li>
+                <li><a href="../pujas/historial-pujas.html"><i class="fa fa-history"></i> Historial de Pujas</a></li>
+                <li><a href="../pujas/gestionar-labs.html"><i class="fa fa-cogs"></i> Gestionar Labs</a></li>
+              </ul>
+            </li>
+            <li class="active treeview">
+              <a href="#">
+                <i class="fa fa-cubes"></i>
+                <span>🏪 Surtido y Precios</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="gestion-surtido.html"><i class="fa fa-th"></i> Gestión de Surtido</a></li>
+                <li class="active"><a href="estrategias-precios.html"><i class="fa fa-tags"></i> Estrategias de Precios</a></li>
+                <li><a href="analisis-competencia.html"><i class="fa fa-search"></i> Análisis de Competencia</a></li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+            Estrategias de Precios
+            <small>Optimización inteligente y automatizada</small>
+          </h1>
+          <ol class="breadcrumb">
+            <li><a href="../../index.html"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+            <li><a href="#">Surtido y Precios</a></li>
+            <li class="active">Estrategias de Precios</li>
+          </ol>
+        </section>
+
+        <section class="content">
+          <!-- Métricas de precios -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>47.2%</h3>
+                  <p>Margen Promedio</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-percent"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  +2.1% vs mes anterior <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>156</h3>
+                  <p>Precios Optimizados</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-cogs"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Esta semana <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>€18.7K</h3>
+                  <p>Ingresos Adicionales</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-euro"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Por optimización <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>89.5%</h3>
+                  <p>Competitividad</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-trophy"></i>
+                </div>
+                <a href="#" class="small-box-footer">
+                  Índice mercado <i class="fa fa-arrow-circle-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Acciones rápidas -->
+          <div class="quick-actions">
+            <div class="row">
+              <div class="col-md-2">
+                <button class="btn btn-success btn-block" onclick="newPricingStrategy()">
+                  <i class="fa fa-plus"></i><br>Nueva Estrategia
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-info btn-block" onclick="runOptimization()">
+                  <i class="fa fa-cogs"></i><br>Optimizar Precios
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-warning btn-block" onclick="showSimulator()">
+                  <i class="fa fa-calculator"></i><br>Simulador
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-primary btn-block" onclick="competitorAnalysis()">
+                  <i class="fa fa-search"></i><br>Análisis Comp.
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-default btn-block" onclick="exportPricing()">
+                  <i class="fa fa-download"></i><br>Exportar Datos
+                </button>
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-success btn-block" onclick="location.href='analisis-competencia.html'">
+                  <i class="fa fa-eye"></i><br>Ver Competencia
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pricing dinámico y automatización -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="dynamic-pricing">
+                <h4><i class="fa fa-magic"></i> Pricing Dinámico Automatizado</h4>
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="automation-toggle">
+                      <span>Auto-optimización:</span>
+                      <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="automation-toggle">
+                      <span>Monitoreo competencia:</span>
+                      <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="automation-toggle">
+                      <span>Ajuste por demanda:</span>
+                      <label class="toggle-switch">
+                        <input type="checkbox">
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="automation-toggle">
+                      <span>Alertas de precio:</span>
+                      <label class="toggle-switch">
+                        <input type="checkbox" checked>
+                        <span class="slider"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 6px;">
+                  <strong>Última optimización:</strong> Hace 2 horas • 
+                  <strong>Próxima ejecución:</strong> En 4 horas • 
+                  <strong>Productos monitoreados:</strong> 2,847
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simulador de precios -->
+          <div class="price-simulator" id="priceSimulator" style="display: none;">
+            <h4><i class="fa fa-calculator"></i> Simulador de Impacto de Precios</h4>
+            <div class="simulation-grid">
+              <div class="form-group">
+                <label>Producto</label>
+                <select class="form-control">
+                  <option>Paracetamol 500mg</option>
+                  <option>Vitamina C 1000mg</option>
+                  <option>Amoxicilina 875mg</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Precio Actual (€)</label>
+                <input type="number" class="form-control" value="4.95" step="0.01">
+              </div>
+              <div class="form-group">
+                <label>Nuevo Precio (€)</label>
+                <input type="number" class="form-control" placeholder="5.95" step="0.01">
+              </div>
+              <div class="form-group">
+                <label>Cambio (%)</label>
+                <input type="number" class="form-control" value="+20.2" readonly>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <h5>Impacto Estimado:</h5>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 6px;">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <strong>Ventas estimadas:</strong><br>
+                      <span class="impact-indicator impact-negative"></span>-15% (74 unidades/mes)
+                    </div>
+                    <div class="col-md-3">
+                      <strong>Ingresos:</strong><br>
+                      <span class="impact-indicator impact-positive"></span>+2% (€440/mes)
+                    </div>
+                    <div class="col-md-3">
+                      <strong>Margen:</strong><br>
+                      <span class="impact-indicator impact-positive"></span>+28% (€62/mes)
+                    </div>
+                    <div class="col-md-3">
+                      <strong>Competitividad:</strong><br>
+                      <span class="impact-indicator impact-neutral"></span>Posición 3/8
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top: 15px;">
+              <button class="btn btn-success" onclick="applySimulation()">
+                <i class="fa fa-check"></i> Aplicar Cambio
+              </button>
+              <button class="btn btn-default" onclick="hideSimulator()">
+                <i class="fa fa-times"></i> Cancelar
+              </button>
+            </div>
+          </div>
+
+          <!-- Estrategias activas -->
+          <div class="row">
+            <!-- Estrategia Premium -->
+            <div class="col-md-6">
+              <div class="strategy-card strategy-premium">
+                <div class="strategy-header">
+                  <div style="display: flex; align-items: center;">
+                    <div class="strategy-icon" style="background: linear-gradient(135deg, #ffc107, #ff9800);">
+                      <i class="fa fa-star"></i>
+                    </div>
+                    <div>
+                      <h4 style="margin: 0; color: #183657;">Estrategia Premium</h4>
+                      <small style="color: #666;">Productos de alta calidad y margen</small>
+                    </div>
+                  </div>
+                  <div class="strategy-status status-active">
+                    <i class="fa fa-check"></i> Activa
+                  </div>
+                </div>
+
+                <div class="price-metrics">
+                  <div class="metric-card">
+                    <div class="metric-value">347</div>
+                    <div class="metric-label">Productos</div>
+                    <div class="metric-change change-positive">+12 esta semana</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value">52.8%</div>
+                    <div class="metric-label">Margen Prom.</div>
+                    <div class="metric-change change-positive">+1.4%</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value">€287K</div>
+                    <div class="metric-label">Ingresos/Mes</div>
+                    <div class="metric-change change-positive">+8.2%</div>
+                  </div>
+                </div>
+
+                <div class="pricing-rules">
+                  <div class="rule-item">
+                    <span>Margen mínimo:</span>
+                    <strong>45%</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Posicionamiento vs competencia:</span>
+                    <strong>Top 3</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Ajuste automático:</span>
+                    <strong>Semanal</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Categorías objetivo:</span>
+                    <strong>Marcas líderes, Especialidades</strong>
+                  </div>
+                </div>
+
+                <div class="recommendation-alert">
+                  <i class="fa fa-lightbulb-o alert-icon"></i>
+                  <strong>Recomendación:</strong> Incrementar precios de vitaminas premium en 3-5% para maximizar margen sin afectar competitividad.
+                </div>
+
+                <div class="strategy-actions">
+                  <button class="action-btn btn-configure" onclick="configureStrategy('premium')">
+                    <i class="fa fa-cog"></i> Configurar
+                  </button>
+                  <button class="action-btn btn-analyze" onclick="analyzeStrategy('premium')">
+                    <i class="fa fa-bar-chart"></i> Analizar
+                  </button>
+                  <button class="action-btn btn-simulate" onclick="simulateStrategy('premium')">
+                    <i class="fa fa-calculator"></i> Simular
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Estrategia Competitiva -->
+            <div class="col-md-6">
+              <div class="strategy-card strategy-competitive">
+                <div class="strategy-header">
+                  <div style="display: flex; align-items: center;">
+                    <div class="strategy-icon" style="background: linear-gradient(135deg, #FF1E70, #ff6b9d);">
+                      <i class="fa fa-crosshairs"></i>
+                    </div>
+                    <div>
+                      <h4 style="margin: 0; color: #183657;">Estrategia Competitiva</h4>
+                      <small style="color: #666;">Matching automático con competencia</small>
+                    </div>
+                  </div>
+                  <div class="strategy-status status-active">
+                    <i class="fa fa-check"></i> Activa
+                  </div>
+                </div>
+
+                <div class="price-metrics">
+                  <div class="metric-card">
+                    <div class="metric-value">1,892</div>
+                    <div class="metric-label">Productos</div>
+                    <div class="metric-change change-positive">+45 esta semana</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value">41.3%</div>
+                    <div class="metric-label">Margen Prom.</div>
+                    <div class="metric-change change-negative">-0.8%</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value">€524K</div>
+                    <div class="metric-label">Ingresos/Mes</div>
+                    <div class="metric-change change-positive">+12.5%</div>
+                  </div>
+                </div>
+
+                <div class="pricing-rules">
+                  <div class="rule-item">
+                    <span>Posición objetivo:</span>
+                    <strong>Precio medio del mercado</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Margen mínimo protegido:</span>
+                    <strong>35%</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Monitoreo competencia:</span>
+                    <strong>Diario</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Reacción a cambios:</span>
+                    <strong>Automática (24h)</strong>
+                  </div>
+                </div>
+
+                <div class="competitor-comparison">
+                  <div class="competitor-item">
+                    <span>Farmacia Central</span>
+                    <div>
+                      <span class="competitor-badge badge-leader">Líder</span>
+                      <strong>-2.3% vs nosotros</strong>
+                    </div>
+                  </div>
+                  <div class="competitor-item">
+                    <span>Cruz Verde</span>
+                    <div>
+                      <span class="competitor-badge badge-follower">Seguidor</span>
+                      <strong>+1.8% vs nosotros</strong>
+                    </div>
+                  </div>
+                  <div class="competitor-item">
+                    <span>Farma Plus</span>
+                    <div>
+                      <span class="competitor-badge badge-aggressive">Agresivo</span>
+                      <strong>-5.1% vs nosotros</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="strategy-actions">
+                  <button class="action-btn btn-configure" onclick="configureStrategy('competitive')">
+                    <i class="fa fa-cog"></i> Configurar
+                  </button>
+                  <button class="action-btn btn-analyze" onclick="analyzeStrategy('competitive')">
+                    <i class="fa fa-bar-chart"></i> Analizar
+                  </button>
+                  <button class="action-btn btn-simulate" onclick="simulateStrategy('competitive')">
+                    <i class="fa fa-calculator"></i> Simular
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Estrategia de Penetración -->
+            <div class="col-md-6">
+              <div class="strategy-card strategy-penetration">
+                <div class="strategy-header">
+                  <div style="display: flex; align-items: center;">
+                    <div class="strategy-icon" style="background: linear-gradient(135deg, #17a2b8, #20c997);">
+                      <i class="fa fa-arrow-down"></i>
+                    </div>
+                    <div>
+                      <h4 style="margin: 0; color: #183657;">Penetración de Mercado</h4>
+                      <small style="color: #666;">Precios bajos para ganar cuota</small>
+                    </div>
+                  </div>
+                  <div class="strategy-status status-testing">
+                    <i class="fa fa-flask"></i> Prueba
+                  </div>
+                </div>
+
+                <div class="price-metrics">
+                  <div class="metric-card">
+                    <div class="metric-value">156</div>
+                    <div class="metric-label">Productos</div>
+                    <div class="metric-change change-positive">Nuevos</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value">28.5%</div>
+                    <div class="metric-label">Margen Prom.</div>
+                    <div class="metric-change change-negative">Reducido</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value">+34%</div>
+                    <div class="metric-label">Ventas vs Prev.</div>
+                    <div class="metric-change change-positive">Objetivo +25%</div>
+                  </div>
+                </div>
+
+                <div class="pricing-rules">
+                  <div class="rule-item">
+                    <span>Posición objetivo:</span>
+                    <strong>15% bajo competencia líder</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Margen mínimo:</span>
+                    <strong>25%</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Duración de prueba:</span>
+                    <strong>3 meses</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Meta de cuota:</span>
+                    <strong>+8% en categorías objetivo</strong>
+                  </div>
+                </div>
+
+                <div class="recommendation-alert">
+                  <i class="fa fa-exclamation-triangle alert-icon"></i>
+                  <strong>Atención:</strong> Estrategia en fase de prueba. Monitorear impacto en rentabilidad global durante las próximas 4 semanas.
+                </div>
+
+                <div class="strategy-actions">
+                  <button class="action-btn btn-configure" onclick="configureStrategy('penetration')">
+                    <i class="fa fa-cog"></i> Configurar
+                  </button>
+                  <button class="action-btn btn-analyze" onclick="analyzeStrategy('penetration')">
+                    <i class="fa fa-bar-chart"></i> Analizar
+                  </button>
+                  <button class="action-btn btn-simulate" onclick="simulateStrategy('penetration')">
+                    <i class="fa fa-calculator"></i> Simular
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Estrategia Personalizada -->
+            <div class="col-md-6">
+              <div class="strategy-card">
+                <div class="strategy-header">
+                  <div style="display: flex; align-items: center;">
+                    <div class="strategy-icon">
+                      <i class="fa fa-user"></i>
+                    </div>
+                    <div>
+                      <h4 style="margin: 0; color: #183657;">Clientes VIP</h4>
+                      <small style="color: #666;">Descuentos especiales por volumen</small>
+                    </div>
+                  </div>
+                  <div class="strategy-status status-paused">
+                    <i class="fa fa-pause"></i> Pausada
+                  </div>
+                </div>
+
+                <div class="price-metrics">
+                  <div class="metric-card">
+                    <div class="metric-value">23</div>
+                    <div class="metric-label">Clientes VIP</div>
+                    <div class="metric-change change-neutral">Activos</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value">12.5%</div>
+                    <div class="metric-label">Descuento Prom.</div>
+                    <div class="metric-change change-neutral">Fijo</div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-value">€89K</div>
+                    <div class="metric-label">Ingresos/Mes</div>
+                    <div class="metric-change change-neutral">Estable</div>
+                  </div>
+                </div>
+
+                <div class="pricing-rules">
+                  <div class="rule-item">
+                    <span>Criterio VIP:</span>
+                    <strong>>€5,000/mes durante 6 meses</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Descuento base:</span>
+                    <strong>10%</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Descuento adicional por volumen:</span>
+                    <strong>+2% cada €10K</strong>
+                  </div>
+                  <div class="rule-item">
+                    <span>Revisión:</span>
+                    <strong>Trimestral</strong>
+                  </div>
+                </div>
+
+                <div class="recommendation-alert">
+                  <i class="fa fa-info-circle alert-icon"></i>
+                  <strong>Nota:</strong> Estrategia pausada para revisión de criterios VIP. Se recomienda activar con nuevos parámetros basados en análisis de rentabilidad por cliente.
+                </div>
+
+                <div class="strategy-actions">
+                  <button class="action-btn btn-configure" onclick="reactivateStrategy('vip')">
+                    <i class="fa fa-play"></i> Reactivar
+                  </button>
+                  <button class="action-btn btn-analyze" onclick="analyzeStrategy('vip')">
+                    <i class="fa fa-bar-chart"></i> Analizar
+                  </button>
+                  <button class="action-btn btn-simulate" onclick="simulateStrategy('vip')">
+                    <i class="fa fa-calculator"></i> Simular
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Versión</b> 2.0
+        </div>
+        <strong>Derechos de Autor &copy; 2014-2025 <a href="#">Gest Farma</a>.</strong> Todos los derechos reservados.
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../plugins/jQuery/jQuery-2.1.3.min.js"></script>
+    <script src="../../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../../dist/js/app.min.js" type="text/javascript"></script>
+    
+    <script>
+      // Funciones principales
+      function newPricingStrategy() {
+        alert('Abriendo asistente para crear nueva estrategia de precios...');
+      }
+
+      function runOptimization() {
+        alert('Ejecutando optimización automática de precios...');
+      }
+
+      function showSimulator() {
+        document.getElementById('priceSimulator').style.display = 'block';
+      }
+
+      function hideSimulator() {
+        document.getElementById('priceSimulator').style.display = 'none';
+      }
+
+      function applySimulation() {
+        alert('Cambio de precio aplicado exitosamente');
+        hideSimulator();
+      }
+
+      function competitorAnalysis() {
+        alert('Abriendo análisis detallado de competencia...');
+      }
+
+      function exportPricing() {
+        alert('Exportando datos de estrategias de precios...');
+      }
+
+      // Funciones de estrategias
+      function configureStrategy(strategyType) {
+        alert(`Configurando estrategia: ${strategyType}`);
+      }
+
+      function analyzeStrategy(strategyType) {
+        alert(`Analizando rendimiento de estrategia: ${strategyType}`);
+      }
+
+      function simulateStrategy(strategyType) {
+        alert(`Simulando impacto de estrategia: ${strategyType}`);
+      }
+
+      function reactivateStrategy(strategyType) {
+        if (confirm(`¿Reactivar estrategia ${strategyType}?`)) {
+          alert(`Estrategia ${strategyType} reactivada exitosamente`);
+        }
+      }
+
+      // Event listeners
+      document.addEventListener('DOMContentLoaded', function() {
+        // Animación para métricas
+        const metricValues = document.querySelectorAll('.metric-value');
+        metricValues.forEach(metric => {
+          metric.style.transition = 'all 0.3s ease';
+          metric.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.05)';
+          });
+          metric.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1)';
+          });
+        });
+
+        // Simulación de actualizaciones en tiempo real
+        setInterval(function() {
+          const randomMetric = metricValues[Math.floor(Math.random() * metricValues.length)];
+          randomMetric.style.animation = 'pulse 0.5s ease-in-out';
+          setTimeout(() => {
+            randomMetric.style.animation = '';
+          }, 500);
+        }, 30000);
+      });
+    </script>
+  </body>
+</html>
